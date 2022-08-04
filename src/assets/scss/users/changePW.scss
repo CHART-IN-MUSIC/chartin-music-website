@@ -1,0 +1,112 @@
+#dashboard__changePW {
+  section.changePW__header {
+    h1.dashboard__title {
+      margin-bottom: 40px;
+      font-size: 34px;
+      font-weight: bold;
+      color: #fff;
+    }
+  }
+  section.changePW__body {
+    form#changePWForm {
+      margin-bottom: 60px;
+      .form__group {
+        display: flex;
+        flex-direction: column;
+        &:not(:last-child) {
+          margin-bottom: 20px;
+        }
+        label.form__label {
+          margin-bottom: 10px;
+          font-size: 20px;
+          font-weight: 600;
+          color: #fff;
+        }
+        input.form__input {
+          padding: 11px 15px;
+          opacity: 0.4;
+          border-radius: 10px;
+          font-size: 20px;
+          color: #fff;
+          border: solid 1px #6c6c6c;
+          background-color: #101113;
+        }
+        input.form__error {
+          border: 1px solid #ea3434;
+        }
+        input.active {
+          border: solid 1px $mainColor;
+        }
+      }
+      button.change__password-submit {
+        margin-bottom: 20px;
+        width: 100%;
+        padding: 15px;
+        font-size: 18px;
+        font-weight: 600;
+        border-radius: 10px;
+        color: #c1c1c1;
+        background-color: #3e3e3e;
+      }
+      button.change__password-submit.active {
+        color: #fff;
+        background-color: $mainColor;
+      }
+    }
+    a.leave__membership-link {
+      display: block;
+      width: fit-content;
+      margin: 0 auto;
+      h1.link__title {
+        font-size: 14px;
+        font-weight: 600;
+        color: #989898;
+        text-decoration: underline;
+        &:hover {
+          color: $mainColor;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  #dashboard__changePW {
+    section.changePW__header {
+      h1.dashboard__title {
+        margin-bottom: 60px;
+        font-size: 60px;
+      }
+    }
+    section.changePW__body {
+      max-width: 700px;
+      margin: 0 auto;
+      form#changePWForm {
+        margin-bottom: 80px;
+        .form__group {
+          &:not(:last-child) {
+            margin-bottom: 40px;
+          }
+          label.form__label {
+            margin-bottom: 20px;
+            font-size: 24px;
+          }
+          input.form__input {
+            font-size: 24px;
+          }
+        }
+        button.change__password-submit {
+          margin: 0 auto 20px auto;
+          width: 252px;
+          display: flex;
+          justify-content: center;
+        }
+      }
+      a.leave__membership-link {
+        h1.link__title {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}

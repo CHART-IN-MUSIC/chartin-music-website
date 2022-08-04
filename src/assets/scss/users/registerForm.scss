@@ -1,0 +1,310 @@
+.registerForm__page#registerForm__page {
+  padding: 40px 0;
+  background-image: url("/images/register/register_bg-mb@3x.png");
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  .registerForm__page-flex {
+    max-width: 500px;
+    section.registerForm__header {
+      .header__flex {
+        margin-bottom: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        h1.header__title {
+          font-size: 24px;
+          font-weight: bold;
+          line-height: 1.21;
+          color: #fff;
+        }
+        img.header__img {
+          display: block;
+          width: 20px;
+          margin-left: 5px;
+          object-fit: cover;
+        }
+      }
+    }
+    section.registerForm__main {
+      background-color: $bgColor;
+      border-radius: 10px;
+      border: 1px solid $mainColor;
+      .registerForm__main-flex {
+        padding: 40px 20px;
+        form#registerForm {
+          .registerForm__flex {
+            .registerForm__flex-flex {
+              .form__group-underline {
+                padding-bottom: 20px;
+                margin-bottom: 20px;
+                border-bottom: solid 1px #626262;
+              }
+              .form__group {
+                // 프로필
+                h1.profile__title {
+                  margin-bottom: 20px;
+                  font-size: 24px;
+                  font-weight: 600;
+                  line-height: 1.21;
+                  color: #fff;
+                }
+                .profile__flex {
+                  display: flex;
+                  align-items: center;
+                  .profile__circle {
+                    margin-right: 20px;
+                    width: 127px;
+                    height: 127px;
+                    border-radius: 50%;
+                    background: rgb(2, 0, 36);
+                    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(16, 235, 115, 1) 100%);
+                  }
+                  .gradient__color--flex {
+                    width: calc(100% - 147px);
+                    max-width: 160px;
+                    ul.gradient__color-items {
+                      display: flex;
+                      flex-wrap: wrap;
+                      li.gradient__color-item {
+                        margin-right: 4px;
+                        margin-bottom: 4px;
+                        .item__circle {
+                          width: 18px;
+                          height: 18px;
+                          border-radius: 50%;
+                          background-color: #717171;
+                          cursor: pointer;
+                        }
+                      }
+                    }
+                  }
+                }
+                // 폼 입력 요소
+                .form__flex {
+                  &:not(:last-child) {
+                    margin-bottom: 10px;
+                  }
+                  display: flex;
+                  flex-direction: column;
+                  label.form__label {
+                    margin-bottom: 10px;
+                    font-size: 20px;
+                    font-weight: 600;
+                    line-height: 1.2;
+                    color: #fff;
+                    span.form__label-span {
+                      font-size: 16px;
+                    }
+                  }
+                  input.form__input,
+                  textarea.form__textarea,
+                  select.form__select {
+                    width: 100%;
+                    padding: 13px 20px;
+                    font-size: 16px;
+                    line-height: 1.2;
+                    color: #fff;
+                    background-color: #16151a;
+                    border-radius: 10px;
+                    border: solid 1px #626262;
+                    &:focus {
+                      border-color: $mainColor;
+                    }
+                  }
+                  input.form__input.form__error,
+                  textarea.form__textarea.form__error,
+                  select.form__select.form__error {
+                    border: solid 1px #ea3434;
+                  }
+                  input.form__input.active,
+                  textarea.form__textarea.active,
+                  select.form__select.active {
+                    border: 1px solid $mainColor;
+                  }
+
+                  textarea.form__textarea {
+                    resize: none;
+                  }
+                  button.form__btn {
+                    height: 48px;
+                    margin-top: 10px;
+                    padding: 15px;
+                    width: 100%;
+                    border-radius: 10px;
+                    background-color: #3e3e3e;
+                    font-size: 18px;
+                    font-weight: 600;
+                    line-height: 1.22;
+                    color: #c1c1c1;
+                  }
+
+                  button.email__auth-btn.active,
+                  button.email__auth2-btn.active {
+                    background-color: $mainColor;
+                    color: $bgColor;
+                  }
+                }
+                .form__flex#verification__code {
+                  display: none;
+                }
+                .form__flex#verification__code.active {
+                  display: flex;
+                }
+              }
+            }
+          }
+          .resigterForm__submit-flex {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            button.resigterForm__submit-btn {
+              width: 252px;
+              padding: 15px 0;
+              border-radius: 10px;
+              font-size: 18px;
+              font-weight: 600;
+              line-height: 1.22;
+              color: #c1c1c1;
+              background-color: #3e3e3e;
+            }
+            button.resigterForm__submit-btn.active {
+              color: #fff;
+              background-color: $mainColor;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Extra large devices (large desktops, 1440px and up)
+@media (min-width: 1440px) {
+  .registerForm__page#registerForm__page {
+    padding: 100px 0;
+    background-image: url("/images/register/register_bg-pc@3x.png");
+    .registerForm__page-flex {
+      max-width: 1680px;
+      section.registerForm__header {
+        .header__flex {
+          h1.header__title {
+            font-size: 52px;
+          }
+          img.header__img {
+            margin-left: 17px;
+            width: 47px;
+          }
+        }
+      }
+      section.registerForm__main {
+        .registerForm__main-flex {
+          padding: 100px 40px;
+          form#registerForm {
+            .registerForm__flex {
+              display: flex;
+              .registerForm__flex-flex {
+                width: calc(50% - 20px);
+                &:first-child {
+                  margin-right: 40px;
+                }
+                .form__group-underline {
+                  padding-bottom: 40px;
+                  margin-bottom: 40px;
+                }
+                .form__group {
+                  // 프로필
+                  h1.profile__title {
+                    margin-bottom: 52px;
+                    font-size: 38px;
+                  }
+                  .profile__flex {
+                    .profile__circle {
+                      margin-right: 60px;
+                      width: 300px;
+                      height: 300px;
+                    }
+                    .gradient__color--flex {
+                      width: calc(100% - 360px);
+                      max-width: calc(100% - 360px);
+                      ul.gradient__color-items {
+                        li.gradient__color-item {
+                          margin-right: 10px;
+                          margin-bottom: 10px;
+                          .item__circle {
+                            width: 42px;
+                            height: 42px;
+                          }
+                        }
+                      }
+                    }
+                  }
+                  // 폼 입력 요소
+                  .form__flex {
+                    &:not(:last-child) {
+                      margin-bottom: 20px;
+                    }
+                    label.form__label {
+                      margin-bottom: 20px;
+                      font-size: 24px;
+                      br {
+                        display: none;
+                      }
+                      span.form__label-span {
+                        font-size: 24px;
+                      }
+                    }
+                    input.form__input,
+                    textarea.form__textarea,
+                    select.form__select {
+                      padding: 14px 20px;
+                      font-size: 18px;
+                    }
+                    select.form__select.form__select-multiple {
+                      height: 200px;
+                    }
+                    button.form__btn {
+                      height: 51.59px;
+                    }
+                    .form__flex-pc {
+                      display: flex;
+                      align-items: center;
+                      input.form__input {
+                        width: calc(100% - 160px);
+                      }
+                      button.form__btn {
+                        margin-left: 20px;
+                        margin-top: 0;
+                        width: 140px;
+                      }
+                    }
+                  }
+                }
+                .form__group.form__group-underline.form__group-pc {
+                  display: flex;
+                  align-items: center;
+                  .form__flex {
+                    width: calc(50% - 20px);
+                    &:first-child {
+                      margin-right: 40px;
+                      margin-bottom: 0;
+                    }
+                  }
+                }
+                .form__group.form__group-underline.pcBorderNone {
+                  border: none;
+                  padding-bottom: 0;
+                  margin-bottom: 0;
+                }
+              }
+            }
+            .resigterForm__submit-flex {
+              margin-top: 60px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

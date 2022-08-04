@@ -1,0 +1,181 @@
+#dashboard__manageRequest {
+  margin-bottom: 40px;
+  section.manageRequest__header {
+    h1.dashboard__title {
+      margin-bottom: 40px;
+      font-size: 34px;
+      font-weight: bold;
+      color: #fff;
+    }
+  }
+  section.manageRequest__body {
+    .manageRequest__flex {
+      padding-top: 10px;
+      border-radius: 10px;
+      border: solid 1px #707070;
+      background-color: #101113;
+      //- 메뉴 이름
+      ul.manageRequest__menu-items {
+        padding: 0 10px 10px;
+        border-bottom: 1px solid #fff;
+        li.manageRequest__menu-item {
+          .item__flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            h1.item__title {
+              font-size: 14px;
+              font-weight: 500;
+              color: #fff;
+              text-align: center;
+            }
+            h1.item__number {
+              width: 3%;
+              max-width: 20px;
+              text-align: left;
+            }
+            h1.item__project {
+              width: 22%;
+            }
+            h1.item__expert {
+              width: 17%;
+            }
+            h1.item__date {
+              width: 29%;
+            }
+            h1.item__status {
+              width: 18%;
+            }
+          }
+        }
+      }
+      //- 내용
+      ul.manageRequest__items {
+        li.manageRequest__item {
+          padding: 25px 10px;
+          &:not(:last-child) {
+            border-bottom: 1px solid #6c6c6c;
+          }
+          .item__flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            h1.item__title {
+              font-size: 14px;
+              font-weight: 500;
+              color: #c9c9c9;
+              text-align: center;
+            }
+            h1.item__number {
+              width: 3%;
+              max-width: 20px;
+              text-align: left;
+            }
+            h1.item__project {
+              width: 22%;
+            }
+            .item__expert-wrapper {
+              width: 17%;
+              .item__expert-flex {
+                position: relative;
+                height: 100%;
+                h1.item__expert,
+                h1.item__expert-none {
+                  white-space: pre;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  font-size: 14px;
+                  font-weight: 500;
+                  color: #c9c9c9;
+                  text-align: center;
+                  height: 100%;
+                  cursor: pointer;
+                  &:not(:first-child) {
+                    margin-top: 10px;
+                  }
+                }
+                &:hover {
+                  .expert__underMenu-wrapper {
+                    display: block;
+                  }
+                }
+              }
+            }
+            h1.item__date {
+              width: 29%;
+            }
+            h1.item__status {
+              width: 18%;
+              font-size: 10px;
+              border-radius: 10px;
+              padding: 10px 0;
+              text-align: center;
+              color: #fff;
+            }
+            h1.item__title.item__status-REQUESTED {
+              background-color: #f26b6b;
+            }
+            h1.item__title.item__status-PROPOSAL {
+              background-color: #f26be8;
+            }
+            h1.item__title.item__status-INPROGRESS {
+              background-color: #a56bf2;
+            }
+            h1.item__title.item__status-RESULT {
+              background-color: #2d5fff;
+            }
+            h1.item__title.item__status-DONE {
+              background-color: $mainColor;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  #dashboard__manageRequest {
+    margin-bottom: 60px;
+    section.manageRequest__header {
+      h1.dashboard__title {
+        margin-bottom: 60px;
+        font-size: 60px;
+      }
+    }
+    section.manageRequest__body {
+      .manageRequest__flex {
+        //- 메뉴 이름
+        ul.manageRequest__menu-items {
+          padding: 20px;
+          li.manageRequest__menu-item {
+            .item__flex {
+              h1.item__title {
+                font-size: 24px;
+              }
+            }
+          }
+        }
+        //- 내용
+        ul.manageRequest__items {
+          li.manageRequest__item {
+            padding: 25px 20px;
+            .item__flex {
+              h1.item__title {
+                font-size: 24px;
+              }
+              .item__expert-wrapper {
+                .item__expert-flex {
+                  h1.item__expert,
+                  h1.item__expert-none {
+                    font-size: 24px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

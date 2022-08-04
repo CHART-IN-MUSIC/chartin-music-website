@@ -1,0 +1,199 @@
+.subscribePurchase__page#subscribePurchase__page {
+  padding-bottom: 80px;
+  .subscribePurchase__page-flex {
+    // 공통 배너
+    section.subscribePurchase__banner-section {
+      width: 90%;
+      max-width: 500px;
+      margin: 0 auto;
+      .banner__img {
+        padding-top: 80%;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+      }
+    }
+    //- 배너와 겹치는 header 문구
+    section.subscribePurchase__header-section {
+      position: relative;
+      top: -20px;
+      h1.header__title {
+        font-size: 34px;
+        font-weight: bold;
+        line-height: 1.24;
+        color: #fff;
+      }
+    }
+    //- 타이틀
+    section.subscribePurchase__title-section {
+      margin-bottom: 40px;
+      h1.subscribePurchase__title {
+        margin-bottom: 20px;
+        font-size: 26px;
+        font-style: italic;
+        line-height: 1.23;
+        color: $mainColor;
+      }
+      span.subscribePurchase__subTitle {
+        font-size: 16px;
+        line-height: 1.23;
+        color: #fff;
+        a.subscribePurchase__link {
+          color: $mainColor;
+        }
+      }
+    }
+    //- 멤버십 소개 컨텐츠
+    section.subscribePurchase__contents-section {
+      margin-bottom: 40px;
+      ul.contents__items {
+        li.contents__item {
+          &:not(:last-child) {
+            margin-bottom: 60px;
+          }
+          h3.contents__item-summary {
+            margin-bottom: 20px;
+            padding: 15px 0;
+            width: 100%;
+            background-color: $mainColor;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.22;
+            color: #16151a;
+          }
+          .contents__item-bg {
+            width: 100%;
+            padding-top: 123.880597%;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+            .item__bg-flex {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+              align-items: center;
+              padding: 20px 0;
+              color: #fff;
+              text-align: center;
+              h2.contents__item-title {
+                font-size: 32px;
+                font-weight: bold;
+                line-height: 1.22;
+              }
+              p.contents__item-desc {
+                font-size: 18px;
+                line-height: 1.56;
+              }
+            }
+          }
+        }
+      }
+    }
+    //- 구독 결제 버튼
+    section.subscribePurchase__purchase-section {
+      .purchase__section-flex {
+        input#fasterpay_submit {
+          width: 100%;
+          color: #fff;
+          padding: 17px 0;
+          border-radius: 10px;
+          text-align: center;
+          font-size: 22px;
+          font-weight: 600;
+          line-height: 1.22;
+          background-color: transparent;
+          border: 1px solid $mainColor;
+        }
+      }
+    }
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+}
+
+// Extra large devices (large desktops, 1440px and up)
+@media (min-width: 1440px) {
+  .subscribePurchase__page#subscribePurchase__page {
+    padding-bottom: 200px;
+    .subscribePurchase__page-flex {
+      // 공통 배너
+      section.subscribePurchase__banner-section {
+        width: calc(90% + 40px);
+        max-width: 1720px;
+        .banner__img {
+          padding-top: 20%;
+          border-radius: 10px;
+        }
+      }
+      //- 배너와 겹치는 header 문구
+      section.subscribePurchase__header-section {
+        top: -40px;
+        h1.header__title {
+          font-size: 64px;
+          display: flex;
+          align-items: center;
+          br {
+            display: none;
+          }
+        }
+      }
+      //- 타이틀
+      section.subscribePurchase__title-section {
+        margin-bottom: 60px;
+        h1.subscribePurchase__title {
+          font-size: 36px;
+          br {
+            display: none;
+          }
+        }
+      }
+      //- 멤버십 소개 컨텐츠
+      section.subscribePurchase__contents-section {
+        ul.contents__items {
+          display: flex;
+          align-items: center;
+          li.contents__item {
+            width: calc(33.333333% - 26.666667px);
+            max-width: 355px;
+            &:not(:last-child) {
+              margin-right: 40px;
+              margin-bottom: 0;
+            }
+            h3.contents__item-summary {
+              margin-bottom: 40px;
+            }
+          }
+        }
+      }
+      //- 구독 결제 버튼
+      section.subscribePurchase__purchase-section {
+        .purchase__section-flex {
+          input#fasterpay_submit {
+            display: block;
+            width: 1145px;
+          }
+        }
+      }
+    }
+  }
+}

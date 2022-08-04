@@ -1,0 +1,70 @@
+extends ../layouts/adminMain
+
+block content
+  body.vertical-layout.vertical-menu-modern.navbar-floating.footer-static(data-open='click' data-menu='vertical-menu-modern' data-col='')
+    main.admin__main
+      .admin__page#admin__sampleForm-page
+        include adminSidebar
+        .app-content.content
+          .content-overlay
+          .header-navbar-shadow
+          .content-wrapper.container-xxl.p-0
+            .content-body
+              //- BEGIN: Validation
+              section.bs-validation
+                .row
+                  //- BEGIN: Bootstrap Validation
+                  .col-xl-6.col-12
+                    .card
+                      .card-header
+                        h1.card-header-title=`${adminNameKo} ${formType}`
+                      .card-body
+                        form.needs-validation(enctype="multipart/form-data" novalidate method="POST")
+                          .form-group
+                            label.form-label 썸네일 이미지
+                              span.form-label-emphasis &nbsp;&nbsp;[규격: 1682*1122]
+                            if updateBool
+                              h6.text-primary 기존 이미지를 유지하려면 미선택
+                                a.text__primary-link(href=adminItem.thumbnail target="_blank") [기존 이미지 보기]
+                            .custom-file
+                              if updateBool
+                                input#thumbnail.form-control.custom-file-input(type='file' name="thumbnail" accept="image/*")
+                              else
+                                input#thumbnail.form-control.custom-file-input(type='file' name="thumbnail" accept="image/*" required)
+                              label.custom-file-label(for='customFile') 파일을 선택하세요
+                          .form-group
+                            label.form-label(for='#data1') 데이터1
+                            input#data1.form-control(type='text' name="data1" value=`${updateBool ? adminItem.data1 : ""}` placeholder="데이터1을 입력하세요" required)
+                            .invalid-feedback 이 영역은 필수값입니다.
+                          .form-group
+                            label.form-label(for='#data2') 데이터2
+                            input#data2.form-control(type='text' name="data2" value=`${updateBool ? adminItem.data1 : ""}` placeholder="데이터2를 입력하세요" required)
+                            .invalid-feedback 이 영역은 필수값입니다.
+                          .form-group
+                            label.form-label(for='#data3') 데이터3
+                            input#data3.form-control(type='text' name="data3" value=`${updateBool ? adminItem.data1 : ""}` placeholder="데이터3을 입력하세요" required)
+                            .invalid-feedback 이 영역은 필수값입니다.
+                          .form-group
+                            label.form-label(for='#data4') 데이터4
+                            input#data4.form-control(type='text' name="data4" value=`${updateBool ? adminItem.data1 : ""}` placeholder="데이터4를 입력하세요" required)
+                            .invalid-feedback 이 영역은 필수값입니다.
+                          .form-group
+                            label.form-label(for='#data5') 데이터5
+                            input#data5.form-control(type='text' name="data5" value=`${updateBool ? adminItem.data1 : ""}` placeholder="데이터5를 입력하세요" required)
+                            .invalid-feedback 이 영역은 필수값입니다.
+                          .row
+                            .col-12
+                              button.btn.btn-primary.waves-effect.waves-float.waves-light(type="submit")=`${formType}하기`
+                  //- END: Bootstrap Validation
+              //- END: Validation
+    //- BEGIN: Repeated scripts
+    include adminScripts
+    //- END: Repeated scripts
+    //- BEGIN: Page Vendor JS
+    script(src='/app-assets/vendors/js/forms/select/select2.full.min.js')
+    script(src='/app-assets/vendors/js/forms/validation/jquery.validate.min.js')
+    script(src='/app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js')
+    //- END: Page Vendor JS
+    //- BEGIN: Page JS
+    script(src='/app-assets/js/scripts/forms/form-validation.js')
+    //- END: Page JS

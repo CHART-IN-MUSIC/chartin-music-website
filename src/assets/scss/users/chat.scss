@@ -1,0 +1,147 @@
+#dashboard__chat {
+  section.chat__header {
+    margin-bottom: 20px;
+    h1.dashboard__title {
+      font-size: 34px;
+      font-weight: bold;
+      color: #fff;
+    }
+  }
+  section.chat__body {
+    // 채팅 없을 때
+    .chat__none-flex {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      h1.chats__none {
+        width: max-content;
+        font-size: 28px;
+        font-weight: bold;
+        text-align: center;
+        color: #fff;
+      }
+    }
+    // 채팅 있을 때
+    .chat__flex {
+      ul.chat__items {
+        border-top: 2px solid #fff;
+        li.chat__item {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          border-bottom: 1px solid #6c6c6c;
+          a.item__link {
+            width: calc(100% - 95px);
+            display: block;
+            padding: 20px 0;
+            .item__flex {
+              .item__user-flex {
+                display: flex;
+                align-items: center;
+                .user__profile {
+                  margin-right: 20px;
+                  width: 41px;
+                }
+                .user__info-flex {
+                  width: calc(100% - 41px);
+                  h1.user__name {
+                    margin-bottom: 4px;
+                    font-size: 15px;
+                    font-weight: 600;
+                    color: #fff;
+                  }
+                  h1.user__genre-country {
+                    margin-bottom: 7px;
+                    font-size: 12px;
+                    color: #c9c9c9;
+                  }
+                  .user__unread-flex {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    span.unread__count {
+                      margin-right: 7px;
+                      color: #fff;
+                      background-color: #ff5b48;
+                      width: 14px;
+                      height: 14px;
+                      display: inline-block;
+                      text-align: center;
+                      border-radius: 50%;
+                      font-size: 10px;
+                      position: relative;
+                      top: -1px;
+                    }
+                    p.user__unread-message {
+                      // display: block;
+                      // height: 15px;
+                      width: 80%;
+                      font-size: 13px;
+                      color: #8a8989;
+                    }
+                  }
+                }
+              }
+            }
+          }
+          button.chat__leave-btn {
+            width: 94px;
+            padding: 11px 23px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 10px;
+            color: #fff;
+            background-color: $mainColor;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  #dashboard__chat {
+    section.chat__header {
+      h1.dashboard__title {
+        margin-bottom: 60px;
+        font-size: 60px;
+      }
+    }
+    section.chat__body {
+      // 채팅 있을 때
+      .chat__flex {
+        ul.chat__items {
+          li.chat__item {
+            a.item__link {
+              width: calc(100% - 161px);
+              .item__flex {
+                .item__user-flex {
+                  .user__profile {
+                    margin-right: 40px;
+                    width: 84px;
+                  }
+                  .user__info-flex {
+                    h1.user__name {
+                      margin-bottom: 10px;
+                      font-size: 28px;
+                    }
+                    h1.user__genre-country {
+                      font-size: 20px;
+                    }
+                  }
+                }
+              }
+            }
+            button.chat__leave-btn {
+              width: 161px;
+              padding: 15px 23px;
+              font-size: 18px;
+              background-color: #10eb73;
+            }
+          }
+        }
+      }
+    }
+  }
+}

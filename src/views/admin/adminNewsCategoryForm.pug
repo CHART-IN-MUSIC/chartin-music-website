@@ -1,0 +1,40 @@
+extends ../layouts/adminMain
+
+block content
+  body.vertical-layout.vertical-menu-modern.navbar-floating.footer-static(data-open='click' data-menu='vertical-menu-modern' data-col='')
+    main.admin__main
+      .admin__page#admin__newsCateogryForm-page
+        include adminSidebar
+        .app-content.content
+          .content-overlay
+          .header-navbar-shadow
+          .content-wrapper.container-xxl.p-0
+            .content-body
+              //- BEGIN: Validation
+              section.bs-validation
+                .row
+                  //- BEGIN: Bootstrap Validation
+                  .col-xl-6.col-12
+                    .card
+                      .card-header
+                        h1.card-header-title=`${adminNameKo} ${formType}`
+                      .card-body
+                        form.needs-validation(action=`${routes.admin}${routes.adminNewsCategory}/${updateBool ? `update/${adminItem._id}` : "create"}` novalidate method="POST")
+                          .form-group
+                            label.form-label(for='#categoryName') 카테고리명
+                            input#categoryName.form-control(type='text' name="category" value=`${updateBool ? adminItem.category : ""}` placeholder="카테고리명을 입력하세요" required)
+                            .invalid-feedback 이 영역은 필수값입니다.
+                          .row
+                            .col-12
+                              button.btn.btn-primary.waves-effect.waves-float.waves-light(type="submit")=`${formType}하기`
+                  //- END: Bootstrap Validation
+              //- END: Validation
+    //- BEGIN: Repeated scripts
+    include adminScripts
+    //- END: Repeated scripts
+    //- BEGIN: Page Vendor JS
+    script(src='/app-assets/vendors/js/forms/validation/jquery.validate.min.js')
+    //- END: Page Vendor JS
+    //- BEGIN: Page JS
+    script(src='/app-assets/js/scripts/forms/form-validation.js')
+    //- END: Page JS

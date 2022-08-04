@@ -1,0 +1,49 @@
+extends ../layouts/noPartialMain
+
+block content
+  .registerWelcome__page#registerWelcome__page
+    section.registerWelcome__header
+      .registerWelcome__img.rsp-mb(style=`background-image: url(${imgPath}/public/banner_mb.png)`)
+      .registerWelcome__img.rsp-pc(style=`background-image: url(${imgPath}/public/banner_pc.png)`)
+    .registerWelcome__page-flex.layout
+      .registerWelcome__flex
+        section.registerWelcome__main
+          a.registerWelcome__link(href=`${routes.home}`)
+            img.registerWelcome__logo-img(src=`${imgPath}/public/logo_basic@3x.png`)
+          if pageName === "description"
+            .registerWelcome__title-flex
+              h1.registerWelcome__title You are almost there!
+              h1.registerWelcome__subTitle So what now?
+            .registerWelcome__link-flex
+              h1.registerWelcome__link-title 1. Our service managers will carefully go through your audition application and approve you as long as you meet our qualifications.<br><br>For more details on our criteria, please refer to this newsroom article
+                a.registerWelcome__link(href=`${routes.newsRoom}/detail/621e0ab0bb4d4c5208ff5ba7`)  (Audition)
+              h1.registerWelcome__link-title 2. Once you become our prestious member, you will get access to variety of features.
+              h1.registerWelcome__link-subTitle - If you're a musician, you will have access to free service diagnosis, mental health consultation, and match request to meet qualified experts
+                a.registerWelcome__link(href=`${routes.newsRoom}/detail/621e1055bb4d4c5208ff5c10`)  (Musician?)
+              h1.registerWelcome__link-subTitle  - If you're an expert, you will have access to musicians' requests.
+                a.registerWelcome__link(href=`${routes.newsRoom}/detail/621e1096bb4d4c5208ff5c20`)  (Expert?)
+              h1.registerWelcome__link-title Application process normally takes up to three to five days.<br><br>If you have any other questions, please chat with Dino on the right below. 
+          else
+            .registerWelcome__title-flex
+              h1.registerWelcome__title Welcome to the team !
+              h1.registerWelcome__subTitle.rsp-mb Hello, my name is Dino. I’m a manager here who will guide you through the platform. Let me show you around :)
+              h1.registerWelcome__subTitle.rsp-pc Hello, my name is Dino. I’m a manager here who will guide<br>you through the platform. Let me show you around :)
+            if type === "musician"
+              .registerWelcome__link-flex
+                h1.registerWelcome__link-title Not sure what to do? Use our service diagnosis
+                  a.registerWelcome__link(href=`${routes.user}${routes.serviceDiagnosis}`)  (Service Diagnosis)
+                h1.registerWelcome__link-title Enjoy Premium Membership for your growth - hire your personal manager
+                  a.registerWelcome__link(href=`${routes.user}${routes.subscribePurchase}`)  (Premium)
+                h1.registerWelcome__link-title Learn how to utilize our platform here
+                  a.registerWelcome__link(href=`${routes.newsRoom}/detail/621c3bf99255920e33ffae3b`)  (Tutorial)
+              .registerWelcome__linkBtn-flex
+                a.registerWelcome__linkBtn(href=`${routes.user}${routes.serviceDiagnosis}`) Get Service Diagnosis / FREE
+                a.registerWelcome__linkBtn(href=`${routes.user}${routes.subscribePurchase}`) Subscribe to Premium Membership / $ 10.99
+            else
+              .registerWelcome__link-flex
+                h1.registerWelcome__link-title Not sure what to do? Here's 2 min tutorial on what to do!
+                  a.registerWelcome__link(href=toturialLink)  (Tutorial)
+                h1.registerWelcome__link-title Go find out what projects were registered!
+                  a.registerWelcome__link(href=routes.musicianList)  (Projects)
+              .registerWelcome__linkBtn-flex
+                a.registerWelcome__linkBtn(href=routes.musicianList) Go to projects page

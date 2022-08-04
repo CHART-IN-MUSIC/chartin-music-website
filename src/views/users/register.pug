@@ -1,0 +1,25 @@
+extends ../layouts/noPartialMain
+
+block content
+  .register__page#register__page
+    .register__bg-img
+    .register__page-flex.layout
+      section.register__logo
+        a.register__logo-link(href=routes.home)
+          img.logo__img(src=`${imgPath}/public/logo_basic@3x.png`)
+      section.register__type
+        .register__box-flex
+          ul.register__box-items
+            //- 뮤지션
+            li.register__box-item
+              a.item__link(href=`${routes.user}${routes.register}/musician`)
+                h1.item__title Audition as
+                h1.item__type Musician
+                h1.item__subTitle If you are a passionate musician
+            //- 전문가
+            li.register__box-item
+              a.item__link(href=`${routes.user}${routes.register}/expert`)
+                h1.item__title Audition as
+                h1.item__type Expert
+                h1.item__subTitle If you are an expert and can help musicians
+

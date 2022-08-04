@@ -1,0 +1,68 @@
+extends ../layouts/adminMain
+
+block content
+  body.vertical-layout.vertical-menu-modern.navbar-floating.footer-static(data-open='click' data-menu='vertical-menu-modern' data-col='')
+    main.admin__main
+      .admin__detail-page#admin__conferenceDetail-page
+        include adminSidebar
+        //- BEGIN: Content
+        .app-content.content
+          .content-overlay
+          .header-navbar-shadow
+          .content-wrapper.container-xxl.p-0
+            .content-header.row
+              .content-header-left.col-12.mb-1
+                .row.breadcrumbs-top
+                  .col-12
+                    h2.content-header-title.float-left=`${adminNameKo} detail`
+                    .content-header-btns
+                      //- .content-header-btn
+                        //- a.btn.btn-primary.waves-effect.waves-float.waves-light(href=`${routes.admin}${adminLink}/update/${adminItem._id}`)
+                        //-   i.edit__icon(data-feather="edit" style="margin-right: 5px;")
+                        //-   | 수정하기
+                      .content-header-btn
+                        a.btn.btn-primary.waves-effect.waves-float.waves-light(onclick=`history.go(-1);`)
+                          i.list__icon(data-feather="list" style="margin-right: 5px;")
+                          | 목록으로
+            .content-detached.content-left
+              .content-body
+                //- BEGIN: Blog Detail
+                .blog-detail-wrapper
+                  .row
+                    //- BEGIN: Blog
+                    .col-12
+                      .card
+                        .card-body
+                          ul.card-body__items
+                            li.card-body__item
+                              h4.mb-50 Tumbnail
+                              if adminItem.conferenceFile
+                                img.card-img-top(src=adminItem.conferenceFile)
+                              else
+                                p.card-text None
+                            li.card-body__item
+                              h4.mb-50 Category
+                              each categoryItem in conferenceCategoryArr
+                                if categoryItem.id === adminItem.category
+                                  p.card-text=categoryItem.name
+                            li.card-body__item
+                              h4.mb-50 UserID
+                              p.card-text=adminItem.userID[0].userID
+                            li.card-body__item
+                              h4.mb-50 Title
+                              p.card-text=adminItem.title
+                            li.card-body__item
+                              h4.mb-50 Description
+                              p.card-text=adminItem.desc
+                            li.card-body__item
+                              h4.mb-50 Created
+                              p.card-text=dateFormatYMDHms(adminItem.createdAt)
+                            li.card-body__item
+                              h4.mb-50 Modified
+                              p.card-text=dateFormatYMDHms(adminItem.updatedAt)
+                    //- END: Blog
+                //- END: Blog Detail
+        //- END: Content
+    //- BEGIN: Repeated scripts
+    include adminScripts
+    //- END: Repeated scripts

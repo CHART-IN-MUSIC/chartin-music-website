@@ -1,0 +1,119 @@
+extends ../layouts/noPartialMain
+include ../partials/mixins
+
+block content
+  .dashboard__page#dashboard__page
+    #dashboard__chatDetail
+      .dashboard__page-flex
+        //- 대시보드 좌측 사이드바 들어갈 자리 [Mixin으로 구현]
+        +dashboardSideBar(loggedUser.role)
+        //- 대시보드 좌측 사이드바 들어갈 자리 [Mixin으로 구현]
+        //- 대시보드 우측 컨텐츠 들어갈 자리
+        .dashboard__contents-flex
+          section.chatDetail__header-section
+            .header__section-flex.layout
+              .header__section-user
+                if loggedUser.role === "musician"
+                  a.header__back-link(href=`${routes.userMusician}${routes.chat}`)
+                    img.header__back-icon(src=`${imgPath}/chat/back_icon@3x.png`)
+                else if loggedUser.role === "expert"
+                  a.header__back-link(href=`${routes.userExpert}${routes.chat}`)
+                    img.header__back-icon(src=`${imgPath}/chat/back_icon@3x.png`)
+                if loggedUser._id.toString() === chats.expertID[0]._id.toString()
+                  a.profile__link(href=`${routes.musicianList}/detail/1/${chats.musicianID[0]._id}`)
+                    .profile__img(style=`background: ${chats.musicianID[0].gradientColor}`)
+                    .profile__name=chats.musicianID[0].name
+                if loggedUser._id.toString() === chats.musicianID[0]._id.toString()
+                  a.profile__link(href=`${routes.userMusician}${routes.expertDetail}/${chats.expertID[0]._id}`)
+                    .profile__img(style=`background: ${chats.expertID[0].gradientColor}`)
+                    .profile__name=chats.expertID[0].name
+              .header__section-leave
+                button.chat__leave-btn(data-id=chats._id data-role=loggedUser.role) Leave
+          section.chatDetail__body-section
+            .body__section-flex
+              .body__section-date
+                .date__line
+                p.date__desc=dateFormatMDY2(chats.createdAt)
+                .date__line
+              .body__section-chat#body__section-chat(data-id=chats._id data-role=loggedUser.role)
+                .chatBody__flex
+                  if loggedUser._id.toString() === chats.expertID[0]._id.toString()
+                    ul.body__chat-items.iam__expert#chatBody !{chats.talk}
+                  if loggedUser._id.toString() === chats.musicianID[0]._id.toString()
+                    ul.body__chat-items.iam__musician#chatBody !{chats.talk}
+          section.chatDetail__form-section
+            .form__section-flex
+              form#sendForm(action="")
+                textarea.chat__textarea#chat__textarea(name="message" placeholder="Let’s be safe. Communicate and make transactions only through CHARTIN platform - so we can protect you." autocomplete="off" required)
+                button.right__btn-item#chat__form-submit(type="submit") Send
+    script(src="/socket.io/socket.io.js")
+    script.
+      var hostURL = window.location.protocol + "//" + window.location.host+ "/"
+      var io = io.connect(hostURL);
+      $("section.chatDetail__body-section").scrollTop($("section.chatDetail__body-section")[0].scrollHeight);
+      // 대화가 진행될 때 마다 서버에 대화내용 저장
+      function saveChat() {
+        const chatID = $("#body__section-chat").attr("data-id");
+        const chatBody = $("ul#chatBody").html();
+        $.ajax({
+          url: `/api/save-chat`,
+          type: "POST",
+          data: {
+            chatID: chatID,
+            chatBody: chatBody,
+          },
+          success: function (result) {
+            //- console.log(result);
+          },
+          error: function (err) {
+            alert(`An error has occurred.:\r\n${JSON.stringify(err)}`);
+          },
+        });
+      }
+      // send message
+      io.on('server message', function(message, userRole, firstBool) {
+        if (firstBool) {
+          $('#chatBody .body__chat-flex:last-child').append(`\
+            <li class="body__chat-item chat__${userRole}">${message}</li>\
+          `);
+        } else {
+          $('#chatBody').append(`\
+            <div class="body__chat-flex ${userRole}__flex">\
+              <li class="body__chat-item chat__${userRole}">${message}</li>\
+            </div>\
+          `);
+        }
+        $("section.chatDetail__body-section").scrollTop($("section.chatDetail__body-section")[0].scrollHeight);
+        saveChat();
+      });
+      $(document).ready(function() {
+        const userRole = $("#body__section-chat").attr("data-role");
+        const chatID = $("#body__section-chat").attr("data-id");
+        // send message
+        $('#sendForm').submit(function() {
+          const message = $('#sendForm textarea[name=message]');
+          let firstBool = false;
+          if (userRole === "musician") {
+            firstBool = $("#chatBody .body__chat-flex:last-child").hasClass("musician__flex");
+          } else {
+            firstBool = $("#chatBody .body__chat-flex:last-child").hasClass("expert__flex");
+          }
+          io.emit('client message', { message : `${message.val()}`}, { userRole: userRole }, { firstBool: firstBool });
+          message.val('');
+          $.ajax({
+            url: `/api/send-alarm`,
+            type: "POST",
+            data: {
+              userRole: userRole,
+              chatID: chatID,
+            },
+            success: function (result) {
+              //- console.log(result);
+            },
+            error: function (err) {
+              alert(`An error has occurred.:\r\n${JSON.stringify(err)}`);
+            },
+          });
+          return false;
+        });
+      });

@@ -1,0 +1,113 @@
+.terms__page#terms__page {
+  padding-top: 40px;
+  .terms__page-flex.layout {
+    section.terms__header-section {
+      margin-bottom: 40px;
+      .header__section-flex {
+        .header__bg {
+          background-image: url("/images/terms/terms__bg-mb.png");
+          background-size: cover;
+          background-position: center center;
+          background-repeat: no-repeat;
+          width: 100%;
+          height: 200px;
+          border-radius: 10px;
+          padding: 10px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          p.header__bg-updated {
+            font-size: 11px;
+            line-height: 1.27;
+            text-align: right;
+            color: #fff;
+          }
+          h1.header__bg-title {
+            font-size: 32px;
+            font-weight: bold;
+            line-height: 1.22;
+            color: #fff;
+          }
+        }
+      }
+    }
+    section.terms__contents-section {
+      padding-bottom: 40px;
+      border-bottom: 1px solid #fff;
+      margin-bottom: 200px;
+      font-size: 16px;
+      line-height: 1.19;
+      color: #fff;
+      p.terms__desc.terms__desc-indent {
+        margin-left: 20px;
+        display: flex;
+        span.dot__bold {
+          margin-right: 5px;
+          display: block;
+          font-weight: bold;
+        }
+      }
+      h2.terms__subtitle {
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+}
+
+// Extra large devices (large desktops, 1440px and up)
+@media (min-width: 1440px) {
+  .terms__page#terms__page {
+    padding-top: 194px;
+    .terms__page-flex.layout {
+      section.terms__header-section {
+        margin-bottom: 30px;
+        .header__section-flex {
+          .header__bg {
+            background-image: url("/images/terms/terms__bg-pc.png");
+            height: 450px;
+            padding: 40px;
+            p.header__bg-updated {
+              font-size: 14px;
+              line-height: 1.29;
+            }
+            h1.header__bg-title {
+              font-size: 82px;
+              br {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+      section.terms__contents-section {
+        font-size: 18px;
+        p.terms__desc {
+        }
+        p.terms__desc.terms__desc-indent {
+          margin-left: 20px;
+          display: flex;
+          span.dot__bold {
+            margin-right: 5px;
+            display: block;
+            font-weight: bold;
+          }
+        }
+        h2.terms__subtitle {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

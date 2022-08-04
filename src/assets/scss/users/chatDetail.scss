@@ -1,0 +1,404 @@
+.dashboard__page#dashboard__page {
+  #dashboard__chatDetail {
+    .dashboard__page-flex {
+      .dashboard__sideBar-flex {
+        margin: 0;
+      }
+      .dashboard__contents-flex {
+        width: 100%;
+        padding: 0;
+        height: calc(100vh - 130px);
+        position: relative;
+        section.chatDetail__header-section {
+          padding: 20px 0;
+          border-bottom: 1px solid #414141;
+          .header__section-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .header__section-user {
+              display: flex;
+              align-items: center;
+              a.header__back-link {
+                display: block;
+                width: 7px;
+                margin-right: 10px;
+                img.header__back-icon {
+                  width: 100%;
+                  display: block;
+                }
+              }
+              a.profile__link {
+                display: flex;
+                align-items: center;
+                .profile__img {
+                  margin-right: 10px;
+                  width: 34px;
+                  height: 34px;
+                  border-radius: 50%;
+                }
+                .profile__name {
+                  font-size: 22px;
+                  font-weight: bold;
+                  color: #fff;
+                }
+              }
+            }
+            .header__section-leave {
+              button.chat__leave-btn {
+                width: 80px;
+                padding: 10px 0;
+                text-align: center;
+                font-size: 14px;
+                font-weight: 600;
+                border-radius: 10px;
+                color: #fff;
+                background-color: $mainColor;
+              }
+            }
+          }
+        }
+        section.chatDetail__body-section {
+          padding: 20px;
+          height: calc(100vh - 328px);
+          overflow-y: scroll;
+          .body__section-flex {
+            .body__section-date {
+              margin-bottom: 30px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              .date__line {
+                width: 100%;
+                height: 1px;
+                background-color: #414141;
+              }
+              p.date__desc {
+                margin: 0 20px;
+                font-size: 20px;
+                color: #414141;
+              }
+            }
+            .body__section-chat {
+              .chatBody__flex {
+                ul.body__chat-items {
+                  .body__chat-flex {
+                    &:not(:last-child) {
+                      margin-bottom: 40px;
+                    }
+                    li.body__chat-item {
+                      white-space: pre-wrap;
+                      overflow-wrap: break-word;
+                      width: 80%;
+                      max-width: 340px;
+                      padding: 14px 20px;
+                      border-radius: 10px;
+                      font-size: 20px;
+                      line-height: 1.2;
+                      color: #fff;
+                      &:not(:last-child) {
+                        margin-bottom: 10px;
+                      }
+                    }
+                  }
+                }
+                ul.body__chat-items.iam__expert {
+                  .body__chat-flex.musician__flex {
+                    li.body__chat-item {
+                      position: relative;
+                      &:first-child {
+                        &::after {
+                          content: "";
+                          position: absolute;
+                          left: 0;
+                          top: 50%;
+                          width: 0;
+                          height: 0;
+                          border: 24px solid transparent;
+                          border-right-color: #777777;
+                          border-left: 0;
+                          border-top: 0;
+                          margin-top: -26px;
+                          margin-left: -15px;
+                        }
+                      }
+                    }
+                  }
+                  .body__chat-flex.expert__flex {
+                    li.body__chat-item {
+                      position: relative;
+                      &:first-child {
+                        &::after {
+                          content: "";
+                          position: absolute;
+                          right: 0;
+                          top: 50%;
+                          width: 0;
+                          height: 0;
+                          border: 24px solid transparent;
+                          border-left-color: #315cd0;
+                          border-right: 0;
+                          border-top: 0;
+                          margin-top: -26px;
+                          margin-right: -15px;
+                        }
+                      }
+                    }
+                  }
+                  li.body__chat-item.chat__musician {
+                    margin-left: 14px;
+                    margin-right: auto;
+                    background-color: #777777;
+                  }
+                  li.body__chat-item.chat__expert {
+                    margin-left: auto;
+                    margin-right: 14px;
+                    background-color: #315cd0;
+                  }
+                }
+                ul.body__chat-items.iam__musician {
+                  .body__chat-flex.musician__flex {
+                    li.body__chat-item {
+                      position: relative;
+                      &:first-child {
+                        &::after {
+                          content: "";
+                          position: absolute;
+                          right: 0;
+                          top: 50%;
+                          width: 0;
+                          height: 0;
+                          border: 24px solid transparent;
+                          border-left-color: #777777;
+                          border-right: 0;
+                          border-top: 0;
+                          margin-top: -26px;
+                          margin-right: -15px;
+                        }
+                      }
+                    }
+                  }
+                  .body__chat-flex.expert__flex {
+                    li.body__chat-item {
+                      position: relative;
+                      &:first-child {
+                        &::after {
+                          content: "";
+                          position: absolute;
+                          left: 0;
+                          top: 50%;
+                          width: 0;
+                          height: 0;
+                          border: 24px solid transparent;
+                          border-right-color: #315cd0;
+                          border-left: 0;
+                          border-top: 0;
+                          margin-top: -26px;
+                          margin-left: -15px;
+                        }
+                      }
+                    }
+                  }
+                  li.body__chat-item.chat__musician {
+                    margin-left: auto;
+                    margin-right: 14px;
+                    background-color: #777777;
+                  }
+                  li.body__chat-item.chat__expert {
+                    margin-left: 14px;
+                    margin-right: auto;
+                    background-color: #315cd0;
+                  }
+                }
+              }
+            }
+          }
+        }
+        section.chatDetail__form-section {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          padding: 20px;
+          border-top: 1px solid #414141;
+          z-index: 99;
+          background-color: #16151a;
+          .form__section-flex {
+            form#sendForm {
+              width: 100%;
+              height: 80px;
+              display: flex;
+              align-items: center;
+              position: relative;
+              textarea.chat__textarea {
+                padding: 10px 100px 10px 10px;
+                font-size: 16px;
+                width: 100%;
+                height: 100%;
+                border-radius: 10px;
+                color: #fff;
+                border: solid 1px #626262;
+                background-color: #16151a;
+                resize: none;
+              }
+              button.right__btn-item {
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 90px;
+                height: 100%;
+                padding: 15px 0;
+                border-radius: 10px;
+                background-color: #777777;
+                font-size: 18px;
+                font-weight: 600;
+                line-height: 1.22;
+                text-align: center;
+                color: #c1c1c1;
+              }
+              button.right__btn-item.active {
+                color: #fff;
+                background-color: $mainColor;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+}
+
+// Extra large devices (large desktops, 1440px and up)
+@media (min-width: 1440px) {
+  .dashboard__page#dashboard__page {
+    #dashboard__chatDetail {
+      .dashboard__page-flex {
+        .dashboard__contents-flex {
+          width: calc(100% - 360px);
+          max-width: 100%;
+          height: 100vh;
+          section.chatDetail__header-section {
+            padding: 55px 0 25px 0;
+            .header__section-flex {
+              width: 100%;
+              max-width: 1360px;
+              margin: 0 auto;
+              .header__section-user {
+                a.header__back-link {
+                  width: 10px;
+                  margin-right: 43px;
+                }
+                a.profile__link {
+                  .profile__img {
+                    margin-right: 20px;
+                    width: 50px;
+                    height: 50px;
+                  }
+                  .profile__name {
+                    font-size: 28px;
+                  }
+                }
+              }
+              .header__section-leave {
+                button.chat__leave-btn {
+                  width: 160px;
+                  padding: 15px 0;
+                  font-size: 18px;
+                }
+              }
+            }
+          }
+          section.chatDetail__body-section {
+            width: 100%;
+            max-width: 1360px;
+            margin: 0 auto;
+            padding: 46px 50px;
+            height: calc(100vh - 373.6px);
+            .body__section-flex {
+              .body__section-chat {
+                .chatBody__flex {
+                  ul.body__chat-items.iam__expert {
+                    .body__chat-flex.musician__flex {
+                      li.body__chat-item {
+                        &:first-child {
+                          &::after {
+                            margin-top: -26px;
+                          }
+                        }
+                      }
+                    }
+                    .body__chat-flex.expert__flex {
+                      li.body__chat-item {
+                        &:first-child {
+                          &::after {
+                            margin-top: -26px;
+                          }
+                        }
+                      }
+                    }
+                  }
+                  ul.body__chat-items.iam__musician {
+                    .body__chat-flex.musician__flex {
+                      li.body__chat-item {
+                        &:first-child {
+                          &::after {
+                            margin-top: -26px;
+                          }
+                        }
+                      }
+                    }
+                    .body__chat-flex.expert__flex {
+                      li.body__chat-item {
+                        &:first-child {
+                          &::after {
+                            margin-top: -26px;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+          section.chatDetail__form-section {
+            width: 100%;
+            padding: 40px;
+            .form__section-flex {
+              width: 100%;
+              max-width: 1360px;
+              margin: 0 auto;
+              form#sendForm {
+                height: 160px;
+                textarea.chat__textarea {
+                  padding: 20px 200px 20px 20px;
+                  font-size: 20px;
+                }
+                button.right__btn-item {
+                  right: 20px;
+                  top: initial;
+                  bottom: 20px;
+                  width: 160px;
+                  height: 50px;
+                  padding: 15px 0;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

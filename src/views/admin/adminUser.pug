@@ -1,0 +1,110 @@
+extends ../layouts/adminMain
+
+block content
+  body.vertical-layout.vertical-menu-modern.navbar-floating.footer-static(data-open='click' data-menu='vertical-menu-modern' data-col='')
+    main.admin__main
+      .admin__page#admin__sample-page
+        include adminSidebar
+        //- BEGIN: Content
+        .app-content.content
+          .content-overlay
+          .header-navbar-shadow
+          .content-wrapper.container-xxl.p-0
+            .content-body
+              //- BEGIN: Top Button Collection
+              .top__btn-items
+                //- BEGIN: Excel Download Button
+                .top__btn-item
+                  button#excel__download-btn.btn.btn-primary.waves-effect.waves-float.waves-light(type='button' name=`${adminNameKo}`)
+                    i.download__icon(data-feather='download' style="margin-right: 5px;")
+                    | Download Excel
+                  //- FIXME: 데이터 동기화 必
+                  table#tableData(style='display: none;')
+                    thead
+                      tr
+                        th Number
+                        th 아이디
+                        th 가입일
+                    tbody
+                      each item, index in excelData
+                        tr
+                          td=index + 1
+                          td=item.userID
+                          td=dateFormatYMDHm(item.createdAt)
+                //- END: Excel Download Button
+              //- END: Top Button Collection
+              //- BEGIN: Basic Tables
+              #basic-table.row
+                .col-12
+                  .card(style="overflow: scroll;")
+                    .card-header
+                      h1.card-header-title=`${adminNameKo}`
+                    .card-body
+                      p.card-text If you can't see anything, try scrolling left to right.
+                    .table-responsive
+                      //- FIXME: 각 칼럼 width 적절히 조정 후 합계로 min-width 설정 必
+                      table.table.mb-0(style="min-width: 800px;")
+                        thead
+                          tr
+                            //- FIXME: 데이터 동기화 必
+                            th(scope='col' style="width: 80px;") Number
+                            th(scope='col' style="width: 120px;") Delete
+                            th(scope='col' style="width: 200px;") ID
+                            th(scope='col' style="width: 200px;") 승인
+                            th(scope='col' style="width: 200px;") Created
+                        tbody
+                          each item, index in adminItems
+                            tr
+                              //- FIXME: 데이터 동기화 必
+                              td(scope='col' style="width: 80px;")
+                                span.font-weight-bold=`${index + 1}`
+                              td(scope='col' style="width: 120px;")
+                                .td__items
+                                  if item.role !== "master"
+                                    a.td__item(href=`${routes.admin}${adminLink}/delete/${item._id}` onclick="return confirm('Sure you want to delete?')")
+                                      svg.feather.feather-trash.mr-50(xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round')
+                                        polyline(points='3 6 5 6 21 6')
+                                        path(d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2')
+                                  else
+                                    | 삭제 불가
+                              td(scope='col' style="width: 200px;")=item.userID
+                              td(scope='col' style="width: 200px;")
+                                if loggedUser.role === "master"
+                                  //- 승인
+                                  if item.role === "general"
+                                    a.btn.btn-primary.waves-effect.waves-float.waves-light.btn-sm(type='button' href=`${routes.admin}${adminLink}/approve/${item._id}` onclick="return confirm('Are you sure you want to approve?')") 승인하기
+                                  else if item.role === "admin"
+                                    | 일반 관리자(승인됨)
+                                  else if item.role === "master"
+                                    | 마스터 관리자
+                              td(scope='col' style="width: 200px;")=dateFormatYMDHm(item.createdAt)
+              //- END: Basic Tables
+            //- BEGIN: Pagination
+            #pagination__flex
+              if adminItems.length !== 0
+                nav(aria-label='Page navigation example')
+                  ul.pagination.firstLast1-links.mt-1
+                    li.page-item.first
+                      a.page-link(href=`?page=1&limit=${limit}` aria-label="First")
+                        i(data-feather='chevrons-left')
+                    if paginate.hasPreviousPages
+                      li.page-item.prev
+                        a.page-link(paginate.href(true) aria-label="Previous")
+                    each page in pages
+                      if paginate.page === page.number
+                        li.page-item.active(aria-current='page')
+                          a.page-link(href=page.url)=page.number
+                      else
+                        li.page-item
+                          a.page-link(href=page.url)=page.number
+                    if paginate.hasNextPages(pageCount)
+                      li.page-item.next
+                        a.page-link(href=paginate.href())
+                    li.page-item.last
+                      a.page-link(href=`?page=${pageCount}&limit=${limit}`)
+                        i(data-feather='chevrons-right')
+            //- END: Pagination
+        //- END: Content
+    //- BEGIN: Repeated scripts
+    include adminScripts
+    //- END: Repeated scripts

@@ -1,0 +1,237 @@
+extends ../layouts/noPartialMain
+include ../partials/mixins
+
+block content
+  .dashboard__page#dashboard__page
+    .dashboard__page-flex
+      //- 대시보드 좌측 사이드바 들어갈 자리 [Mixin으로 구현]
+      +dashboardSideBar(loggedUser.role)
+      //- 대시보드 우측 컨텐츠 들어갈 자리
+      .dashboard__contents-flex
+        #dashboard__expertDetail
+          section.expertDetail__header
+            .header__flex
+              //- 전문가 프로필영역
+              .expert__profile-flex
+                .expert__profile
+                  +userProfile(expert)
+                .expert__info-flex
+                  h1.expert__name=expert.name
+                  .expert__like-flex.user__like-flex#changeUserLike
+                    if !likeBool
+                      button.user__like-btn#createUserLike(data-toUser=expert._id)
+                        img.like__btn-img(src=`${imgPath}/conference/like.svg`)
+                        h1.like__title=`${expert.likeID.length} Like`
+                    else
+                      button.user__like-btn#deleteUserLike(data-toUser=expert._id data-likeID=likeID)
+                        img.like__btn-img(src=`${imgPath}/conference/like__active.png`)
+                        h1.like__title.active=`${expert.likeID.length} Like`
+                    each item in expertTitleArr
+                      if item.id === expert.title
+                        h1.expert__title=item.name
+              //- 전문가 총 별점 영역
+              .expert__rate-flex
+                .rate__header
+                  h1.rate__average=`${averageRate.toFixed(1)}`
+                  h1.rate__count=`${addComma(reviewsLen)} Reviews`
+                .rate__body
+                  .rate__ratio-flex
+                    //- 5점
+                    .progress__flex
+                      h1.progress__score 5
+                      .progress
+                        .progress-bar.progress__bar5(role='progressbar' style=`opacity:${!eachRateCount[5] ? "0" : eachRateCount[5] }; background-color: #10eb73; width: ${!eachRateCount[5] ? "0" : (eachRateCount[5] * 100)}%;` aria-valuenow='75' aria-valuemin='0' aria-valuemax='100')
+                    //- 4점
+                    .progress__flex
+                      h1.progress__score 4
+                      .progress
+                        .progress-bar.progress__bar4(role='progressbar' style=`opacity:${!eachRateCount[4] ? "0" : eachRateCount[4] }; background-color: #10eb73; width: ${!eachRateCount[4] ? "0" : (eachRateCount[4] * 100)}%;` aria-valuenow='75' aria-valuemin='0' aria-valuemax='100')
+                    //- 3점
+                    .progress__flex
+                      h1.progress__score 3
+                      .progress
+                        .progress-bar.progress__bar3(role='progressbar' style=`opacity:${!eachRateCount[3] ? "0" : eachRateCount[3] }; background-color: #10eb73; width: ${!eachRateCount[3] ? "0" : (eachRateCount[3] * 100)}%;` aria-valuenow='75' aria-valuemin='0' aria-valuemax='100')
+                    //- 2점
+                    .progress__flex
+                      h1.progress__score 2
+                      .progress
+                        .progress-bar.progress__bar2(role='progressbar' style=`opacity:${!eachRateCount[2] ? "0" : eachRateCount[2] }; background-color: #10eb73; width: ${!eachRateCount[2] ? "0" : (eachRateCount[2] * 100)}%;` aria-valuenow='75' aria-valuemin='0' aria-valuemax='100')
+                    //- 1점
+                    .progress__flex
+                      h1.progress__score 1
+                      .progress
+                        .progress-bar.progress__bar1(role='progressbar' style=`opacity:${!eachRateCount[1] ? "0" : eachRateCount[1] }; background-color: #10eb73; width: ${!eachRateCount[1] ? "0" : (eachRateCount[1] * 100)}%;` aria-valuenow='75' aria-valuemin='0' aria-valuemax='100')
+                  .expert__request-flex
+                    h1.expert__overview.threeLineEllipsis=expert.overview
+                    if loggedUser.role !== "expert"
+                      .btn__flex
+                        //- 서비스 직접 요청
+                        button.request__btn(data-expertID=expert._id data-musicianID=loggedUser._id) Request Service
+                        //- Chat link
+                        a.chat__link(href=`${routes.user}${routes.chat}/check/${loggedUser._id}/${expert._id}`)
+                          h1.link__title Message
+          section.expertDetail__body
+            .body__flex
+              .expert__profile-flex 
+                h1.profile__title Profile 
+                .profile__items-flex
+                  ul.profile__items 
+                    li.profile__item 
+                      h1.item__title Overview 
+                        br
+                        span.item__desc=expert.overview
+                    li.profile__item 
+                      h1.item__title Title 
+                        br
+                        each item in expertTitleArr
+                          if item.id === expert.title
+                            span.item__desc=item.name
+                    li.profile__item 
+                      h1.item__title Experience
+                        br
+                        each item in expertExperienceArr
+                          if item.id === expert.experience
+                            span.item__desc=item.name
+                    li.profile__item 
+                      h1.item__title Current Location  
+                        br
+                        span.item__desc=expert.currentCountry
+                    li.profile__item 
+                      h1.item__title Markets you service 
+                        br
+                        span.item__desc=expert.overview
+                    li.profile__item 
+                      h1.item__title Providable Services 
+                        br
+                        each item in expertProvidableServicesArr
+                          each providableServices in expert.providableServices 
+                            if item.id === providableServices
+                              span.item__desc=item.name
+                              br
+                    li.profile__item 
+                      h1.item__title Previous/Current Clients 
+                        br
+                        span.item__desc=expert.previousClients
+                  ul.profile__items
+                    li.profile__item 
+                      h1.item__title Best project/Portfolio 
+                        br
+                        a.item__link(href=expert.bestProject)=expert.bestProject
+                    if expert.facebook
+                      li.profile__item 
+                        h1.item__title Facebook  
+                          br
+                          span.item__desc=expert.facebook
+                    if expert.instagram
+                      li.profile__item 
+                        h1.item__title Instagram  
+                          br
+                          span.item__desc=expert.instagram
+                    if expert.TikTok
+                      li.profile__item 
+                        h1.item__title TikTok  
+                          br
+                          span.item__desc=expert.TikTok
+                    if expert.spotify
+                      li.profile__item 
+                        h1.item__title Spotify  
+                          br
+                          span.item__desc=expert.spotify
+                    if expert.website
+                      li.profile__item 
+                        h1.item__title Website  
+                          br
+                          span.item__desc=expert.website
+                    if expert.youtube
+                      li.profile__item 
+                        h1.item__title Youtube  
+                          br
+                          span.item__desc=expert.youtube
+              if pageType === "review"
+                .review__form-flex
+                  form.review__form#reviewForm(method="post")
+                    .rate__img-flex
+                      h1.rate__title Rating
+                      input(type="hidden" name="rate" value=1 required)
+                      input(type="hidden" name="expertID" value=expert._id required)
+                      ul.rate__img-items
+                        li.rate__img-item.toggle__star-item
+                          img.item__star(src=`${imgPath}/expertDetail/full_star_active.png`)
+                        li.rate__img-item.toggle__star-item
+                          img.item__star(src=`${imgPath}/expertDetail/full_star_active.png` data-value="0")
+                        li.rate__img-item.toggle__star-item
+                          img.item__star(src=`${imgPath}/expertDetail/full_star_active.png` data-value="1")
+                        li.rate__img-item.toggle__star-item
+                          img.item__star(src=`${imgPath}/expertDetail/full_star.png` data-value="2")
+                        li.rate__img-item.toggle__star-item
+                          img.item__star(src=`${imgPath}/expertDetail/full_star.png` data-value="3")
+                    .desc__flex
+                      .textarea__flex
+                        textarea.form__textarea(type="text" name="desc" placeholder="Please be nice to speak out for everyone :)" required)
+                        button.form__leave-btn#createReviewBtn(type="button") LEAVE
+              else if pageType === "detail"
+                .promotions__flex
+                  h1.promotions__title Latest Project
+                  .swiper.mySwiper.expertProfileSwiper
+                    .swiper-wrapper
+                      each item in promotions
+                        .swiper-slide
+                          a.video__link(href=`${routes.offerdVideoDetail}?url=${item.offerID[0].contentLink}`)
+                            .video__flex
+                              .video__content
+                                //- youtube
+                                if item.offerID[0].contentLink.includes("youtube")
+                                  img.video__thumbnail(src=`https://img.youtube.com/vi/${item.offerID[0].contentLink.split("watch?v=")[1]}/0.jpg`)
+                                else if item.offerID[0].contentLink.includes("youtu.be")
+                                  img.video__thumbnail(src=`https://img.youtube.com/vi/${item.offerID[0].contentLink.split("youtu.be/")[1]}/0.jpg`)
+                                //- Tiktok의 경우 없음
+                              .video__expert-flex
+                                each title in expertTitleArr
+                                  if title.id === item.offerID[0].expertID[0].title
+                                    h1.expert__title=title.name
+                                h1.video__campaignTitle=item.offerID[0].campaignTitle
+          section.expertDetail__footer
+            .footer__flex
+              h1.review__others Reviews by other
+              //- 모바일 작성된 리뷰들 스와이퍼
+              .rsp-mb
+                .swiper.mySwiper.reviewSwiper
+                  .swiper-wrapper
+                    each item in reviews
+                      .swiper-slide
+                        .review__content
+                          h1.review__user-name=item.musicianID[0].name
+                          h1.review__desc=item.desc
+                        .review__rating
+                          h1.review__rating-title Rating
+                          ul.rated__img-items
+                            li.rated__img-item
+                              img.item__star(src=`${imgPath}/expertDetail/full_star${item.rate >= 1 ? "_active" : ""}.png` data-value="0")
+                            li.rated__img-item
+                              img.item__star(src=`${imgPath}/expertDetail/full_star${item.rate >= 2 ? "_active" : ""}.png` data-value="1" )
+                            li.rated__img-item
+                              img.item__star(src=`${imgPath}/expertDetail/full_star${item.rate >= 3 ? "_active" : ""}.png` data-value="2" )
+                            li.rated__img-item
+                              img.item__star(src=`${imgPath}/expertDetail/full_star${item.rate >= 4 ? "_active" : ""}.png` data-value="3" )
+                            li.rated__img-item
+                              img.item__star(src=`${imgPath}/expertDetail/full_star${item.rate >= 5 ? "_active" : ""}.png` data-value="4")
+              .rsp-pc
+                ul.review__items
+                  each item in reviews
+                    li.review__item
+                      .item__flex
+                        h1.item__user-name=item.musicianID[0].name
+                        h1.item__desc=item.desc
+                        .review__rating
+                          h1.item__rating Rating
+                          ul.rated__img-items
+                            li.rated__img-item
+                              img.item__star(src=`${imgPath}/expertDetail/full_star${item.rate >= 1 ? "_active" : ""}.png` data-value="0")
+                            li.rated__img-item
+                              img.item__star(src=`${imgPath}/expertDetail/full_star${item.rate >= 2 ? "_active" : ""}.png` data-value="1" )
+                            li.rated__img-item
+                              img.item__star(src=`${imgPath}/expertDetail/full_star${item.rate >= 3 ? "_active" : ""}.png` data-value="2" )
+                            li.rated__img-item
+                              img.item__star(src=`${imgPath}/expertDetail/full_star${item.rate >= 4 ? "_active" : ""}.png` data-value="3" )
+                            li.rated__img-item
+                              img.item__star(src=`${imgPath}/expertDetail/full_star${item.rate >= 5 ? "_active" : ""}.png` data-value="4")

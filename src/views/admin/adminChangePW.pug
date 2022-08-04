@@ -1,0 +1,63 @@
+extends ../layouts/adminMain
+
+block content
+  body.pace-done.vertical-layout.blank-page.navbar-floating.footer-static.menu-expanded.vertical-menu-modern(data-open='click' data-menu='vertical-menu-modern' data-col='blank-page')
+    main.admin__main
+      .admin__page#admin__changePW-page
+        //-BEGIN: Content
+        .app-content.content
+          .content-overlay
+          .header-navbar-shadow
+          .content-wrapper
+            .content-header.row
+            .content-body
+              .auth-wrapper.auth-v2
+                .auth-inner.row.m-0
+                  //-Brand logo
+                  a.brand-logo(href=routes.admin)
+                    h2.brand-text.text-primary.ml-1 홈페이지 이름
+                  //-/Brand logo
+                  //-Left Text ㅣ왼쪽 영역 이미지
+                  .d-none.d-lg-flex.col-lg-8.align-items-center.p-5
+                    .w-100.d-lg-flex.align-items-center.justify-content-center.px-5
+                      img.img-fluid(src='/app-assets/images/pages/reset-password-v2.svg' alt='Register V2')
+                  //-/Left Text ㅣ왼쪽 영역 이미지
+                  //-Reset password
+                  .d-flex.col-lg-4.align-items-center.auth-bg.px-2.p-lg-5
+                    .col-12.col-sm-8.col-md-6.col-lg-12.px-xl-2.mx-auto
+                      h2.card-title.font-weight-bold.mb-1 관리자 비밀번호 변경 🔒
+                      form.auth-reset-password-form.mt-2(action=`${routes.admin}${routes.adminChangePW}` method='POST' novalidate='novalidate')
+                        .form-group
+                          .d-flex.justify-content-between
+                            label(for='reset-password-new') 새로운 비밀번호
+                          .input-group.input-group-merge.form-password-toggle
+                            input#reset-password-new.form-control.form-control-merge(type='password' name='newPassword' aria-describedby='reset-password-new' autofocus='' autocomplete="off" tabindex='1' required)
+                            .input-group-append
+                              span.input-group-text.cursor-pointer
+                                svg.feather.feather-eye(xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round')
+                                  path(d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z')
+                                  circle(cx='12' cy='12' r='3')
+                        .form-group
+                          .d-flex.justify-content-between
+                            label(for='reset-password-confirm') 새로운 비밀번호 확인
+                          .input-group.input-group-merge.form-password-toggle
+                            input#reset-password-confirm.form-control.form-control-merge(type='password' name='newPassword1' autocomplete="off" aria-describedby='reset-password-confirm' tabindex='2' required)
+                            .input-group-append
+                              span.input-group-text.cursor-pointer
+                                svg.feather.feather-eye(xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round')
+                                  path(d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z')
+                                  circle(cx='12' cy='12' r='3')
+                        button.btn.btn-primary.btn-block.waves-effect.waves-float.waves-light(type="submit" tabindex='3') 비밀번호 변경
+                      p.text-center.mt-2
+                        a(href=`${routes.admin}${routes.adminUser}`)
+                          svg.feather.feather-chevron-left(xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round')
+                            polyline(points='15 18 9 12 15 6')
+                          | 관리자페이지로
+                  //-/Reset password
+        //-END: Content
+    //- BEGIN: Repeated scripts
+    include adminScripts
+    //- END: Repeated scripts
+    //-BEGIN: Page JS
+    script(src='/app-assets/js/scripts/pages/page-auth-reset-password.js')
+    //-END: Page JS

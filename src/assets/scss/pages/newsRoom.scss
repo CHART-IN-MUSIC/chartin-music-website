@@ -1,0 +1,187 @@
+.newsRoom__page#newsRoom__page {
+  padding-top: 40px;
+  padding-bottom: 160px;
+  .newsRoom__page-flex {
+    section.newsRoom__body {
+      //- 뉴스룸 헤더 + 필터링 select options
+      section.newsRoom__header {
+        margin-bottom: 40px;
+        .header__flex {
+          .header__title-flex {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            h1.header__title {
+              margin-right: 10px;
+              font-size: 32px;
+              font-weight: bold;
+              line-height: 1.22;
+              color: #fff;
+            }
+            img.header__title-img {
+              width: 31px;
+              height: 31px;
+            }
+          }
+          .header__select-flex {
+            display: flex;
+            align-items: center;
+            .form-group {
+              margin-right: 20px;
+              select.form-control {
+                font-size: 18px;
+                font-weight: 500;
+                line-height: 1.22;
+                color: #fff;
+                background-color: $bgColor;
+                border-radius: 10px;
+                border: solid 1px #10eb73;
+                &:hover {
+                  color: #fff;
+                  background: url("/images/public/select_down.svg") no-repeat calc(100% - 10px) 50%/12px auto;
+                  background-color: $bgColor;
+                }
+              }
+            }
+          }
+        }
+      }
+      //- 뉴스룸 헤더 끝
+      section.newsRoom__main {
+        ul.newsContents__items {
+          li.newsContents__item {
+            &:not(:last-child) {
+              margin-bottom: 20px;
+            }
+            .item__flex {
+              position: relative;
+              .item__img {
+                padding-top: 69%;
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                width: 100%;
+                object-fit: cover;
+                border-radius: 10px;
+                position: relative;
+                .item__img-gradient {
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.2) 60%, rgba(0, 212, 255, 0) 100%);
+                  border-radius: 10px;
+                }
+              }
+              h1.item__date {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                font-size: 11px;
+                line-height: 1.27;
+                color: #fff;
+              }
+              .item__title-flex {
+                position: absolute;
+                bottom: 20px;
+                left: 10px;
+                h1.item__title {
+                  margin-bottom: 10px;
+                  font-size: 20px;
+                  font-weight: 600;
+                  color: #fff;
+                }
+                h1.item__shortDesc {
+                  font-size: 14px;
+                  color: #fff;
+                  height: 33.6px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1440px) {
+  .newsRoom__page#newsRoom__page {
+    padding-top: 0;
+    padding-bottom: 200px;
+    .newsRoom__page-flex {
+      section.newsRoom__banner {
+        .banner__flex {
+          width: calc(90% + 40px);
+          max-width: 1720px;
+          margin: 0 auto;
+          position: relative;
+          .banner__img {
+            width: 100%;
+            padding-top: 19.642857%;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            border-radius: 10px;
+          }
+        }
+      }
+      section.newsRoom__body {
+        position: relative;
+        top: -50px;
+        //- 뉴스룸 헤더 + 필터링 select options
+        section.newsRoom__header {
+          .header__flex {
+            .header__title-flex {
+              margin-bottom: 20px;
+              h1.header__title {
+                margin-right: 20px;
+                font-size: 82px;
+              }
+              img.header__title-img {
+                width: 56px;
+                height: 56px;
+              }
+            }
+          }
+        }
+        //- 뉴스룸 헤더 끝
+        section.newsRoom__main {
+          ul.newsContents__items {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            li.newsContents__item {
+              width: calc(25% - 15px);
+              &:last-child {
+                margin-bottom: 20px;
+              }
+              &:not(:nth-child(4n)) {
+                margin-right: 20px;
+              }
+              .item__flex {
+                h1.item__date {
+                  top: 20px;
+                  right: 20px;
+                  font-size: 14px;
+                }
+                .item__title-flex {
+                  bottom: 20px;
+                  left: 20px;
+                  h1.item__title {
+                    font-size: 20px;
+                  }
+                  h1.item__shortDesc {
+                    font-size: 14px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

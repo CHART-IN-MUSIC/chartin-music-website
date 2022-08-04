@@ -1,0 +1,49 @@
+extends layouts/main
+
+block content
+  .newsRoom__page#newsRoom__page
+    .newsRoom__page-flex
+      section.newsRoom__banner.rsp-pc
+        .banner__flex
+          .banner__img(style=`background-image: url(${imgPath}/public/banner_pc.png)`)
+      section.newsRoom__body.layout
+        //- 뉴스룸 헤더 + 필터링 select options
+        section.newsRoom__header
+          .header__flex
+            .header__title-flex
+              h1.header__title Newsroom
+              img.header__title-img(src=`${imgPath}/newsRoom/newsRoom_icon.png`)
+            .header__select-flex
+              .form-group
+                select#newsCategory.form-control.chartin__select(name="newsCategory" required)
+                  option.newsCategories__option(value="All") All
+                  each item in newsCategories
+                    if category && category.toString() === item._id.toString()
+                      option.newsCategories__option(value=item._id selected)=item.category
+                    else
+                      option.newsCategories__option(value=item._id)=item.category
+              .form-group
+                select#newsRegion.form-control.chartin__select(name="region" required)
+                  each item in newsRegion
+                    if region === item.region
+                      option.newsRegion__option(value=item.region selected)=item.region
+                    else
+                      option.newsRegion__option(value=item.region)=item.region
+        //- 뉴스룸 헤더 끝
+        section.newsRoom__main
+          ul.newsContents__items
+            each item in newsContents
+              li.newsContents__item
+                a.item__link(href=`${routes.newsRoom}/detail/${item._id}`)
+                  .item__flex
+                    if item.newsImg
+                      .item__img(style=`background-image: url(${item.newsImg})`)
+                        .item__img-gradient
+                    else
+                      .item__img(style=`background-color: #000;`)
+                    h1.item__date=dateFormatMDY(item.createdAt)
+                    .item__title-flex
+                      h1.item__title.oneLineEllipsis=item.title
+                      h1.item__shortDesc.twoLineEllipsis=item.shortDesc
+
+

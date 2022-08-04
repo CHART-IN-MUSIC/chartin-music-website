@@ -1,0 +1,54 @@
+extends ../layouts/main
+
+block content
+  .getHigher__page#getHigher__page
+    .getHigher__page-flex
+      //- 유저가 구독 중이 아닐 경우 결제 유도 팝업 섹션
+      if !purchase && !subscription
+        section.getHigher__popup-section
+          .popup__section-flex.layout
+            .popup__body
+              button.body__back-btn(type='button' onclick=`history.go(-1);`)
+                img.modal-close-img(src=`${imgPath}/home/modal_close@3x.png`)
+              h1.body__title Join the Community
+              p.body__subTitle 'Get Higher' is a premium membership designed to assist you elevate music career and experience. Would you like more detail?
+              a.body__purchase-link(href=`${routes.user}${routes.subscribePurchase}`) Yes
+      //- Get Higher Mission 섹션
+      section.getHigher__mission-section
+        .mission__section-flex.layout
+          .mission__timer-flex
+            p.timer__time#timer__time(data-status=timerStatus)=setTimer
+            img.timer__icon-img(src=`${imgPath}/getHigher/timer@3x.png`)
+          .mission__swiper-flex
+            .swiper.mission__swiper#mission__swiper(data-index=activeSlideIndex)
+              .swiper-wrapper
+                each mission, i in missions
+                  .swiper-slide(data-id=mission._id)
+                    each category in missionCategories
+                      if category.id === mission.category
+                        p.mission__category(style=`color: ${mission.color};`)=category.name
+                    .mission__bg(style=`background-image: url(${mission.imgUrl});`)
+                      .mission__bg-flex(style=`border: 5px solid ${mission.color};`)
+                        if mission.status === "complete"
+                          //- 완료된 미션일 경우
+                          .mission__status.mission__complete
+                            p.mission__desc Complete
+                        else if mission.status === "doing"
+                          //- 진행 중인 미션이 경우
+                          .mission__status.mission__doing
+                            p.mission__desc=mission.mission
+                            button.mission__btn#mission__complete-btn(type="button") Complete
+                        else if mission.status === "start"
+                          //- 진행 가능한 미션
+                          .mission__status.mission__start
+                            p.mission__desc &nbsp;
+                            button.mission__btn#mission__start-btn(type="button") Start
+                        else if mission.status === "restart"
+                          //- 카운트다운 만료된 미션
+                          .mission__status.mission__restart
+                            p.mission__desc=mission.mission
+                            button.mission__btn#mission__restart-btn(type="button") Restart
+                        else
+                          //- 진행 불가능한 미션
+                          .mission__status.mission__disable
+                            //- p.mission__desc=mission.mission

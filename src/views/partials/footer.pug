@@ -1,0 +1,41 @@
+footer.footer#footer
+  .footer-flex
+    .layout
+      section.footer__top-section
+        .rsp-pc
+          a.footer__logo(href=routes.home)
+            img.footer__logo-img(src=`${imgPath}/public/logo_basic@3x.png`)
+        //- 영문, 국문 변환 [MB]
+        .rsp-mb
+          ul.footer__flag-items
+            li.footer__flag-item
+              a.footer__flag-link(href=`${routes.api}/delete-lang-cookie`)
+                img.footer__flag-img(src=`${imgPath}/footer/flag_usa.png`)
+            li.footer__flag-item
+              a.footer__flag-link(href=`${routes.api}/create-lang-cookie`)
+                img.footer__flag-img(src=`${imgPath}/footer/flag_korea.png`)
+        ul.footer__menu-items
+          li.footer__menu-item
+            a.footer__menu-link(href=routes.privacyPolicy) PRIVACY POLICY
+          li.footer__menu-item
+            a.footer__menu-link(href=routes.termsOfUse) TERMS OF USE
+          li.footer__menu-item
+            a.footer__menu-link(href=routes.legalNotice) LEGAL NOTICE
+        //- 영문, 국문 변환 [PC]
+        .rsp-pc.footer__flag-items-pc
+          ul.footer__flag-items
+            li.footer__flag-item
+              a.footer__flag-link(href=`${routes.api}/delete-lang-cookie`)
+                img.footer__flag-img(src=`${imgPath}/footer/flag_usa.png`)
+            li.footer__flag-item
+              a.footer__flag-link(href=`${routes.api}/create-lang-cookie`)
+                img.footer__flag-img(src=`${imgPath}/footer/flag_korea.png`)
+      section.footer__bot-section
+        ul.footer__bot-items
+          .bot__items-flex
+            li.footer__bot-item BUSINESS NUMBER 814-76-00379
+            li.footer__bot-item ORDER BUSINESS REPORT NUMBER 2011-SEOUL-GANGNAM-00810
+          .bot__items-flex
+            li.footer__bot-item OWNER Yona Lee
+            li.footer__bot-item Seoul, South Korea
+            //- li.footer__bot-item 02-6717-6007

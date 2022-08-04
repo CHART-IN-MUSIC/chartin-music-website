@@ -1,0 +1,52 @@
+extends ../layouts/adminMain
+
+block content
+  body.vertical-layout.vertical-menu-modern.blank-page.navbar-floating.footer-static(data-open='click' data-menu='vertical-menu-modern' data-col='blank-page')
+    main.admin__main
+      .admin__page#admin__login-page
+        //- BEGIN: Content
+        .app-content.content
+          .content-overlay
+          .header-navbar-shadow
+          .content-wrapper
+            .content-header.row
+            .content-body
+              .auth-wrapper.auth-v2
+                .auth-inner.row.m-0
+                  //- BEGIN: Brand logo
+                  a.brand-logo(href=routes.home)
+                    h2.brand-text.text-primary.ml-1=siteName
+                  //- END: Brand logo
+                  //- BEGIN: Left Text
+                  .d-none.d-lg-flex.col-lg-8.align-items-center.p-5
+                    .w-100.d-lg-flex.align-items-center.justify-content-center.px-5
+                      img.img-fluid(src='/app-assets/images/pages/login-v2.svg' alt='Login V2')
+                  //- END:Left Text
+                  //- BEGIN: Login
+                  .d-flex.col-lg-4.align-items-center.auth-bg.px-2.p-lg-5
+                    .col-12.col-sm-8.col-md-6.col-lg-12.px-xl-2.mx-auto
+                      h2.card-title.font-weight-bold.mb-1 관리자 로그인 👋
+                      form.auth-login-form.mt-2(action=`${routes.admin}${routes.adminLogin}` method="post")
+                        .form-group
+                          label.form-label(for='login-email') 아이디
+                          input#login-email.form-control(type='text' name='userID' placeholder="아이디" aria-describedby='login-id' autofocus tabindex='1' required)
+                        .form-group
+                          .d-flex.justify-content-between
+                            label(for='login-password') 비밀번호
+                          .input-group.input-group-merge.form-password-toggle
+                            input#login-password.form-control.form-control-merge(type='password' name='password' placeholder="············" aria-describedby='login-password' tabindex='2' required)
+                            .input-group-append
+                              span.input-group-text.cursor-pointer
+                                i(data-feather='eye')
+                        button.btn.btn-primary.btn-block(tabindex='3' type="submit") 로그인
+                      p.text-center.mt-2 계정이 없으신가요?
+                        a(href=`${routes.admin}${routes.adminRegister}`)
+                          span &nbsp;관리자 계정 생성하기
+                  //- END: Login
+        //- END: Content
+    //- BEGIN: Repeated scripts
+    include adminScripts
+    //- END: Repeated scripts
+    //- BEGIN: Page JS
+    script(src='/app-assets/js/scripts/pages/page-auth-login.js')
+    //- END: Page JS

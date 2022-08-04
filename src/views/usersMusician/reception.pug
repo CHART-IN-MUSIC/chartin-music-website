@@ -1,0 +1,143 @@
+extends ../layouts/noPartialMain
+include ../partials/mixins
+
+block content
+  .dashboard__page#dashboard__page
+    .dashboard__page-flex
+      //- 대시보드 좌측 사이드바 들어갈 자리 [Mixin으로 구현]
+      +dashboardSideBar(loggedUser.role)
+      //- 대시보드 우측 컨텐츠 들어갈 자리
+      .dashboard__contents-flex
+        #dashboard__reception
+          section.reception__header
+            h1.dashboard__title=`Following Experts have requested to provide ${type === "feedback" ? "feedback" : type === "promotion" ? "promotion" : "mix/master"} service`
+            if type === "feedback"
+              p.dashboard__desc You can view all 3 feedbacks and choose one best feedback to reward.
+          section.reception__body
+            .reception__flex
+              //- 모바일이면 위아래 스크롤
+              if mbCheck
+                 ul.reception__items
+                    if receptions.title === "feedback"
+                      each item, index in receptions.offerID
+                        li.reception__item(data-test=item)
+                          .item__card
+                            .card__flex
+                              if !item.expertID
+                                h1.expert__name.twoLineEllipsis Deleted Expert
+                              else
+                                a.expert__profile-link(href=`${routes.userMusician}${routes.expertDetail}/${item.expertID[0]._id}`)
+                                  .expert__profile
+                                    +userProfile(item.expertID[0])
+                                  h1.expert__name.twoLineEllipsis=item.expertID[0].name
+                                h1.expert__overview.threeLineEllipsis=item.expertID[0].overview
+                                .expert__rate-flex
+                                  img.rate__img(src=`${imgPath}/dashboard/full_star${item.expertID[0].averageRate >= 1 ? "_active" : ""}.png`)
+                                  img.rate__img(src=`${imgPath}/dashboard/full_star${item.expertID[0].averageRate >= 2 ? "_active" : ""}.png`)
+                                  img.rate__img(src=`${imgPath}/dashboard/full_star${item.expertID[0].averageRate >= 3 ? "_active" : ""}.png`)
+                                  img.rate__img(src=`${imgPath}/dashboard/full_star${item.expertID[0].averageRate >= 4 ? "_active" : ""}.png`)
+                                  img.rate__img(src=`${imgPath}/dashboard/full_star${item.expertID[0].averageRate >= 5 ? "_active" : ""}.png`)
+                              .card__btn-flex
+                                //- [Feedback] 선택 및 F/B Rule 적용하여 RESULT 처리
+                                if !item.chooseBool && !item.finishOffer
+                                  if receptions.offerID.length === 3
+                                    a.choose__btn.feedback__choose-btn(data-id=item._id data-feedback=receptions._id) Choose
+                                //- 전문가가 남긴 피드백 또는 프로모션, 믹스/마스터 제안 노출 팝업
+                                a.confirm__btn(type='button' data-toggle='modal' data-target=`#${type}__proposal-modal${index}`) View
+                    else if receptions.title === "promotion" || receptions.title === "mixmaster"
+                      each item, index in receptions.proposalID
+                        li.reception__item
+                          .item__card
+                            .card__flex
+                              .expert__profile
+                                +userProfile(item.expertID[0])
+                              h1.expert__name.twoLineEllipsis=item.expertID[0].name
+                              h1.expert__overview.threeLineEllipsis=item.expertID[0].overview
+                              .expert__rate-flex
+                                img.rate__img(src=`${imgPath}/dashboard/full_star${item.expertID[0].averageRate >= 1 ? "_active" : ""}.png`)
+                                img.rate__img(src=`${imgPath}/dashboard/full_star${item.expertID[0].averageRate >= 2 ? "_active" : ""}.png`)
+                                img.rate__img(src=`${imgPath}/dashboard/full_star${item.expertID[0].averageRate >= 3 ? "_active" : ""}.png`)
+                                img.rate__img(src=`${imgPath}/dashboard/full_star${item.expertID[0].averageRate >= 4 ? "_active" : ""}.png`)
+                                img.rate__img(src=`${imgPath}/dashboard/full_star${item.expertID[0].averageRate >= 5 ? "_active" : ""}.png`)
+                              .card__btn-flex
+                                //- [Promotion, Mix/Master] 전문가가 제안한 금액으로 결제팝업노출
+                                if !item.chooseBool 
+                                  a.choose__btn(type='button' data-toggle='modal' data-target=`#${type}__choose-modal${index}`) Choose
+                                //- 전문가가 남긴 피드백 또는 프로모션, 믹스/마스터 제안 노출 팝업
+                                a.confirm__btn(type='button' data-toggle='modal' data-target=`#${type}__proposal-modal${index}`) Proposal
+                                //- type=feedback / promotion / mixmaster, item=proposal or offer
+              //- 모바일 아니면 스와이퍼
+              else 
+                .swiper__navigation
+                  .swiper__navigation-prev
+                    svg.icon.icon-tabler.icon-tabler-chevron-left(xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24')
+                      path(stroke='none' d='M0 0h24v24H0z' fill='none')
+                      polyline(points='15 6 9 12 15 18')
+                  .swiper__navigation-next
+                    svg.icon.icon-tabler.icon-tabler-chevron-right(xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24')
+                      path(stroke='none' d='M0 0h24v24H0z' fill='none')
+                      polyline(points='9 6 15 12 9 18')
+                .swiper.mySwiper.receptionSwiper
+                  .swiper-wrapper
+                    if receptions.title === "feedback"
+                      each item, index in receptions.offerID
+                        .swiper-slide
+                          .reception__item
+                            .item__card
+                              .card__flex(style=`height: 548.5px;`)
+                                if !item.expertID
+                                  h1.expert__name.twoLineEllipsis(style=`height: 495px;`) Deleted<br>Expert
+                                else
+                                  a.expert__profile-link(href=`${routes.userMusician}${routes.expertDetail}/${item.expertID[0]._id}`)
+                                    .expert__profile
+                                      +userProfile(item.expertID[0])
+                                    h1.expert__name.twoLineEllipsis=item.expertID[0].name
+                                  h1.expert__overview.threeLineEllipsis=item.expertID[0].overview
+                                  .expert__rate-flex
+                                    img.rate__img(src=`${imgPath}/dashboard/full_star${item.expertID[0].averageRate >= 1 ? "_active" : ""}.png`)
+                                    img.rate__img(src=`${imgPath}/dashboard/full_star${item.expertID[0].averageRate >= 2 ? "_active" : ""}.png`)
+                                    img.rate__img(src=`${imgPath}/dashboard/full_star${item.expertID[0].averageRate >= 3 ? "_active" : ""}.png`)
+                                    img.rate__img(src=`${imgPath}/dashboard/full_star${item.expertID[0].averageRate >= 4 ? "_active" : ""}.png`)
+                                    img.rate__img(src=`${imgPath}/dashboard/full_star${item.expertID[0].averageRate >= 5 ? "_active" : ""}.png`)
+                                .card__btn-flex
+                                  //- [Feedback] 선택 및 F/B Rule 적용하여 RESULT 처리
+                                  if !item.chooseBool && !item.finishOffer
+                                    if receptions.offerID.length === 3
+                                      if item.expertID
+                                        a.choose__btn.feedback__choose-btn(data-id=item._id data-feedback=receptions._id) Choose
+                                  //- 전문가가 남긴 피드백 또는 프로모션, 믹스/마스터 제안 노출 팝업
+                                  a.confirm__btn(type='button' data-toggle='modal' data-target=`#${type}__proposal-modal${index}`) View
+                    else if receptions.title === "promotion" || receptions.title === "mixmaster"
+                      each item, index in receptions.proposalID
+                        .swiper-slide
+                          .reception__item
+                            .item__card
+                              .card__flex
+                                a.expert__profile-link(href=`${routes.userMusician}${routes.expertDetail}/${item.expertID[0]._id}`)
+                                  .expert__profile
+                                    +userProfile(item.expertID[0])
+                                  h1.expert__name.twoLineEllipsis=item.expertID[0].name
+                                h1.expert__overview.threeLineEllipsis=item.expertID[0].overview
+                                .expert__rate-flex
+                                  img.rate__img(src=`${imgPath}/dashboard/full_star${item.expertID[0].averageRate >= 1 ? "_active" : ""}.png`)
+                                  img.rate__img(src=`${imgPath}/dashboard/full_star${item.expertID[0].averageRate >= 2 ? "_active" : ""}.png`)
+                                  img.rate__img(src=`${imgPath}/dashboard/full_star${item.expertID[0].averageRate >= 3 ? "_active" : ""}.png`)
+                                  img.rate__img(src=`${imgPath}/dashboard/full_star${item.expertID[0].averageRate >= 4 ? "_active" : ""}.png`)
+                                  img.rate__img(src=`${imgPath}/dashboard/full_star${item.expertID[0].averageRate >= 5 ? "_active" : ""}.png`)
+                                .card__btn-flex
+                                  //- [Promotion, Mix/Master] 전문가가 제안한 금액으로 결제팝업노출
+                                  if !item.chooseBool 
+                                    a.choose__btn(type='button' data-toggle='modal' data-target=`#${type}__choose-modal${index}`) Choose
+                                  //- 전문가가 남긴 피드백 또는 프로모션, 믹스/마스터 제안 노출 팝업
+                                  a.confirm__btn(type='button' data-toggle='modal' data-target=`#${type}__proposal-modal${index}`) Proposal
+                                  //- type=feedback / promotion / mixmaster, item=proposal or offer
+                .warning__text-flex 
+                  h1.warning__text If you find certain feedback careless, deficient, or below standard - please take a screenshot of the entire feedback and send it to us at info@chartinmusic.com. We'll give you a refund for that feedback and penalize experts in case of violation.
+              if receptions.title === "feedback"
+                each item, index in receptions.offerID
+                  +receptionModal(type, item, index, receptions)
+              else if receptions.title === "promotion" || receptions.title === "mixmaster"
+                #mixin__section
+                  each item, index in receptions.proposalID
+                    +receptionModal(type, item, index, receptions)
+                    +chooseModal(type, item, index, receptions._id, item._id)

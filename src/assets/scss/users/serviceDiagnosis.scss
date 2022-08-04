@@ -1,0 +1,145 @@
+.serviceDiagnosis__page#serviceDiagnosis__page {
+  padding-bottom: 160px;
+  section.serviceDiagnosis__banner {
+    width: 90%;
+    margin: 0 auto;
+    max-width: 500px;
+    .banner__img {
+      padding-top: 80%;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
+  }
+  .serviceDiagnosis__page-flex {
+    .serviceDiagnosis__flex {
+      position: relative;
+      bottom: 20px;
+      padding-bottom: 140px;
+      section.serviceDiagnosis__header {
+        margin-bottom: 40px;
+        h1.header__title {
+          font-size: 34px;
+          font-weight: bold;
+          color: #fff;
+        }
+      }
+      section.serviceDiagnosis__main {
+        .main__flex {
+          form#serviceDiagnosisForm {
+            .form__flex {
+              margin-bottom: 40px;
+              .form__group {
+                margin-bottom: 20px;
+                display: flex;
+                flex-direction: column;
+                label.form__label {
+                  margin-bottom: 10px;
+                  font-size: 20px;
+                  font-weight: 600;
+                  color: #fff;
+                }
+                .form__section {
+                  padding: 18px 20px;
+                  border-radius: 10px;
+                  font-size: 16px;
+                  font-weight: 500;
+                  color: #fff;
+                  border: solid 1px #626262;
+                  background-color: #101113;
+                  &:focus {
+                    border: solid 1px $mainColor;
+                  }
+                }
+                .form__section.active,
+                .form__group-selectInput.active {
+                  border: 1px solid $mainColor;
+                }
+                .form__error {
+                  border: 1px solid #ea3434;
+                }
+                input.form__input-goal {
+                  margin-top: 20px;
+                  display: none;
+                }
+                input.form__input-goal.pop-up {
+                  display: block;
+                }
+              }
+              .form__group-service {
+                display: none;
+              }
+              .form__group-service.active {
+                display: flex;
+              }
+            }
+            button#serviceDiagnosisSubmit {
+              width: 100%;
+              padding: 10px;
+              font-size: 18px;
+              font-weight: 600;
+              color: #fff;
+              border-radius: 10px;
+              background-color: #3e3e3e;
+            }
+            button#serviceDiagnosisSubmit.active {
+              background-color: $mainColor;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  .serviceDiagnosis__page#serviceDiagnosis__page {
+    padding-bottom: 200px;
+    section.serviceDiagnosis__banner {
+      width: calc(90% + 40px);
+      max-width: 1720px;
+      .banner__img {
+        padding-top: 19.642857%;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+      }
+    }
+    .serviceDiagnosis__page-flex {
+      .serviceDiagnosis__flex {
+        bottom: 49px;
+        padding-bottom: 150px;
+        section.serviceDiagnosis__header {
+          padding: 0 40px;
+          h1.header__title {
+            font-size: 82px;
+          }
+        }
+        section.serviceDiagnosis__main {
+          width: 50%;
+          .main__flex {
+            form#serviceDiagnosisForm {
+              .form__flex {
+                .form__group {
+                  margin-bottom: 40px;
+                  label.form__label {
+                    margin-bottom: 20px;
+                    font-size: 24px;
+                  }
+                  .form__section {
+                    font-size: 18px;
+                  }
+                }
+              }
+              button#serviceDiagnosisSubmit {
+                padding: 20px;
+                font-size: 24px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

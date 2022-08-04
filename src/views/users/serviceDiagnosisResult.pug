@@ -1,0 +1,133 @@
+extends ../layouts/main
+include ../partials/mixins
+
+block content
+  .serviceDiagnosis__result-page#serviceDiagnosis__result-page
+    .serviceDiagnosis__result-flex.layout
+      section.serviceDiagnosis__result-section
+        h1.serviceDiagnosis__result-title Best Match
+        .serviceDiagnosis__result-wrapper
+          .content__wrapper-flex
+            if diagnoses.result.service === "Feedback" || diagnoses.result.service === "Mix/Master"
+              h1.serviceDiagnosis__result-content Welcome, <br><br>
+                if diagnoses.result.service === "Feedback"
+                  span.serviceDiagnosis__result-content=`You've indicated that you need `
+                  span.serviceDiagnosis__result-content--mainColor=`${diagnoses.result.feedbackType} `
+                  span.serviceDiagnosis__result-content=`feedback.`
+                  span.serviceDiagnosis__result-content !{feedback[0].content}
+                else
+                  span.serviceDiagnosis__result-content=`You've indicated that you need to `
+                  span.serviceDiagnosis__result-content--mainColor=`${diagnoses.result.detail} `
+                  span.serviceDiagnosis__result-content=`your music.`
+                  span.serviceDiagnosis__result-content !{mixMaster[0].content}
+            //- promotion
+            else
+              //- promotion 1 인사
+              if diagnoses.randomNum === 1
+                h1.serviceDiagnosis__result-content !{promotionIntro[0].content[0].firstIntro}
+                span.serviceDiagnosis__result-content=` According to your profile, your promotion goal is `
+                span.serviceDiagnosis__result-content--mainColor=`${Array.isArray(diagnoses.result.goal) ? diagnoses.result.goal.join(", ") : diagnoses.result.goal} `
+                span.serviceDiagnosis__result-content=`and have `
+                span.serviceDiagnosis__result-content--mainColor=`${diagnoses.result.budget} `
+                span.serviceDiagnosis__result-content=`now, targeting the music market in `
+                span.serviceDiagnosis__result-content--mainColor=`${diagnoses.result.country}.`
+                span.serviceDiagnosis__result-content <br><br>Based on this, we recommend you following:<br><br>
+              //- promotion 2 인사
+              else if diagnoses.randomNum === 2
+                h1.serviceDiagnosis__result-content !{promotionIntro[0].content[1].secondIntro}
+                span.serviceDiagnosis__result-content=`So you want `
+                span.serviceDiagnosis__result-content--mainColor=`${Array.isArray(diagnoses.result.goal) ? diagnoses.result.goal.join(", ") : diagnoses.result.goal} `
+                span.serviceDiagnosis__result-content=`with budget of `
+                span.serviceDiagnosis__result-content--mainColor=`${diagnoses.result.budget} `
+                span.serviceDiagnosis__result-content=`in `
+                span.serviceDiagnosis__result-content--mainColor=`${diagnoses.result.country}.`
+                span.serviceDiagnosis__result-content  <br><br>Here are your options.<br><br>
+              else
+                h1.serviceDiagnosis__result-content !{promotionIntro[0].content[2].thirdIntro}
+                span.serviceDiagnosis__result-content=` You've indicated that you want `
+                span.serviceDiagnosis__result-content--mainColor=`${Array.isArray(diagnoses.result.goal) ? diagnoses.result.goal.join(", ") : diagnoses.result.goal} `
+                span.serviceDiagnosis__result-content=`with budget of `
+                span.serviceDiagnosis__result-content--mainColor=`${diagnoses.result.budget} `
+                span.serviceDiagnosis__result-content=`in `
+                span.serviceDiagnosis__result-content--mainColor=`${diagnoses.result.country}.`
+                span.serviceDiagnosis__result-content First of all, we have verified experts with full industry background who can help you both short term and long term.<br><br>And here are the services that our experts can provide you<br><br>
+              //- 500 이하
+              if diagnoses.result.budget === "300-500 USD"
+                span.serviceDiagnosis__result-content--service.text__deco-underLine=`1. ${diagnoses.result.genre} `
+                if diagnoses.result.genre === "HipHop"
+                  span.serviceDiagnosis__result-content--service.text__deco-underLine !{promotionMarketing[0].firstHipHop}
+                //- else if diagnoses.result.genre === "Rock"
+                //-   span.serviceDiagnosis__result-content--service.text__deco-underLine !{promotionMarketing[1].firstOthers}, and get higher in music world!
+                //- else
+                //-   span.serviceDiagnosis__result-content--service.text__deco-underLine !{promotionMarketing[1].firstOthers}
+              //- 500~1000
+              else if diagnoses.result.budget === "500-800 USD" ||  diagnoses.result.budget === "800-1,000 USD"
+                //- 1번
+                span.serviceDiagnosis__result-content--service.text__deco-underLine !{promotionMarketingSecond[0].first}
+                span.serviceDiagnosis__result-content--service.text__deco-underLine=`2. ${diagnoses.result.genre}`
+                //- 2번
+                span.serviceDiagnosis__result-content--service.text__deco-underLine !{promotionMarketingSecond[1].second}
+                //- 3번
+                span.serviceDiagnosis__result-content--service.text__deco-underLine !{promotionMarketingSecond[2].third}
+                //- 4번
+                span.serviceDiagnosis__result-content--service.text__deco-underLine !{promotionMarketingSecond[3].fourth}
+                //- 5번
+                span.serviceDiagnosis__result-content--service.text__deco-underLine !{promotionMarketingSecond[4].fifth}
+              //- 1000이상
+              else
+                //- 1번
+                span.serviceDiagnosis__result-content--service.text__deco-underLine !{promotionMarketingThird[0].first}
+                span.serviceDiagnosis__result-content--service.text__deco-underLine=`2. ${diagnoses.result.genre}`
+                //- 2번
+                span.serviceDiagnosis__result-content--service.text__deco-underLine !{promotionMarketingThird[1].second}
+                //- 3번
+                if diagnoses.result.genre === "HipHop" || diagnoses.result.genre === "Classic"
+                  span.serviceDiagnosis__result-content--service.text__deco-underLine !{promotionMarketingThird[2].third[0].one}
+                else if diagnoses.result.genre === "EDM" || diagnoses.result.genre === "Pop"
+                  span.serviceDiagnosis__result-content--service.text__deco-underLine !{promotionMarketingThird[2].third[2].three}
+                else
+                  span.serviceDiagnosis__result-content--service.text__deco-underLine !{promotionMarketingThird[2].third[1].two}
+                //- 4번
+                span.serviceDiagnosis__result-content--service.text__deco-underLine !{promotionMarketingThird[3].fourth}
+                //- 5번
+                if diagnoses.result.genre === "Classic"
+                  span.serviceDiagnosis__result-content--service.text__deco-underLine !{promotionMarketingThird[4].fifth[1].two}
+                else
+                  span.serviceDiagnosis__result-content--service.text__deco-underLine !{promotionMarketingThird[4].fifth[0].one}
+                //- 6번
+                span.serviceDiagnosis__result-content--service.text__deco-underLine !{promotionMarketingThird[5].sixth}
+              //- promotion marketing 뒤에 들어오는 내용
+              if diagnoses.randomNum === 2
+                span.serviceDiagnosis__result-content=`Our hand-picked verified experts from all kinds of unique music industry/marketing background will assist you from A-Z.`
+                span.serviceDiagnosis__result-content <br><br>Take a close look and decide which one fits best to your needs.<br><br>
+              else if diagnoses.randomNum === 3
+                span.serviceDiagnosis__result-content Take a close look and decide which one fits best to your needs.<br><br>
+              //- 비디오 존재 여부
+              //- promotion 1
+              if diagnoses.randomNum === 1
+                if diagnoses.result.link === ""
+                  span.serviceDiagnosis__result-content !{promotionVideoLink[0].firstVideoLink[0].none}
+                else
+                  span.serviceDiagnosis__result-content !{promotionVideoLink[0].firstVideoLink[0].existence}
+              //- promotion 2
+              else if diagnoses.randomNum === 2
+                if diagnoses.result.link === ""
+                  span.serviceDiagnosis__result-content !{promotionVideoLink[1].secondVideoLink[0].none}
+                else
+                  span.serviceDiagnosis__result-content !{promotionVideoLink[1].secondVideoLink[0].existence}
+              //- promotion 3
+              else
+                if diagnoses.result.link === ""
+                  span.serviceDiagnosis__result-content !{promotionVideoLink[2].thirdVideoLink[0].none}
+                else
+                  span.serviceDiagnosis__result-content !{promotionVideoLink[2].thirdVideoLink[0].existence}
+          //- Feedback / Promotion / Mix/Master Service Request Mixins
+          section.serviceRequest__section
+            #mixin__section
+              ul.request__items
+                li.request__item
+                  +requestFeedback()
+                li.request__item
+                  +requestPromotion()
+                li.request__item
+                  +requestMixMaster()

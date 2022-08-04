@@ -1,0 +1,94 @@
+extends ../layouts/adminMain
+
+block content
+  body.vertical-layout.vertical-menu-modern.navbar-floating.footer-static(data-open='click' data-menu='vertical-menu-modern' data-col='')
+    main.admin__main
+      .admin__page#admin__partnerLogo-page
+        include adminSidebar
+        //- BEGIN: Content
+        .app-content.content
+          .content-overlay
+          .header-navbar-shadow
+          .content-wrapper.container-xxl.p-0
+            .content-body
+              //- BEGIN: Top Button Collection
+              .top__btn-items
+                //- BEGIN: Create Button
+                .top__btn-item
+                  a.btn.btn-primary.waves-effect.waves-float.waves-light(href=`${routes.admin}${adminLink}/create`)
+                    i.plus__icon(data-feather="plus" style="margin-right: 5px;")
+                    =`${adminNameKo} 등록`
+                //- END: Create Button
+              //- END: Top Button Collection
+              //- BEGIN: Basic Tables
+              #basic-table.row
+                .col-12
+                  .card(style="overflow: scroll;")
+                    .card-header
+                      h1.card-header-title=`${adminNameKo}`
+                    .card-body
+                      p.card-text If you can't see anything, try scrolling left to right.
+                    .table-responsive
+                      //- FIXME: 각 칼럼 width 적절히 조정 후 합계로 min-width 설정 必
+                      table.table.mb-0(style="min-width: 900px;")
+                        thead
+                          tr
+                            //- FIXME: 데이터 동기화 必
+                            th(scope='col' style="width: 80px;") Number
+                            th(scope='col' style="width: 120px;") Edit/Delete
+                            th(scope='col' style="width: 100px;") Logo
+                            th(scope='col' style="width: 200px;") 이름 [클릭 시 상세보기]
+                            th(scope='col' style="width: 200px;") Created
+                            th(scope='col' style="width: 200px;") Modified
+                        tbody
+                          each item, index in adminItems
+                            tr
+                              //- FIXME: 데이터 동기화 必
+                              td(scope='col' style="max-width: 80px;")
+                                span.font-weight-bold=`${index +1}`
+                              td(scope='col' style="width: 120px;")
+                                .td__items
+                                  a.td__item(href=`${routes.admin}${adminLink}/update/${item._id}`)
+                                    svg.feather.feather-edit-2(xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round')
+                                      path(d='M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z')
+                                  a.td__item(href=`${routes.admin}${adminLink}/delete/${item._id}` onclick="return confirm('Sure you want to delete?')")
+                                    svg.feather.feather-trash(xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round')
+                                      polyline(points='3 6 5 6 21 6')
+                                      path(d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2')
+                              td(scope='col' style="width: 100px;")
+                                img(src=item.img width="100%")
+                              td.ellipsis__td(scope='col' style="width: 100px;")
+                                a.td__link(href=`${routes.admin}${adminLink}/detail/${item._id}`)=item.name
+                                  i.external-link__icon(data-feather='external-link')
+                              td(scope='col' style="width: 100px;")=dateFormatYMDHm(item.createdAt)
+                              td(scope='col' style="width: 100px;")=dateFormatYMDHm(item.updatedAt)
+              //- END: Basic Tables
+            //- BEGIN: Pagination
+            #pagination__flex
+              if adminItems.length !== 0
+                nav(aria-label='Page navigation example')
+                  ul.pagination.firstLast1-links.mt-1
+                    li.page-item.first
+                      a.page-link(href=`?page=1&limit=${limit}` aria-label="First")
+                        i(data-feather='chevrons-left')
+                    if paginate.hasPreviousPages
+                      li.page-item.prev
+                        a.page-link(paginate.href(true) aria-label="Previous")
+                    each page in pages
+                      if paginate.page === page.number
+                        li.page-item.active(aria-current='page')
+                          a.page-link(href=page.url)=page.number
+                      else
+                        li.page-item
+                          a.page-link(href=page.url)=page.number
+                    if paginate.hasNextPages(pageCount)
+                      li.page-item.next
+                        a.page-link(href=paginate.href())
+                    li.page-item.last
+                      a.page-link(href=`?page=${pageCount}&limit=${limit}`)
+                        i(data-feather='chevrons-right')
+            //- END: Pagination
+        //- END: Content
+    //- BEGIN: Repeated scripts
+    include adminScripts
+    //- END: Repeated scripts

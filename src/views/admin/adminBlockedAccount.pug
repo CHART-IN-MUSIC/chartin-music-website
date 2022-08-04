@@ -1,0 +1,69 @@
+extends ../layouts/adminMain
+
+block content
+  body.vertical-layout.vertical-menu-modern.navbar-floating.footer-static(data-open='click' data-menu='vertical-menu-modern' data-col='')
+    main.admin__main
+      .admin__page#admin__membership-page
+        include adminSidebar
+        //- BEGIN: Content
+        .app-content.content
+          .content-overlay
+          .header-navbar-shadow
+          .content-wrapper.container-xxl.p-0
+            .content-body
+              //- BEGIN: Basic Tables
+              #basic-table.row
+                .col-12
+                  .card(style="overflow: scroll;")
+                    .card-header
+                      h1.card-header-title=`${adminNameKo}`
+                    .card-body(style="display: flex; align-items: center; justify-content: space-between;")
+                      p.card-text If you can't see anything, try scrolling left to right.
+                    .table-responsive
+                      table.table.mb-0(style="min-width: 580px;")
+                        thead
+                          tr
+                            th(scope='col' style="width: 80px;") Number
+                            th(scope='col' style="width: 100px;") Unblock
+                            th(scope='col' style="width: 200px;") ID
+                            th(scope='col' style="width: 200px;") Created
+                        tbody
+                          each item, index in adminItems
+                            tr
+                              td(scope='col' style="max-width: 80px;")
+                                span.font-weight-bold=`${index +1}`
+                              td(scope='col' style="width: 100px;")
+                                #admin__unblock-section
+                                  button.btn.btn-primary.waves-effect.waves-float.waves-light#unblock-user-btn(type="button" data-id=item._id) Unblock
+                              td.ellipsis__td(scope='col' style="width: 200px;")=item.email
+                              td(scope='col' style="width: 200px;")=dateFormatYMDHm(item.createdAt)
+              //- END: Basic Tables
+            //- BEGIN: Pagination
+            #pagination__flex
+              if adminItems.length !== 0
+                nav(aria-label='Page navigation example')
+                  ul.pagination.firstLast1-links.mt-1
+                    li.page-item.first
+                      a.page-link(href=`?page=1&limit=${limit}` aria-label="First")
+                        i(data-feather='chevrons-left')
+                    if paginate.hasPreviousPages
+                      li.page-item.prev
+                        a.page-link(paginate.href(true) aria-label="Previous")
+                    each page in pages
+                      if paginate.page === page.number
+                        li.page-item.active(aria-current='page')
+                          a.page-link(href=page.url)=page.number
+                      else
+                        li.page-item
+                          a.page-link(href=page.url)=page.number
+                    if paginate.hasNextPages(pageCount)
+                      li.page-item.next
+                        a.page-link(href=paginate.href())
+                    li.page-item.last
+                      a.page-link(href=`?page=${pageCount}&limit=${limit}`)
+                        i(data-feather='chevrons-right')
+            //- END: Pagination
+        //- END: Content
+    //- BEGIN: Repeated scripts
+    include adminScripts
+    //- END: Repeated scripts

@@ -1,0 +1,245 @@
+.musicianList__detail-page#musicianList__detail-page {
+  padding-top: 40px;
+  padding-bottom: 160px;
+  .musicianList__detail-flex {
+    section.musicianList__detail-content {
+      .content__flex {
+        display: flex;
+        flex-direction: column-reverse;
+        .layout {
+          .users__request-info {
+            margin-bottom: 40px;
+            ul.request__info-items {
+              li.request__info-item {
+                margin-bottom: 15px;
+                font-size: 16px;
+                overflow-wrap: break-word;
+                h3.info__item-title {
+                  margin-bottom: 3px;
+                  font-weight: 600;
+                  color: #fff;
+                }
+                p.info__item-desc {
+                  color: #c9c9c9;
+                  white-space: pre-wrap;
+                }
+                a.info__item-link {
+                  display: block;
+                  color: $mainColor;
+                  -webkit-text-fill-color: $mainColor;
+                  &:hover {
+                    color: $mainColor;
+                    -webkit-text-fill-color: $mainColor;
+                  }
+                }
+              }
+            }
+          }
+          .requset__btn-flex {
+            button.request__btn {
+              width: 100%;
+              padding: 15px 93px;
+              font-size: 18px;
+              font-weight: 600;
+              color: #16151a;
+              border-radius: 10px;
+              background-color: #10eb73;
+            }
+            button.request__modal-btn {
+              // display: none;
+            }
+          }
+        }
+        section.musicVideo__section {
+          .musicVideo__flex {
+            .musicVideo__wrapper-video {
+              margin-bottom: 40px;
+              iframe {
+                display: flex;
+                justify-content: center;
+                margin: 0 auto;
+                width: 100%;
+                max-width: 500px;
+                height: 211px;
+              }
+              .musicVideo__user {
+                width: 90%;
+                max-width: 500px;
+                margin: 20px auto 0 auto;
+                .user__profile-flex {
+                  display: flex;
+                  align-items: center;
+                  .user__profile {
+                    width: 46px;
+                    margin-right: 10px;
+                  }
+                  .user__info-flex {
+                    h1.user__name {
+                      margin-bottom: 4px;
+                      font-size: 16px;
+                      font-weight: bold;
+                      color: #fff;
+                    }
+                    .user__like-flex {
+                      display: flex;
+                      align-items: center;
+                      line-height: normal;
+                      button.user__like-btn {
+                        margin-right: 3px;
+                        display: flex;
+                        align-items: center;
+                        img.like__btn-img {
+                          margin-right: 5px;
+                          width: 14px;
+                          object-fit: cover;
+                        }
+                        h1.like__title {
+                          font-size: 12px;
+                          color: #c9c9c9;
+                        }
+                        h1.like__title.active {
+                          color: $mainColor;
+                        }
+                      }
+                      h1.user__country {
+                        font-size: 12px;
+                        color: #c9c9c9;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            .musicVideo__wrapper-request {
+              margin-bottom: 40px;
+              h1.user__overview {
+                margin-bottom: 20px;
+                font-size: 16px;
+                color: #fff;
+                font-weight: 600;
+                span.user__overview-span {
+                  color: #c9c9c9;
+                  font-weight: normal;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  .musicianList__detail-page#musicianList__detail-page {
+    padding-top: 160px;
+    padding-bottom: 200px;
+    .musicianList__detail-flex {
+      section.musicianList__detail-content {
+        .content__flex {
+          width: 90%;
+          max-width: 1680px;
+          margin: 0 auto;
+          display: flex;
+          flex-direction: row;
+          align-items: flex-start;
+          justify-content: space-between;
+          section.user__profile-section {
+            width: calc(40% - 45px);
+            .user__profile-flex {
+              margin-bottom: 60px;
+              display: flex;
+              align-items: flex-start;
+              .user__profile {
+                width: 204px;
+                margin-right: 20px;
+              }
+              .user__info-flex {
+                h1.user__name {
+                  margin-bottom: 10px;
+                  font-size: 32px;
+                  font-weight: bold;
+                  color: #fff;
+                }
+                .user__like-flex {
+                  display: flex;
+                  align-items: center;
+                  button.user__like-btn {
+                    margin-right: 5px;
+                    display: flex;
+                    align-items: center;
+                    img.like__btn-img {
+                      width: 21px;
+                      object-fit: cover;
+                      margin-right: 10px;
+                    }
+                    h1.like__title {
+                      font-size: 22px;
+                      color: #c9c9c9;
+                    }
+                    h1.like__title.active {
+                      color: $mainColor;
+                    }
+                  }
+                  h1.user__country {
+                    font-size: 22px;
+                    color: #c9c9c9;
+                  }
+                }
+              }
+            }
+            .layout {
+              .musicVideo__wrapper-request {
+                margin: 0;
+                h1.user__overview {
+                  margin-bottom: 40px;
+                  font-size: 22px;
+                }
+                .users__request-info {
+                  margin-bottom: 60px;
+                  ul.request__info-items {
+                    li.request__info-item {
+                      margin-bottom: 20px;
+                      font-size: 22px;
+                      h3.info__item-title {
+                        margin-bottom: 5px;
+                      }
+                    }
+                  }
+                }
+                .requset__btn-flex {
+                  button.request__btn {
+                    width: 280px;
+                    padding: 11px 40px;
+                    font-size: 24px;
+                  }
+                }
+              }
+            }
+          }
+          section.musicVideo__section {
+            width: calc(60% - 45px);
+            .musicVideo__flex {
+              display: flex;
+              flex-direction: column;
+              .musicVideo__wrapper-video {
+                margin-bottom: 60px;
+                iframe {
+                  max-width: initial;
+                  height: 487px;
+                  border-radius: 10px;
+                }
+                .musicVideo__user {
+                  display: none;
+                }
+              }
+              .musicVideo__wrapper-request {
+                margin: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+extends ../layouts/noPartialMain
+
+block content
+  .signIn__page#signIn__page
+    .signIn__page-flex
+      //- 로그인 로고 영역
+      section.signIn__logo-section
+        .logo__section-bg
+          .signIn__bg-flex
+            h1.signIn__title Kickstart<br>Your Music<br>Career
+            .divider
+            .signIn__subTitle-flex
+              h1.signIn__subTitle Find experts and influencers<br>who can help you<br><br>Get famous, Fast
+              img.signIn__logo-img(src=`${imgPath}/public/logo_basic@3x.png`)
+      //- 로그인 form 영역
+      section.signIn__form-section
+        .layout
+          .signIn__form-header
+            .header__title-flex
+              h1.header__title Welcome
+              img.header__img(src=`${imgPath}/signIn/finger_icon@3x.png`)
+            h1.header__subTitle Please login to access your account.
+          .signIn__form-main
+            form.signIn__form#signIn__form(method='post')
+              .form-flex
+                label.form-label(for='signIn__email') Email
+                input#signIn__email.form-input(type='email' name='userID' placeholder='Type your email :)' autocompelete="off" required)
+              .form-flex
+                label.form-label(for='signIn__password') Password
+                input#signIn__password.form-input(type='password' name='password' placeholder='Type your password ( _ _ ) ( - - )' autocompelete="off" required)
+              .form__submit-flex
+                button.signIn__submit-btn(type='submit') Sign in
+              a.signUp__link(href=`${routes.user}${routes.register}`) Don’t have an account? Sign Up
+                img.signUp__link-img(src=`${imgPath}/signIn/firecracker_icon@3x.png`)
+            .find__link-flex 
+              a.find__id-link(href=`${routes.user}${routes.findID}`) Finding the ID
+              a.find__pw-link(href=`${routes.user}${routes.findPW}`) Finding a Password
+

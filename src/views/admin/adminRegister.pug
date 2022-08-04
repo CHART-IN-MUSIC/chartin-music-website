@@ -1,0 +1,58 @@
+extends ../layouts/adminMain
+
+block content
+  body.vertical-layout.vertical-menu-modern.blank-page.navbar-floating.footer-static(data-open='click' data-menu='vertical-menu-modern' data-col='blank-page')
+    main.admin__main
+      .admin__page#admin__register-page
+        //- BEGIN: Content
+        .app-content.content
+          .content-overlay
+          .header-navbar-shadow
+          .content-wrapper
+            .content-header.row
+            .content-body
+              .auth-wrapper.auth-v2
+                .auth-inner.row.m-0
+                  //- BEGIN: Brand logo
+                  a.brand-logo(href=routes.home)
+                    h2.brand-text.text-primary.ml-1=siteName
+                  //- END: Brand logo
+                  //- BEGIN: Left Text
+                  .d-none.d-lg-flex.col-lg-8.align-items-center.p-5
+                    .w-100.d-lg-flex.align-items-center.justify-content-center.px-5
+                      img.img-fluid(src='/app-assets/images/pages/login-v2.svg' alt='Login V2')
+                  //- END:Left Text
+                  //- BEGIN: Register
+                  .d-flex.col-lg-4.align-items-center.auth-bg.px-2.p-lg-5
+                    .col-12.col-sm-8.col-md-6.col-lg-12.px-xl-2.mx-auto
+                      h2.card-title.font-weight-bold.mb-1 관리자 회원가입 🚀
+                      form.auth-register-form.mt-2(action=`${routes.admin}${routes.adminRegister}` method="POST")
+                        .form-group
+                          label.form-label(for='register-userID') 아이디
+                          input#register-email.form-control(type='text' name='userID' placeholder="아이디" aria-describedby='register-id' tabindex='4' autocomplete="off" required)
+                        .form-group
+                          label.form-label(for='register-password') 비밀번호
+                          .input-group.input-group-merge.form-password-toggle
+                            input#register-password.form-control.form-control-merge(type='password' name='password' placeholder="············" aria-describedby='register-password' tabindex='5' autocomplete="off" required)
+                            .input-group-append
+                              span.input-group-text.cursor-pointer
+                                i(data-feather='eye')
+                        .form-group
+                          label.form-label(for='register-password') 비밀번호 확인
+                          .input-group.input-group-merge.form-password-toggle
+                            input.form-control.form-control-merge(type='password' name='password2' placeholder="············" aria-describedby='register-password2' tabindex='6' autocomplete="off" required)
+                            .input-group-append
+                              span.input-group-text.cursor-pointer
+                                i(data-feather='eye')
+                        button.btn.btn-primary.btn-block(type="submit" tabindex='7') 회원가입
+                      p.text-center.mt-2 이미 계정이 있으신가요?
+                        a(href=`${routes.admin}`)
+                          span &nbsp;로그인 하러 가기
+                  //- END: Register
+        //- END: Content
+    //- BEGIN: Repeated scripts
+    include adminScripts
+    //- END: Repeated scripts
+    //- BEGIN: Page JS
+    script(src='/app-assets/js/scripts/pages/page-auth-register.js')
+    //- END: Page JS

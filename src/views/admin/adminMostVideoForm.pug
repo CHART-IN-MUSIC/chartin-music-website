@@ -1,0 +1,101 @@
+extends ../layouts/adminMain
+
+block content
+  body.vertical-layout.vertical-menu-modern.navbar-floating.footer-static(data-open='click' data-menu='vertical-menu-modern' data-col='')
+    main.admin__main
+      .admin__page#admin__mainVideoForm-page
+        include adminSidebar
+        .app-content.content
+          .content-overlay
+          .header-navbar-shadow
+          .content-wrapper.container-xxl.p-0
+            .content-body
+              //- BEGIN: Validation
+              section.bs-validation
+                .row
+                  //- BEGIN: Bootstrap Validation
+                  .col-xl-6.col-12
+                    .card
+                      .card-header
+                        h1.card-header-title=`${formType} ${adminNameKo}`
+                      .card-body
+                        form#thumbNailForm.needs-validation(novalidate method="POST")
+                          .form-group
+                            .custom-control.custom-checkbox
+                              if updateBool
+                                input#status.custom-control-input(type='checkbox' name="status" checked=adminItem.status)
+                                label.custom-control-label(for='status') Visibility[Check if you want to make it public]
+                              else
+                                input#status.custom-control-input(type='checkbox' name="status")
+                                label.custom-control-label(for='status') Visibility[Check if you want to make it public]
+                          .form-group 
+                            label(for='type') 영상 유형
+                            select#type.form-control(name="type")
+                              if updateBool
+                                if adminItem.type === "Youtube"
+                                  option(value="Youtube" selected) Youtube
+                                  option(value="TikTok") TikTok
+                                else 
+                                  option(value="Youtube" selected) Youtube
+                                  option(value="TikTok") TikTok
+                              else
+                                option(value="Youtube") Youtube
+                                option(value="TikTok") TikTok
+                          .form-group.form-group-thumbnail
+                            label.form-label Thumbnail Image
+                              if updateBool
+                                span.form-label-emphasis.form-label-youtube(class=`${adminItem.type === "Youtube" ? "active" : ""}`) &nbsp;&nbsp;[규격: 1220*540]
+                                span.form-label-emphasis.form-label-tiktok(class=`${adminItem.type === "TikTok" ? "active" : ""}`) &nbsp;&nbsp;[규격: 440*540]
+                              else
+                                span.form-label-emphasis.form-label-youtube.active &nbsp;&nbsp;[규격: 1220*540]
+                                span.form-label-emphasis.form-label-tiktok &nbsp;&nbsp;[규격: 440*540]
+                            if updateBool
+                              h6.text-primary 기존 이미지를 유지하려면 미선택
+                                a.text__primary-link(href=adminItem.thumbnail target="_blank") [기존 이미지 보기]
+                            .custom-file
+                              if updateBool
+                                input#thumbnail.form-control.custom-file-input(type='file' name="uploadVideoThumbnailImg" accept="image/*")
+                              else
+                                input#thumbnail.form-control.custom-file-input(type='file' name="uploadVideoThumbnailImg" accept="image/*" required)
+                              label.custom-file-label(for='customFile') 파일을 선택하세요
+                          .form-group
+                            label.form-label(for='#videoID') Video Link
+                              if updateBool
+                                span.form-label-emphasis.form-label-youtube(class=`${adminItem.type === "Youtube" ? "active" : ""}`) &nbsp;&nbsp;For Youtube, click 'Share' then paste link -> https://youtu.be/KBpXrFKHI6A => KBpXrFKHI6A
+                                span.form-label-emphasis.form-label-tiktok(class=`${adminItem.type === "TikTok" ? "active" : ""}`) &nbsp;&nbsp;[TikTok 예시 => 공유하기 Click => 동영상 퍼가기 Click => data-video-id="7034730514942659841" => 7034730514942659841 복사 후 입력]
+                              else 
+                                span.form-label-emphasis.form-label-youtube.active &nbsp;&nbsp;For Youtube, click 'Share' then paste link -> https://youtu.be/KBpXrFKHI6A => KBpXrFKHI6A
+                                span.form-label-emphasis.form-label-tiktok &nbsp;&nbsp;[TikTok 예시 => 공유하기 Click => 동영상 퍼가기 Click => data-video-id="7034730514942659841" => 7034730514942659841 복사 후 입력]
+                            input#videoID.form-control(type='text' name="videoID" value=`${updateBool ? adminItem.videoID : ""}` placeholder="영상 아이디 값을 입력하세요" required)
+                            .invalid-feedback 이 영역은 필수값입니다.
+                          .form-group
+                            label.form-label(for='#title') Title
+                            input#title.form-control(type='text' name="title" value=`${updateBool ? adminItem.title : ""}` placeholder="제목을 입력하세요" required)
+                            .invalid-feedback 이 영역은 필수값입니다.
+                          .form-group
+                            label.form-label(for='#desc') Summary
+                            textarea#desc.form-control(type='text' name="desc" placeholder="설명을 입력하세요" required)=`${updateBool ? adminItem.desc : ""}`
+                            .invalid-feedback 이 영역은 필수값입니다.
+                          .form-group
+                            label.form-label Expert
+                            input.form-control(type="text" id="local" name="userID" list="userID" value=`${updateBool ? adminItem.expertID[0].userID : ""}` placeholder="전문가 아이디를 검색해보세요." autocompelete="off" required)
+                            datalist(id="userID")
+                              each expert in experts
+                                option(value=expert.userID)=expert.userID
+                            .invalid-feedback 이 영역은 필수값입니다.
+                          .row
+                            .col-12
+                              button.btn.btn-primary.waves-effect.waves-float.waves-light(type="submit")=`${formType}하기`
+                  //- END: Bootstrap Validation
+              //- END: Validation
+    //- BEGIN: Repeated scripts
+    include adminScripts
+    //- END: Repeated scripts
+    //- BEGIN: Page Vendor JS
+    script(src='/app-assets/vendors/js/forms/select/select2.full.min.js')
+    script(src='/app-assets/vendors/js/forms/validation/jquery.validate.min.js')
+    script(src='/app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js')
+    //- END: Page Vendor JS
+    //- BEGIN: Page JS
+    script(src='/app-assets/js/scripts/forms/form-validation.js')
+    //- END: Page JS

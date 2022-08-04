@@ -1,0 +1,74 @@
+extends layouts/main
+
+block content
+  //- Home main
+  .videoDetail__page#videoDetail__page
+    .videoDetail__flex.layout
+      section.videoDetail__header
+        h1.header__title Discover
+      section.videoDetail__main
+        .main__flex
+          ul.video__items
+            li.video__item
+              if video.type === "Youtube"
+                .video__content
+                  iframe(src=`https://www.youtube.com/embed/${video.videoID}` title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen)
+              else if video.type === "TikTok"
+                .video__content-tiktok
+                  div(style='max-width: 56vh; margin: 0 auto;')
+                    div(style='left: 0; width: 100%; height: 0; position: relative; padding-bottom: 177.7778%; padding-top: 120px;')
+                      iframe#tiktokIframe(src=`https://www.tiktok.com/embed/${video.videoID}` style='top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;' allowfullscreen scrolling='no' allow='encrypted-media;')
+              else if !video.type && video.contentLink.includes("youtu")
+                .video__content
+                  if video.contentLink.includes("youtube")
+                    iframe(src=`https://www.youtube.com/embed/${video.contentLink.split("watch?v=")[1]}` title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen)
+                  else if video.contentLink.includes("youtu.be")
+                    iframe(src=`https://www.youtube.com/embed/${video.contentLink.split("youtu.be/")[1]}` title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen)
+              else if !video.type && video.contentLink.split("/").length === 6
+                .video__content-tiktok
+                  div(style='max-width: 56vh;')
+                    div(style='left: 0; width: 100%; height: 0; position: relative; padding-bottom: 177.7778%; padding-top: 120px;')
+                      iframe#tiktokIframe(src=`https://www.tiktok.com/embed/${video.contentLink.split("/")[5]}` style='top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;' allowfullscreen scrolling='no' allow='encrypted-media;')
+              .item__title-flex
+                h1.item__title=video.title
+                .item__flex
+                  if loggedUser
+                    if loggedUser.role === "musician" || loggedUser.role === "expert" || loggedUser.role === "admin" || loggedUser.role === "master"
+                      a.user__profile-link(href=`${routes.userMusician}${routes.expertDetail}/${video.expertID[0]._id}`)
+                        .user__profile-flex
+                          +userProfile(video.expertID[0])
+                        .user__info-flex
+                          h1.user__name=video.expertID[0].name
+                          h1.user__like-country=`${video.expertID[0].likeID.length} Like / ${video.expertID[0].currentCountry}`
+                  else
+                    a.user__profile-link(href=`${routes.user}${routes.signIn}` onclick=`return confirm("You need to sign in to access this page.");`)
+                      .user__profile-flex
+                        +userProfile(video.expertID[0])
+                      .user__info-flex
+                        h1.user__name=video.expertID[0].name
+                        h1.user__like-country=`${video.expertID[0].likeID.length} Like / ${video.expertID[0].currentCountry}`
+          section.videoDetail__section
+            .videoDetail__flex#videoDetail__flex
+              h1.header__title Most Watched
+              .swiper.mySwiper.videoDetailSwiper
+                .swiper-wrapper
+                  each item in mostVideos
+                    .swiper-slide
+                      a.video__link(href=`${routes.mostVideoDetail}/${item._id}`)
+                        .thumbnail__flex
+                          .thumbnail__img(style=`background-image: url(${item.thumbnail})`)
+                          .rsp-mb
+                            .item__flex
+                              .user__profile-flex
+                                +userProfile(item.expertID[0])
+                              .user__info-flex
+                                h1.item__name=item.expertID[0].name
+                                h1.item__like-country=`${item.expertID[0].likeID.length} Like / ${item.expertID[0].currentCountry}`
+                        .rsp-pc
+                          .item__video-flex
+                            h1.item__title.twoLineEllipsis=item.title
+                            h1.item__desc.twoLineEllipsis=item.desc
+
+
+
+

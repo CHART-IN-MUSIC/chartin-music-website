@@ -1,0 +1,365 @@
+button#findPW__modal-btn {
+  display: none;
+}
+#findPW__modal.modal.fade.findPW__modal {
+  .modal-dialog.modal-dialog-centered {
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto;
+    .modal-content {
+      border: 1px solid $mainColor;
+      border-radius: 10px;
+      overflow: hidden;
+      background-color: transparent;
+      padding: 20px;
+      -webkit-backdrop-filter: blur(30px);
+      backdrop-filter: blur(30px);
+      background-color: rgba(45, 45, 45, 0.7);
+      .modal-header {
+        border-bottom: 0;
+        padding: 0;
+        button.close {
+          opacity: 1;
+          img.modal-close-img {
+            display: block;
+            width: 24px;
+          }
+        }
+      }
+      .modal-body {
+        padding: 0;
+        h1.modal__title {
+          margin-bottom: 20px;
+          font-size: 24px;
+          font-weight: 600;
+          color: #fff;
+          text-align: center;
+        }
+        h1.modal__subTitle {
+          margin-bottom: 20px;
+          font-size: 14px;
+          line-height: 1.71;
+          text-align: center;
+          color: #c9c9c9;
+        }
+
+        button.modal__btn {
+          border-radius: 10px;
+          border: solid 1px $mainColor;
+          display: block;
+          width: 250px;
+          padding: 15px;
+          margin: 0 auto;
+          font-size: 13px;
+          font-weight: 600;
+          line-height: 1.22;
+          text-align: center;
+          color: #fff;
+          -webkit-text-fill-color: #fff;
+          &:hover {
+            color: #fff;
+            -webkit-text-fill-color: #fff;
+          }
+        }
+      }
+    }
+  }
+}
+.findPW__page#findPW__page {
+  height: 100vh;
+  .findPW__page-flex {
+    overflow: scroll;
+    height: 100%;
+    position: relative;
+    background-image: url("/images/find/find_page.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    .findPW__flex {
+      padding: 100px 0 80px 0;
+      height: 100%;
+      overflow: scroll;
+      //- find pw 문구
+      section.findPW__text {
+        max-width: 500px;
+        margin: 0 auto 40px auto;
+        h1.findPW__title {
+          width: 90%;
+          margin: 0 auto;
+          font-size: 42px;
+          font-weight: bold;
+          color: #fff;
+          text-align: left;
+        }
+        .divide__line {
+          width: calc(100% - 20px);
+          margin: 20px 0 20px 20px;
+          border: 1px solid $mainColor;
+        }
+        h1.findPW__subTitle {
+          margin: 0 20px;
+          font-size: 18px;
+          font-weight: 600;
+          color: #fff;
+        }
+      }
+      //- 이메일입력란
+      section.findPW__info {
+        width: 90%;
+        max-width: 500px;
+        margin: 0 auto;
+        .form__flex,
+        .form__password {
+          margin-bottom: 20px;
+          display: flex;
+          flex-direction: column;
+          label.form__label {
+            margin-bottom: 10px;
+            font-size: 20px;
+            font-weight: 600;
+            color: #fff;
+          }
+          input.form__input {
+            padding: 15px 20px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #fff;
+            border-radius: 10px;
+            border: solid 1px #626262;
+            &::placeholder {
+              color: #6c6c6c;
+            }
+          }
+          input.form__input.active {
+            border: 1px solid $mainColor;
+          }
+          input.form__input.form__error {
+            border: 1px solid #ea3434;
+          }
+        }
+        .form__password {
+          display: none;
+        }
+        .form__password.active {
+          display: flex;
+        }
+        .form__btn {
+          button.form__submit-btn,
+          button.form__changePW-btn,
+          button.form__pwCheck-btn {
+            display: block;
+            padding: 12px 0;
+            width: 100%;
+            font-size: 24px;
+            font-weight: 600;
+            color: #c1c1c1;
+            border-radius: 10px;
+            background-color: #3e3e3e;
+            cursor: pointer;
+          }
+          button.form__submit-btn.active,
+          button.form__pwCheck-btn.active,
+          button.form__changePW-btn.active {
+            color: #fff;
+            background-color: $mainColor;
+          }
+          button.form__submit-btn.none,
+          button.form__pwCheck-btn.none,
+          button.form__changePW-btn.none {
+            display: none;
+          }
+        }
+      }
+    }
+    .resetPW__flex {
+      padding: 100px 0 80px 0;
+      height: 100%;
+      overflow: scroll;
+      section.resetPW__text {
+        max-width: 500px;
+        margin: 0 auto 68px auto;
+        h1.resetPW__title {
+          width: 90%;
+          margin: 0 auto;
+          font-size: 42px;
+          font-weight: bold;
+          color: #fff;
+          text-align: left;
+        }
+        .divide__line {
+          width: calc(100% - 20px);
+          margin: 20px 0 0 20px;
+          border: 1px solid $mainColor;
+        }
+      }
+      section.resetPW__form-section {
+        width: 90%;
+        max-width: 500px;
+        margin: 0 auto;
+        form.resetPW__form {
+          .form__flex {
+            &:first-child {
+              margin-bottom: 55px;
+            }
+            label.form__label {
+              margin-bottom: 10px;
+              font-size: 20px;
+              font-weight: 600;
+              color: #fff;
+            }
+            input.form__input {
+              width: 100%;
+              padding: 15px 20px;
+              font-size: 16px;
+              font-weight: 500;
+              color: #fff;
+              border-radius: 10px;
+              border: solid 1px #626262;
+              &::placeholder {
+                color: #6c6c6c;
+              }
+            }
+            input.form__input.active {
+              border: 1px solid $mainColor;
+            }
+            input.form__input.form__error {
+              border: 1px solid #ea3434;
+            }
+          }
+        }
+        .form__btn {
+          margin-top: 136px;
+          button.resetPW__submit-btn {
+            padding: 12px 0;
+            width: 100%;
+            font-size: 24px;
+            font-weight: 600;
+            border-radius: 10px;
+            color: #c1c1c1;
+            background-color: #3e3e3e;
+            cursor: pointer;
+          }
+          button.resetPW__submit-btn.active {
+            color: #fff;
+            background-color: $mainColor;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  #findPW__modal.modal.fade.findPW__modal {
+    .modal-dialog.modal-dialog-centered {
+      .modal-content {
+        .modal-header {
+          display: none;
+        }
+        .modal-body {
+          h1.modal__title {
+            padding-bottom: 20px;
+            font-size: 38px;
+            border-bottom: 1px solid #626262;
+          }
+          h1.modal__subTitle {
+            font-size: 18px;
+          }
+          button.modal__btn {
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  }
+  .findPW__page#findPW__page {
+    .findPW__page-flex {
+      .findPW__flex {
+        padding: 140px 225px 240px 120px;
+        //- find pw 문구
+        section.findPW__text {
+          width: 100%;
+          max-width: initial;
+          margin: 0 0 165px 0;
+          h1.findPW__title {
+            margin: 0;
+            font-size: 62px;
+          }
+          .divide__line {
+            width: 100%;
+            margin: 20px 0 20px 0;
+          }
+          h1.findPW__subTitle {
+            margin: 0;
+            font-size: 26px;
+          }
+        }
+        //- 이메일입력란
+        section.findPW__info {
+          width: 100%;
+          max-width: 600;
+          margin: 0 auto 0 0;
+          .form__flex,
+          .form__password {
+            margin-bottom: 20px;
+            label.form__label {
+              margin-bottom: 20px;
+              font-size: 24px;
+            }
+            input.form__input {
+              font-size: 18px;
+            }
+          }
+          .form__btn {
+            button.form__submit-btn,
+            button.form__changePW-btn,
+            button.form__pwCheck-btn {
+              padding: 15px 0;
+              font-size: 32px;
+            }
+          }
+        }
+      }
+      .resetPW__flex {
+        padding: 140px 225px 240px 120px;
+        section.resetPW__text {
+          max-width: initial;
+          margin: 0 0 165px 0;
+          h1.resetPW__title {
+            margin: 0;
+            font-size: 62px;
+          }
+          .divide__line {
+            width: 100%;
+            margin: 20px 0 20px 0;
+          }
+        }
+        section.resetPW__form-section {
+          width: 100%;
+          max-width: 600;
+          margin: 0 auto 0 0;
+          form.resetPW__form {
+            .form__flex {
+              &:first-child {
+                margin-bottom: 55px;
+              }
+              label.form__label {
+                margin-bottom: 20px;
+                font-size: 24px;
+              }
+              input.form__input {
+                font-size: 18px;
+              }
+            }
+          }
+          .form__btn {
+            button.resetPW__submit-btn {
+              padding: 15px 0;
+              font-size: 32px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

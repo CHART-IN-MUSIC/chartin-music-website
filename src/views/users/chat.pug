@@ -1,0 +1,56 @@
+extends ../layouts/noPartialMain
+include ../partials/mixins
+
+block content
+  .dashboard__page#dashboard__page
+    .dashboard__page-flex
+      //- 대시보드 좌측 사이드바 들어갈 자리 [Mixin으로 구현]
+      +dashboardSideBar(loggedUser.role)
+      //- 대시보드 좌측 사이드바 들어갈 자리 [Mixin으로 구현]
+      //- 대시보드 우측 컨텐츠 들어갈 자리
+      .dashboard__contents-flex
+        #dashboard__chat
+          section.chat__header
+            h1.dashboard__title Chat
+          section.chat__body
+            //- 채팅 X
+            if chats.length === 0
+              .chat__none-flex
+                h1.chats__none It’s quiet in here.
+            //- 채팅 O
+            else
+              .chat__flex
+                ul.chat__items
+                  each item in chats
+                    li.chat__item
+                      //- 해당 채팅창 페이지 이동 링크 연동
+                      a.item__link(href=`${routes.user}${routes.chat}/detail/${item._id}`)
+                        .item__flex
+                          .item__user-flex
+                            if item.expertID[0]._id.toString() === loggedUser._id.toString()
+                              .user__profile
+                                +userProfile(item.musicianID[0])
+                              .user__info-flex
+                                h1.user__name=item.musicianID[0].name
+                                each item2 in musicianGenreArr
+                                  if item2.id === item.musicianID[0].genre
+                                    h1.user__genre-country=`${item2.name} / ${item.musicianID[0].currentCountry}`
+                                .user__unread-flex
+                                  if item.eUnread !== 0
+                                    span.unread__count=item.eUnread
+                                  p.user__unread-message.oneLineEllipsis
+                                    =item.lastMessage
+                            else
+                              .user__profile
+                                +userProfile(item.expertID[0])
+                              .user__info-flex
+                                h1.user__name=item.expertID[0].name
+                                each item2 in expertTitleArr
+                                  if item2.id === item.expertID[0].title
+                                    h1.user__genre-country=`${item2.name} / ${item.expertID[0].currentCountry}`
+                                .user__unread-flex
+                                  if item.mUnread !== 0
+                                    span.unread__count=item.mUnread
+                                  p.user__unread-message.oneLineEllipsis
+                                    =item.lastMessage
+                      button.chat__leave-btn(data-id=item._id data-role=loggedUser.role) Leave

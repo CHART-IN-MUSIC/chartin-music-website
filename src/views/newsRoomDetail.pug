@@ -1,0 +1,40 @@
+extends layouts/main
+
+block content
+  .newsRoom__Detail-page#newsRoom__Detail-page
+    .newsRoom__Detail-page-flex.layout
+      section.newsRoom__Detail-main
+        ul.newsContents__items
+          li.newsContents__item
+            .item__flex-direction
+              if newsContents.newsImg
+                .item__img(style=`background-image: url(${newsContents.newsImg})`)
+              else
+                .item__img(style=`background-color: #000;`)
+              .item__text-flex
+                h1.item__date=dateFormatMDY(newsContents.createdAt)
+                .item__title-flex
+                  h1.item__title=newsContents.title
+                  h1.item__shortDesc=newsContents.shortDesc
+            .item__desc !{newsContents.desc}
+        .newsRoom__detail-btn
+          .btn__flex
+            if backNews.length === 0
+              a.btn__link(onclick=`alert("This is our latest news.");`)
+                img.btn__img(src=`${imgPath}/newsRoom/newsRoom_back.png`)
+                button.btn__title.btn__title-back Next
+            else
+              a.btn__link(href=`${routes.newsRoom}/detail/${backNews[0]._id}`)
+                img.btn__img(src=`${imgPath}/newsRoom/newsRoom_back.png`)
+                button.btn__title.btn__title-back Next
+          .btn__flex
+            if nextNews.length === 0
+              a.btn__link(onclick=`alert("There are no more news left.");`)
+                button.btn__title.btn__title-next Back
+                img.btn__img(src=`${imgPath}/newsRoom/newsRoom_next.png`)
+            else
+              a.btn__link(href=`${routes.newsRoom}/detail/${nextNews[0]._id}`)
+                button.btn__title.btn__title-next Back
+                img.btn__img(src=`${imgPath}/newsRoom/newsRoom_next.png`)
+
+

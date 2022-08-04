@@ -1,0 +1,29 @@
+extends ../layouts/noPartialMain
+include ../partials/mixins
+
+block content
+  .dashboard__page#dashboard__page
+    .dashboard__page-flex
+      //- 대시보드 좌측 사이드바 들어갈 자리 [Mixin으로 구현]
+      +dashboardSideBar(loggedUser.role)
+      //- 대시보드 좌측 PC사이드바 들어갈 자리 [Mixin으로 구현]
+      //- 대시보드 우측 컨텐츠 들어갈 자리
+      .dashboard__contents-flex
+        #dashboard__changePW
+          section.changePW__header
+            h1.dashboard__title Change Password
+          section.changePW__body
+            form#changePWForm(action=`${loggedUser.role === "musician" ? routes.userMusician : routes.userExpert}${routes.changePW}` method="post")
+              input(type="hidden" name="userID" value=loggedUser.userID)
+              .form__group 
+                label.form__label Current Password
+                input.form__input.form__required(type="password" name="password" form__required)
+              .form__group 
+                label.form__label New Password
+                input.form__input.form__required(type="password" name="newPW" form__required)
+              .form__group 
+                label.form__label Confirm Password
+                input.form__input.form__required(type="password" name="confirmPW" form__required)
+              button.change__password-submit Change
+            a.leave__membership-link(href=`${routes.user}${routes.leaveMembership}/${loggedUser._id}` onclick=`return confirm("Are you sure you want to leave?")`)
+              h1.link__title Leave Membership

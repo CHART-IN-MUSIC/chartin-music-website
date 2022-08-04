@@ -1,0 +1,475 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap");
+
+main.admin__main {
+  font-family: "Montserrat", "Noto Sans KR", sans-serif !important;
+  // 관리자 페이지 공통 CSS
+  // Header
+  nav.header-navbar {
+    ul.nav {
+      li.nav-item {
+        span.user-name {
+          margin-bottom: 5px;
+        }
+      }
+    }
+  }
+  // Data table page
+  .admin__page {
+    // padding-bottom: 60px;
+    .content-body {
+      //- Top Button Collection
+      .top__btn-items {
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        .top__btn-item {
+          &:not(:first-child) {
+            margin-left: 10px;
+          }
+        }
+        .top__btn-item.top__search-btn-item {
+          select.form-control {
+            width: 120px;
+            height: 38px;
+          }
+          input.form-control {
+            width: 250px;
+            height: 38px;
+          }
+        }
+      }
+      //- Basic Tables
+      #basic-table {
+        .card {
+          position: relative;
+          .excel__download-flex {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+          }
+          .card-header {
+            padding-bottom: 5px;
+            h1.card-header-title {
+              margin-bottom: 0;
+            }
+          }
+          .table-responsive {
+            table.table {
+              table-layout: fixed;
+            }
+            th,
+            td {
+              text-align: center;
+              padding: 8px 15px;
+              .dropdown-menu {
+                a.dropdown-item {
+                  svg.feather {
+                    position: relative;
+                    top: -1.5px;
+                  }
+                }
+              }
+              .td__items {
+                a.td__item {
+                  &:not(:last-child) {
+                    margin-right: 10px;
+                  }
+                  svg.feather {
+                    width: 16px;
+                    height: 16px;
+                  }
+                }
+              }
+              a.td__link {
+                text-decoration: none;
+                svg.external-link__icon {
+                  position: relative;
+                  top: -1px;
+                  margin-left: 5px;
+                }
+              }
+              a.btn.btn-primary.waves-effect.waves-float.waves-light.btn-sm {
+                h1 {
+                  border-color: #7367f0 !important;
+                  background-color: #7367f0 !important;
+                  color: #fff !important;
+                }
+              }
+            }
+            td.ellipsis__td {
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              // button.approve__withdrawal-btn {
+              // background-color: #c6c6c6 !important;
+              // }
+            }
+          }
+        }
+      }
+    }
+    // Pagination
+    #pagination__flex {
+      display: flex;
+      justify-content: center;
+      nav {
+        ul.pagination {
+          li.page-item {
+            // border-radius: 50% !important;
+            a.page-link {
+              min-width: initial;
+              width: 28px;
+              height: 28px;
+              padding: 2px;
+              // border-radius: 50% !important;
+            }
+          }
+        }
+      }
+    }
+  }
+  // Form page
+  section.bs-validation {
+    form.needs-validation {
+      .form-group {
+        label.form-label {
+          font-size: 14px;
+          font-weight: 600;
+          span.form-label-emphasis {
+            color: #e74c3c;
+          }
+          // 메인영상 썸네일 이미지 규격
+          span.form-label-youtube,
+          span.form-label-tiktok {
+            display: none;
+          }
+          span.form-label-youtube.active,
+          span.form-label-tiktok.active {
+            display: inline;
+          }
+        }
+        label.custom-file-label {
+          &::after {
+            content: "찾아보기";
+          }
+        }
+        h6.text-primary {
+          font-weight: 400;
+          a.text__primary-link {
+            margin-left: 5px;
+            font-weight: 600;
+          }
+        }
+        .note-editor {
+          border-radius: 0.357rem;
+          h1.heading1 {
+            font-size: 30px;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-bottom: 5px;
+          }
+          h2.heading2 {
+            font-size: 26px;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-bottom: 5px;
+          }
+          h3.heading3 {
+            font-size: 22px;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-bottom: 5px;
+          }
+          h4.heading4 {
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-bottom: 5px;
+          }
+          h5.heading5 {
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-bottom: 5px;
+          }
+          p {
+            line-height: 1.2;
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 1.2;
+            margin-bottom: 5px !important;
+            color: #5e5873;
+            b {
+              font-weight: bold;
+            }
+            i {
+              font-style: italic;
+            }
+            u {
+              text-decoration: underline;
+            }
+          }
+          .panel-heading.note-toolbar {
+            background-color: #f5f5f5;
+            border-bottom: 1px solid #ddd;
+            button.note-btn {
+              background-color: #fff;
+              border: 1px solid #ccc !important;
+              &::after {
+                display: none;
+              }
+            }
+            .note-dropdown-menu.dropdown-menu {
+              min-width: auto;
+              display: flex;
+            }
+            .note-palette {
+              margin: 0 5px;
+            }
+            ul.note-dropdown-menu.dropdown-menu.dropdown-style {
+              display: flex;
+              flex-direction: column;
+              width: 160px;
+              a {
+                color: #5e5873;
+                -webkit-text-fill-color: #5e5873;
+                &:hover {
+                  color: #5e5873;
+                  -webkit-text-fill-color: #5e5873;
+                }
+              }
+              p.paragraph {
+                font-size: 16px;
+              }
+              h1.heading1 {
+                font-size: 32px;
+              }
+              h2.heading2 {
+                font-size: 28px;
+              }
+              h3.heading3 {
+                font-size: 24px;
+              }
+              h4.heading4 {
+                font-size: 20px;
+              }
+              h5.heading5 {
+                font-size: 16px;
+              }
+            }
+            .note-dropdown-menu.dropdown-menu.note-check.dropdown-fontsize,
+            .note-dropdown-menu.dropdown-menu.note-check.dropdown-line-height {
+              min-width: 100px;
+              flex-direction: column;
+              li {
+                color: #6e6b7b;
+                -webkit-text-fill-color: #6e6b7b;
+                cursor: pointer;
+                padding: 3px 0;
+                &:hover {
+                  background-color: rgba(115, 103, 240, 0.3);
+                }
+                a {
+                  display: block;
+                }
+              }
+            }
+            .note-btn-group.btn-group.note-list {
+              display: none;
+            }
+          }
+          .modal-dialog {
+            .modal-header {
+              display: flex;
+              align-items: center;
+              flex-direction: row-reverse;
+              button.close {
+                transform: initial;
+                background-color: transparent;
+                opacity: 1;
+                box-shadow: initial;
+                &:hover {
+                  background-color: transparent;
+                  opacity: 1;
+                  box-shadow: initial;
+                }
+              }
+            }
+            .modal-body {
+              .checkbox {
+                display: flex;
+                align-items: center;
+                input[type="checkbox"] {
+                  margin-right: 5px;
+                  position: relative;
+                  top: 1px;
+                }
+              }
+            }
+          }
+          p {
+            margin-bottom: 0;
+          }
+        }
+
+        // 뉴스 이미지 input
+        label.label__newsImg.active {
+          display: block;
+        }
+        label.label__newsImg {
+          display: none;
+        }
+        // 뉴스 업로드된 이미지
+        .uploaded__newsImg-items {
+          input.item__location {
+            position: absolute;
+            top: -10000px;
+          }
+          .item__flex {
+            position: relative;
+            width: 300px;
+            img.item__img {
+              width: 100%;
+              object-fit: cover;
+            }
+            img.item__delete-img {
+              position: absolute;
+              top: 10px;
+              right: 10px;
+              width: 15px;
+              height: 15px;
+              cursor: pointer;
+            }
+          }
+        }
+        textarea.form-control {
+          resize: none;
+        }
+
+        // 파트너 로고 이미지
+        // 메인영상 썸네일 이미지
+        ul.uploaded__items {
+          li.uploaded__item {
+            .item__flex {
+              width: 400px;
+              position: relative;
+              img.item__img {
+                width: 100%;
+                object-fit: cover;
+              }
+              img.item__delete-img {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                width: 20px;
+                cursor: pointer;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  // Detail page
+  .admin__detail-page {
+    .content-header {
+      .row.breadcrumbs-top {
+        .col-12 {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          h2.content-header-title {
+            border-right: none;
+          }
+          .content-header-btns {
+            margin-top: 10px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            .content-header-btn {
+              &:not(:last-child) {
+                margin-right: 10px;
+              }
+            }
+          }
+        }
+      }
+    }
+    .content-body {
+      width: 100%;
+      .blog-detail-wrapper {
+        .card {
+          .card-body {
+            ul.card-body__items {
+              margin: 0;
+              li.card-body__item {
+                &:not(:last-child) {
+                  margin-bottom: 20px;
+                }
+                img.card-img-top {
+                  width: 200px;
+                }
+                #tiktok__video {
+                  iframe#tiktokIframe {
+                    .videoBox {
+                      width: 100%;
+                      .banner {
+                        display: none;
+                      }
+                    }
+                  }
+                }
+                .card-tumbnail {
+                  width: 50px;
+                  height: 50px;
+                  border-radius: 50%;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  // Individual Page
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  main.admin__main {
+    // Detail page
+    .admin__detail-page {
+      .content-header {
+        .row.breadcrumbs-top {
+          .col-12 {
+            flex-direction: row;
+            align-items: center;
+            h2.content-header-title {
+              margin-bottom: 0;
+            }
+            .content-header-btns {
+              margin-top: 0;
+            }
+          }
+        }
+      }
+      .content-body {
+        width: 100%;
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+nav.mbNav#mbNav {
+  z-index: 9;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 500px;
+  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(30px);
+  background-color: rgba(170, 170, 170, 0.3);
+  .mbNav__flex {
+    .layout {
+      ul.mbNav__items {
+        height: 83px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        li.mbNav__item {
+          a.mbNav__link {
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #dbdbdb;
+            -webkit-text-fill-color: #dbdbdb;
+            &:hover {
+              color: #dbdbdb;
+              -webkit-text-fill-color: #dbdbdb;
+            }
+            img.mbNav__ico {
+              display: block;
+              margin-bottom: 5px;
+            }
+            p.mbNav__title {
+              font-size: 11px;
+              line-height: 1.09;
+              letter-spacing: -0.26px;
+              text-align: center;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,268 @@
+#dashboard__reception {
+  section.reception__header {
+    h1.dashboard__title {
+      margin-bottom: 40px;
+      font-size: 34px;
+      font-weight: bold;
+      color: #fff;
+    }
+    p.dashboard__desc {
+      font-size: 18px;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+  }
+  section.reception__body {
+    .reception__flex {
+      ul.reception__items {
+        li.reception__item {
+          margin-bottom: 20px;
+          padding: 31px 38px;
+          border-radius: 10px;
+          border: solid 1px #707070;
+          background-color: #101113;
+          .item__card {
+            .card__flex {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              .expert__profile {
+                margin: 0 auto 32px auto;
+                width: 160px;
+              }
+              h1.expert__name {
+                margin-bottom: 16px;
+                font-size: 28px;
+                font-weight: bold;
+                color: #fff;
+                text-align: center;
+              }
+              h1.expert__overview {
+                margin-bottom: 22px;
+                font-size: 12px;
+                color: #c9c9c9;
+              }
+              .expert__rate-flex {
+                margin-bottom: 14px;
+                img.rate__img {
+                  width: 20px;
+                  object-fit: cover;
+                  &:not(:last-child) {
+                    margin-right: 4px;
+                  }
+                }
+              }
+              .card__btn-flex {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                button.choose__btn,
+                a.choose__btn {
+                  margin-right: 16px;
+                }
+                button.choose__btn,
+                a.choose__btn,
+                button.confirm__btn,
+                a.confirm__btn {
+                  padding: 13px 36px;
+                  font-size: 12px;
+                  font-weight: 600;
+                  color: #fff;
+                  border-radius: 10px;
+                  border: solid 1px $mainColor;
+                  cursor: pointer;
+                  &:hover {
+                    background-color: $mainColor;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      .swiper__navigation {
+        display: none;
+      }
+      .swiper.mySwiper.receptionSwiper {
+        .swiper-wrapper {
+          .swiper-slide {
+            margin-bottom: 20px;
+            height: auto !important;
+            .reception__item {
+              padding: 31px 38px;
+              border-radius: 10px;
+              border: solid 1px #707070;
+              background-color: #101113;
+              .item__card {
+                .card__flex {
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  justify-content: center;
+                  .expert__profile {
+                    margin: 0 auto 32px auto;
+                    width: 160px;
+                  }
+                  h1.expert__name {
+                    margin-bottom: 16px;
+                    font-size: 28px;
+                    font-weight: bold;
+                    color: #fff;
+                  }
+                  h1.expert__overview {
+                    margin-bottom: 22px;
+                    font-size: 12px;
+                    color: #c9c9c9;
+                  }
+                  .expert__rate-flex {
+                    margin-bottom: 14px;
+                    img.rate__img {
+                      width: 20px;
+                      object-fit: cover;
+                      &:not(:last-child) {
+                        margin-right: 4px;
+                      }
+                    }
+                  }
+                  .card__btn-flex {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    button.choose__btn,
+                    a.choose__btn {
+                      margin-right: 16px;
+                    }
+                    button.choose__btn,
+                    a.choose__btn,
+                    button.confirm__btn,
+                    a.confirm__btn {
+                      padding: 13px 36px;
+                      font-size: 12px;
+                      font-weight: 600;
+                      color: #fff;
+                      border-radius: 10px;
+                      border: solid 1px $mainColor;
+                      cursor: pointer;
+                      &:hover {
+                        background-color: $mainColor;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      .warning__text-flex {
+        h1.warning__text {
+          font-size: 14px;
+          color: #fff;
+          margin-top: 40px;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  #dashboard__reception {
+    section.reception__header {
+      h1.dashboard__title {
+        font-size: 56px;
+        text-align: center;
+      }
+      p.dashboard__desc {
+        font-size: 22px;
+        text-align: center;
+      }
+    }
+    section.reception__body {
+      .reception__flex {
+        position: relative;
+        .swiper__navigation {
+          display: block;
+          .swiper__navigation-prev,
+          .swiper__navigation-next {
+            user-select: none;
+            position: absolute;
+            z-index: 150;
+            top: 50%;
+            transform: translateY(-50%);
+            svg.icon.icon-tabler {
+              width: 44px;
+              height: 44px;
+              stroke-width: 1.5;
+              stroke: #707070;
+              fill: none;
+              stroke-linecap: round;
+              stroke-linejoin: round;
+            }
+          }
+          .swiper__navigation-prev {
+            left: -50px;
+          }
+          .swiper__navigation-next {
+            right: -50px;
+          }
+        }
+        .swiper.mySwiper.receptionSwiper {
+          .swiper-wrapper {
+            width: 100%;
+            .swiper-slide {
+              user-select: none;
+              width: calc(33.333333% - 26.666667px);
+              margin-bottom: 0;
+              .reception__item {
+                padding: 40px 48px;
+                .item__card {
+                  .card__flex {
+                    .expert__profile {
+                      margin-bottom: 40px;
+                      width: 216px;
+                    }
+                    h1.expert__name {
+                      margin-bottom: 20px;
+                      font-size: 36px;
+                      text-align: center;
+                      height: 86px;
+                    }
+                    h1.expert__overview {
+                      margin-bottom: 20px;
+                      font-size: 18px;
+                      height: 64px;
+                    }
+                    .expert__rate-flex {
+                      margin-bottom: 20px;
+                      img.rate__img {
+                        width: 26px;
+                        &:not(:last-child) {
+                          margin-right: 5px;
+                        }
+                      }
+                    }
+                    .card__btn-flex {
+                      button.choose__btn,
+                      a.choose__btn {
+                        margin-right: 20px;
+                      }
+                      button.choose__btn,
+                      a.choose__btn,
+                      button.confirm__btn,
+                      a.confirm__btn {
+                        padding: 15px 25px;
+                        font-size: 18px;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

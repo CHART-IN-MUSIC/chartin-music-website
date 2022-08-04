@@ -1,0 +1,169 @@
+extends ../layouts/adminMain
+
+block content
+  body.vertical-layout.vertical-menu-modern.navbar-floating.footer-static(data-open='click' data-menu='vertical-menu-modern' data-col='')
+    main.admin__main
+      .admin__page#admin__calculate-page
+        include adminSidebar
+        //- BEGIN: Content
+        .app-content.content
+          .content-overlay
+          .header-navbar-shadow
+          .content-wrapper.container-xxl.p-0
+            .content-body
+              //- BEGIN: Top Button Collection
+              .top__btn-items
+                //- BEGIN: Search Button
+                //- FIXME: 검색 기능을 사용하지 않는 경우 해당 영역 삭제 必
+                .top__btn-item.top__search-btn-item
+                  input.form-control.search__month-input#search__month-input(type="month" value=searchByMonth data-page="calculate" style="width: 160px;")
+                //- .top__btn-item.top__search-btn-item.rsp-pc
+                //-   form.needs-validation(method="GET")
+                //-     .input-group
+                //-       select#basicSelect.form-control(name="searchKey")
+                //-         //- FIXME: 사용할 데이터 이름과 model에 사용된 key값을 value로 지정 [모든 검색은 키워드 검색, String만 가능, Number처리 필요할 경우 Controller에서 따로 작업 必]
+                //-         each option in searchArr
+                //-           if option.code === searchKey
+                //-             option(value=option.code selected)=option.title
+                //-           else
+                //-             option(value=option.code)=option.title
+                //-       input.form-control(type='search' name="searchValue" placeholder='Search for keyword' value=searchValue aria-describedby='button-addon2')
+                //-       #button-addon2.input-group-append
+                //-         button.btn.btn-primary.waves-effect(type="submit") 검색
+                //- END: Search Button
+                //- BEGIN: Excel Download Button
+                .top__btn-item
+                  button#excel__download-btn.btn.btn-primary.waves-effect.waves-float.waves-light(type='button' name=`withdrawl`)
+                    i.download__icon(data-feather='download' style="margin-right: 5px;")
+                    | Download Excel
+                .top__btn-item
+                  button#approve__withdrawal-btn.btn.btn-primary.waves-effect.waves-float.waves-light(type='button')
+                    | Approve
+                  //- FIXME: 데이터 동기화 必
+                  table#tableData(style='display: none;')
+                    thead
+                      tr
+                        th Number
+                        th ExpertID
+                        th ExpertName
+                        th Status
+                        th Amount
+                        th Company
+                        th AccountEmail
+                        th Vat
+                        th BankName
+                        th AccountHolder
+                        th AccountNumber
+                        th Address
+                        th CreatedAt
+                        th UpdatedAt
+                    tbody
+                      each item, index in excelData
+                        tr
+                          td=index + 1
+                          td=item.expertID[0].userID
+                          td=item.expertID[0].name
+                          td=item.status
+                          td=item.amount
+                          td=item.company
+                          td=item.accountEmail
+                          td=item.vat
+                          td=item.bankName
+                          td=item.accountHolder
+                          td=item.accountNumber
+                          td=item.address
+                          td=dateFormatYMDHm(item.createdAt)
+                          td=dateFormatYMDHm(item.updatedAt)
+                //- END: Excel Download Button
+                //- BEGIN: Create Button
+                //- .top__btn-item
+                //-   a.btn.btn-primary.waves-effect.waves-float.waves-light(href=`${routes.admin}${adminLink}/create`)
+                //-     i.plus__icon(data-feather="plus" style="margin-right: 5px;")
+                //-     =`${adminNameKo} 등록`
+                //- END: Create Button
+              //- END: Top Button Collection
+              //- BEGIN: Basic Tables
+              #basic-table.row
+                .col-12
+                  .card(style="overflow: scroll;")
+                    .card-header
+                      h1.card-header-title=`${adminNameKo}`
+                    .card-body(style=`display: flex; align-items: center; justify-content: space-between;`)
+                      p.card-text If you can't see anything, try scrolling left to right.
+                      .custom-control.custom-checkbox
+                        input.custom-control-input.all__checkBox(id=`all__checkBox` type='checkbox' name="all")
+                        label.custom-control-label(for=`all__checkBox`) All
+                    .table-responsive
+                      //- FIXME: 각 칼럼 width 적절히 조정 후 합계로 min-width 설정 必
+                      table.table.mb-0(style="min-width: 2380px;")
+                        thead
+                          tr
+                            //- FIXME: 데이터 동기화 必
+                            th(scope='col' style="width: 80px;") Number
+                            th(scope='col' style="width: 200px;") Status
+                            th(scope='col' style="width: 200px;") ExpertID
+                            th(scope='col' style="width: 200px;") Amount
+                            th(scope='col' style="width: 100px;") Company
+                            th(scope='col' style="width: 200px;") AccountEmail
+                            th(scope='col' style="width: 200px;") Vat
+                            th(scope='col' style="width: 200px;") BankName
+                            th(scope='col' style="width: 200px;") AccountHolder
+                            th(scope='col' style="width: 200px;") AccountNumber
+                            th(scope='col' style="width: 200px;") Address
+                            th(scope='col' style="width: 200px;") Created
+                            th(scope='col' style="width: 200px;") Modified
+                        tbody
+                          form#calculateApproveForm(method="POST" action=`${routes.admin}${routes.adminCalculate}`)
+                            each item, index in adminItems
+                              tr
+                                //- FIXME: 데이터 동기화 必
+                                td(scope='col' style="max-width: 80px;")
+                                  span.font-weight-bold=`${index +1}`
+                                td(scope='col' style="width: 100px;")
+                                  if item.status === "Pending Approval"
+                                    .custom-control.custom-checkbox
+                                      input.custom-control-input.wait__checkBox(id=`wait__checkBox${index}` type='checkbox' name="saveID" value=item._id)
+                                      label.custom-control-label(for=`wait__checkBox${index}`) Pending Approval
+                                  else
+                                    | Completed
+                                td.ellipsis__td(scope='col' style="width: 100px;")=item.expertID[0].userID
+                                td.ellipsis__td(scope='col' style="width: 100px;")=`$ ${item.amount}`
+                                td.ellipsis__td(scope='col' style="width: 100px;")=`${item.company}`
+                                td.ellipsis__td(scope='col' style="width: 100px;")=`${item.accountEmail}`
+                                td.ellipsis__td(scope='col' style="width: 100px;")=`${item.vat}`
+                                td.ellipsis__td(scope='col' style="width: 100px;")=`${item.bankName}`
+                                td.ellipsis__td(scope='col' style="width: 100px;")=`${item.accountHolder}`
+                                td(scope='col' style="width: 100px;")=`${item.accountNumber}`
+                                td.ellipsis__td(scope='col' style="width: 100px;")=`${item.address}`
+                                td(scope='col' style="width: 100px;")=dateFormatYMDHm(item.createdAt)
+                                td(scope='col' style="width: 100px;")=dateFormatYMDHm(item.updatedAt)
+              //- END: Basic Tables
+            //- BEGIN: Pagination
+            #pagination__flex
+              if adminItems.length !== 0
+                nav(aria-label='Page navigation example')
+                  ul.pagination.firstLast1-links.mt-1
+                    li.page-item.first
+                      a.page-link(href=`?page=1&limit=${limit}` aria-label="First")
+                        i(data-feather='chevrons-left')
+                    if paginate.hasPreviousPages
+                      li.page-item.prev
+                        a.page-link(paginate.href(true) aria-label="Previous")
+                    each page in pages
+                      if paginate.page === page.number
+                        li.page-item.active(aria-current='page')
+                          a.page-link(href=page.url)=page.number
+                      else
+                        li.page-item
+                          a.page-link(href=page.url)=page.number
+                    if paginate.hasNextPages(pageCount)
+                      li.page-item.next
+                        a.page-link(href=paginate.href())
+                    li.page-item.last
+                      a.page-link(href=`?page=${pageCount}&limit=${limit}`)
+                        i(data-feather='chevrons-right')
+            //- END: Pagination
+        //- END: Content
+    //- BEGIN: Repeated scripts
+    include adminScripts
+    //- END: Repeated scripts

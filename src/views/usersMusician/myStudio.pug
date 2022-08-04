@@ -1,0 +1,81 @@
+extends ../layouts/noPartialMain
+include ../partials/mixins
+
+block content
+  .dashboard__page#dashboard__page
+    .dashboard__page-flex
+      //- 대시보드 좌측 사이드바 들어갈 자리 [Mixin으로 구현]
+      +dashboardSideBar(loggedUser.role)
+      //- 대시보드 우측 컨텐츠 들어갈 자리
+      .dashboard__contents-flex
+        #dashboard__musician-myStudio
+          section.myStudio__title-section
+            h1.myStudio__title My Studio
+          section.myStudio__goal-section
+            .goal__section-flex
+              //- Goal 섹션
+              .goal__section
+                ul.goal__items
+                  li.goal__item
+                    .item__flex
+                      img.goal__item-img(src=`${imgPath}/myStudio/goal_bg01@2x.png`)
+                      button.goal__update-btn.active(type="button")
+                        img.goal__update-ico(src=`${imgPath}/myStudio/update_icon@2x.png`)
+                      button.goal__done-btn(type="button" data-id=goals[0] ? goals[0].id : "") Done
+                      textarea.goal__desc-textarea(type="text" name="desc" autocomplete="off" placeholder="Post 3 Instagram Stories every week" readonly)=goals[0] ? goals[0].desc : ""
+                  li.goal__item
+                    .item__flex
+                      img.goal__item-img(src=`${imgPath}/myStudio/goal_bg02@2x.png`)
+                      button.goal__update-btn.active(type="button")
+                        img.goal__update-ico(src=`${imgPath}/myStudio/update_icon@2x.png`)
+                      button.goal__done-btn(type="button" data-id=goals[1] ? goals[1].id : "") Done
+                      textarea.goal__desc-textarea(type="text" name="desc" autocomplete="off" placeholder="Double up my IG followers in 30 days" readonly)=goals[1] ? goals[1].desc : ""
+                  li.goal__item
+                    .item__flex
+                      img.goal__item-img(src=`${imgPath}/myStudio/goal_bg03@2x.png`)
+                      button.goal__update-btn.active(type="button")
+                        img.goal__update-ico(src=`${imgPath}/myStudio/update_icon@2x.png`)
+                      button.goal__done-btn(type="button" data-id=goals[2] ? goals[2].id : "") Done
+                      textarea.goal__desc-textarea(type="text" name="desc" autocomplete="off" placeholder="Get 15K listeners this year" readonly)=goals[2] ? goals[2].desc : ""
+              //- Customized Payment 섹션
+              .customPay__section
+                h1.customPay__title Customized<br>Payment
+                .customPay__price-flex
+                  h3.price__title Amount
+                  .price__input-flex
+                    span $
+                    input.price__input(type="number" name="amount" value=0 autocomplete="off" requried)
+                    button.customPay__purchase-btn Pay
+                #created__purchase-form(style="display: none;")
+          //- 완료된 작업물 최근 3개
+          section.myStudio__completed-section
+            h1.completed__section-title Completed. <br>Look how you have progressed!
+            ul.completed__items
+              each item in completedPromotions
+                li.completed__item
+                  a.completed__item-link(href=`${routes.offerdVideoDetail}?url=${item.offerID[0].contentLink}`)
+                    .video__content
+                      if item.offerID[0].contentLink.includes("youtube")
+                        img.video__thumbnail(src=`https://img.youtube.com/vi/${item.offerID[0].contentLink.split("watch?v=")[1]}/0.jpg`)
+                      else if item.offerID[0].contentLink.includes("youtu.be")
+                        img.video__thumbnail(src=`https://img.youtube.com/vi/${item.offerID[0].contentLink.split("youtu.be/")[1]}/0.jpg`)
+                      //- Tiktok의 경우 없음
+                    .video__expert-flex
+                      each title in expertTitleArr
+                        if title.id === item.offerID[0].expertID[0].title
+                          h1.expert__title=title.name
+                      h1.video__campaignTitle=item.offerID[0].campaignTitle
+          section.myStudio__summary-section
+            ul.summary__items
+              li.summary__item
+                h2.summary__item-title Completed
+                p.summary__item-number=completedNumber
+              li.summary__item
+                h2.summary__item-title Requested
+                p.summary__item-number=requestedNumber
+              li.summary__item
+                h2.summary__item-title In Progress
+                p.summary__item-number=requestedNumber
+              li.summary__item
+                h2.summary__item-title Your activity<br>For last 30 days
+                p.summary__item-number=activityNumber

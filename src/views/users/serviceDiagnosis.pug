@@ -1,0 +1,90 @@
+extends ../layouts/main
+
+block content
+  .serviceDiagnosis__page#serviceDiagnosis__page
+    section.serviceDiagnosis__banner
+      .banner__img.rsp-mb(style=`background-image: url(${imgPath}/public/banner_mb.png)`)
+      .banner__img.rsp-pc(style=`background-image: url(${imgPath}/public/banner_pc.png)`)
+    .serviceDiagnosis__page-flex.layout
+      .serviceDiagnosis__flex
+        section.serviceDiagnosis__header
+          h1.header__title Service Diagnosis
+        section.serviceDiagnosis__main
+          .main__flex
+            form#serviceDiagnosisForm(method="post")
+              .form__flex
+                //- Name
+                .form__group
+                  label.form__label Name
+                  input.form__input.form__section.form__required.form__validation(type="text" name="name" placeholder="Type your name" autocompelete="off" required)
+                //- Kind of Service
+                .form__group
+                  label.form__label What kind of services do you need?
+                  select.form__select.form__section.form__required.chartin__select-diagnosis.active.form__validation(name="service" required)
+                    each item in serviceArr
+                      option.form__option(value=item.type)=item.type
+                //- Kind of Feedback / 1번에서 Feedback 선택 시 노출
+                .form__group.form__group-service.active(data-name="Feedback")
+                  label.form__label Do you want technical feedback or trend feedback?
+                  select.form__select.form__section.form__required.chartin__select-diagnosis.active.form__validation(name="feedbackType" required )
+                    option.form__option(value="Technical") Technical
+                    option.form__option(value="Trend") Trend
+                //- Kind of Mix&Master / 1번에서 Mix/Master 선택 시 노출
+                .form__group.form__group-service(data-name="Mix/Master")
+                  label.form__label Which one do you want in detail?
+                  select.form__select.form__section.chartin__select-diagnosis.active.form__validation(name="detail" disabled)
+                    option.form__option(value="Mix") Mix
+                    option.form__option(value="Master") Master
+                    option.form__option(value="Mix & Master") Mix & Master
+                //- Album
+                .form__group
+                  label.form__label Do you have a particular album or music that you want to focus on?
+                  select.form__select.form__section.form__required.chartin__select-diagnosis.active.form__validation(name="album" required)
+                    option.form__option(value="Yes") Yes
+                    option.form__option(value="No") No
+                //- Provide your expert a link to your music and music video
+                .form__group
+                  label.form__label Provide your expert a link to your music and music video
+                  input.form__input.form__section.form__required.form__validation(type="text" name="link" placeholder="" autocompelete="off")
+                //- Which markets do you want to make yourself known?
+                .form__group
+                  label.form__label Which markets do you want to make yourself known?
+                  .form__group-selectInput.form__validation
+                    each item in diagnosisMarkets
+                      .selectInput__flex
+                        input.form__option(type="checkbox" id=`${item.name}${index}` name="markets" value=item.name)
+                        label(for=`${item.name}${index}`)=item.name
+                //- Do you have any specific country that you prefer?
+                .form__group
+                  label.form__label Do you have any specific country that you prefer?
+                  select.form__select.form__section.form__required.chartin__select-diagnosis.active.form__validation(name="country" required)
+                    each item in country
+                      option.form__option(value=item.name)=item.name
+                //- What’s your genre?
+                .form__group
+                  label.form__label What’s your genre?
+                  select.form__select.form__section.form__required.chartin__select-diagnosis.active.form__validation(name="genre" required)
+                    each item in musicianGenreArr
+                      option.form__option(value=item.name)=item.name
+                //- What’s your budget?
+                .form__group
+                  label.form__label What’s your budget?
+                  select.form__select.form__section.form__required.chartin__select-diagnosis.active.form__validation(name="budget" required)
+                    each item in diagnosisBudget
+                      option.form__option(value=item.name)=item.name
+                //- Can you make video content on your own?
+                .form__group
+                  label.form__label Can you make video content on your own?
+                  select.form__select.form__section.form__required.chartin__select-diagnosis.active.form__validation(name="video" required)
+                      option.form__option(value="Yes") Yes
+                      option.form__option(value="No") No
+                //- What’s your goal?
+                .form__group.form__group-service(data-name="Promotion")
+                  label.form__label What’s your goal?
+                  .form__group-selectInput
+                    each item in diagnosisGoal
+                      .selectInput__flex
+                        input.form__option(type="checkbox" id=`${item.name}${index}` class=`${item.name === "Others" ? "form__option-others" : ""}` name="goal" value=item.name)
+                        label(for=`${item.name}${index}`)=item.name
+                  input.form__input.form__section.form__input-goal(type="text" name="goal" placeholder="Type your goal." disabled)
+              button#serviceDiagnosisSubmit Submit

@@ -1,0 +1,184 @@
+extends ../layouts/noPartialMain
+include ../partials/mixins
+
+block content
+  .dashboard__page#dashboard__page
+    .dashboard__page-flex
+      //- 대시보드 좌측 사이드바 들어갈 자리 [Mixin으로 구현]
+      +dashboardSideBar(loggedUser.role)
+      //- 대시보드 좌측 사이드바 들어갈 자리 [Mixin으로 구현]
+      //- 대시보드 우측 컨텐츠 들어갈 자리
+      .dashboard__contents-flex
+        #dashboard__profile
+          section.profile__header
+            h1.dashboard__title.rsp-pc Profile
+          section.profile__body
+            .registerForm__main-flex
+              form#updateProfileForm(method="post")
+                .registerForm__flex
+                  .registerForm__flex-flex
+                    //- Profile Color
+                    .form__group.form__group-underline
+                      h1.profile__title Your profile
+                      .profile__flex
+                        .profile__circle(style=`background:${user.gradientColor};`)
+                          input.form__input(type="hidden" name="gradientColor" value=gradientColors[0].backgroundLinear)
+                        .gradient__color--flex
+                          ul.gradient__color-items
+                            each item in gradientColors
+                              li.gradient__color-item
+                                .item__circle(style=`background:${item.backgroundLinear};` data-color=item.backgroundLinear)
+                    //- Register Social Media Mixin [pc]
+                    .form__group
+                      .form__flex
+                        .rsp-pc
+                          +registerSocialMedia(user)
+                  .registerForm__flex-flex
+                    //- Email [공통]
+                    .form__group.form__group-underline
+                      .form__flex
+                        .form__email-flex
+                          label.form__label Email
+                          if user.emailSubscription
+                            .form__subscribe
+                              input#Subscribe(type="checkbox" name="emailSubscription" checked)
+                              label.form__label-subscribe(for="Subscribe") Subscribe
+                          else
+                            .form__subscribe
+                              input#Subscribe(type="checkbox" name="emailSubscription")
+                              label.form__label-subscribe(for="Subscribe") Subscribe
+                        .form__flex-pc
+                          input.form__input.form__required(type="email" name="userID" value=user.userID autocomplete="off" required readonly)
+                    //- ***** [뮤지션] *****
+                    if type === "musician"
+                      //- Name / Overview / Genre
+                      .form__group.form__group-underline
+                        .form__flex
+                          label.form__label Name
+                          input.form__input.form__required(type="text" name="name" value=user.name placeholder="Type your Name" autocomplete="off" required)
+                        .form__flex
+                          label.form__label Overview
+                            br
+                            span.form__label-span (Describe yourself in 2-3 Sentences)
+                          textarea.form__textarea.form__required(type="text" name="overview" rows="5" placeholder="Type your Overview" autocomplete="off" required)=user.overview
+                        .form__flex
+                          label.form__label Genre
+                          select.form__select.chartin__select-register.active(name="genre" required)
+                            each item in musicianGenreArr
+                              if user.genre === item.id
+                                option.form__option(value=item.id selected)=item.name
+                              else
+                                option.form__option(value=item.id)=item.name
+                      //- Current Location (country) / Markets you target (country)
+                      .form__group.form__group-underline
+                        .form__flex
+                          label.form__label Current Location (Country)
+                          select.form__select.chartin__select-register.active(name="currentCountry" required)
+                            each item in country
+                              if user.currentCountry === item.name
+                                option.form__option(value=item.name selected)=item.name
+                              else
+                                option.form__option(value=item.name)=item.name
+                        .form__flex
+                          label.form__label Markets you target (Country)
+                          .form__group-selectInput.form__validation
+                            each item in country
+                              .selectInput__flex
+                                if user.targetCountry.includes(item.name)
+                                  input.form__option(type="checkbox" id=`${item.name}${index}` name="targetCountry" value=item.name checked)
+                                else
+                                  input.form__option(type="checkbox" id=`${item.name}${index}` name="targetCountry" value=item.name)
+                                label(for=`${item.name}${index}`)=item.name
+                      //- Why do you want to join us? / Your music video (Youtube)
+                      .form__group.form__group-underline.pcBorderNone
+                        .form__flex
+                          label.form__label Why do you want to join us?
+                          textarea.form__textarea.form__required(type="text" name="joinReason" placeholder="Why do you want to join us?" rows="5" autocomplete="off" required)=user.joinReason
+                        .form__flex
+                          label.form__label Your music video (Youtube)
+                          input.form__input(type="text" name="youtubeMusicVideo" value=user.youtubeMusicVideo placeholder="Type your Music video link" autocomplete="off")
+                    //- ***** [전문가] *****
+                    if type === "expert"
+                      //- Name / Title
+                      .form__group.form__group-underline
+                        .form__flex
+                          label.form__label Name
+                          input.form__input.form__required(type="text" name="name" value=user.name placeholder="Type your Name" autocomplete="off" required)
+                        .form__flex
+                          label.form__label Title
+                          select.form__select.chartin__select-register.active(name="title" required)
+                            each item in expertTitleArr
+                              if user.title === item.id
+                                option.form__option(value=item.id selected)=item.name
+                              else
+                                option.form__option(value=item.id)=item.name
+                      //- Previous/Current Clients / Best Project/Portfolio (Link) / Providable Services
+                      .form__group.form__group-underline
+                        .form__flex
+                          label.form__label Previous/Current Clients
+                          textarea.form__textarea.form__required(type="text" name="previousClients" placeholder="Type your Previous/Current Clients" rows="5" autocomplete="off" required)=user.previousClients
+                        .form__flex
+                          label.form__label Best Project/Portfolio (Link)
+                          input.form__input.form__required(type="text" name="bestProject" value=user.bestProject placeholder="Type your Best Project/Portfolio" autocomplete="off")
+                        .form__flex
+                          label.form__label Providable Services
+                          .form__group-selectInput.form__validation
+                            each item in expertProvidableServicesArr
+                              .selectInput__flex
+                                if user.providableServices.includes(item.id)
+                                  input.form__option(type="checkbox" id=`${item.name}${index}` name="providableServices" value=item.id checked)
+                                else
+                                  input.form__option(type="checkbox" id=`${item.name}${index}` name="providableServices" value=item.id)
+                                label(for=`${item.name}${index}`)=item.name
+                      //- Current Location (country) / Markets you service (country)
+                      .form__group.form__group-underline
+                        .form__flex
+                          label.form__label Current Location (Country)
+                          select.form__select.chartin__select-register.active(name="currentCountry" required)
+                            each item in country
+                              if item.name === user.currentCountry
+                                option.form__option(value=item.name selected)=item.name
+                              else
+                                option.form__option(value=item.name)=item.name
+                        .form__flex
+                          label.form__label Markets you service (Country)
+                          .form__group-selectInput.form__validation
+                            each item in country
+                              .selectInput__flex
+                                if user.serviceCountry.includes(item.name)
+                                  input.form__option(type="checkbox" id=`${item.name}${index}` name="serviceCountry"  value=item.name checked)
+                                else
+                                  input.form__option(type="checkbox" id=`${item.name}${index}` name="serviceCountry"  value=item.name)
+                                label(for=`${item.name}${index}`)=item.name
+                      //- Company / Why do you want to join us?
+                      .form__group.form__group-underline
+                        .form__flex
+                          label.form__label Company
+                          input.form__input(type="text" name="company" value=user.company placeholder="Type your Company" autocomplete="off")
+                        .form__flex
+                          label.form__label Why do you want to join us?
+                          textarea.form__textarea.form__required(type="text" name="joinReason" placeholder="Why do you want to join us?" rows="5" autocomplete="off" required)=user.joinReason
+                      //- Overview / How experienced are you?
+                      .form__group.form__group-underline.pcBorderNone
+                        .form__flex
+                          label.form__label Overview
+                            br
+                            span.form__label-span (Describe yourself in 2-3 Sentences)
+                          textarea.form__textarea.form__required(type="text" name="overview" rows="5" placeholder="Type your Overview" autocomplete="off" required)=user.overview
+                        .form__flex
+                          label.form__label How experienced are you?
+                          select.form__select.chartin__select-register.active(name="experience" required)
+                            each item in expertExperienceArr
+                              if item.id === user.experience
+                                option.form__option(value=item.id selected)=item.name
+                              else
+                                option.form__option(value=item.id)=item.name
+                    //- Register Social Media Mixin [mb]
+                    .form__group
+                      .form__flex
+                        .rsp-mb
+                          +registerSocialMedia(user)
+                .resigterForm__submit-flex
+                  button.resigterForm__submit-btn.active(type="button" data-id=user._id) Update Profile
+
+          section.profile__footer

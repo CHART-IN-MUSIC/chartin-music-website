@@ -1,0 +1,120 @@
+extends ../layouts/noPartialMain
+include ../partials/mixins
+
+block content
+  .dashboard__page#dashboard__page
+    .dashboard__page-flex
+      //- 대시보드 좌측 사이드바 들어갈 자리 [Mixin으로 구현]
+      +dashboardSideBar(loggedUser.role)
+      //- 대시보드 좌측 사이드바 들어갈 자리 [Mixin으로 구현]
+      //- 대시보드 우측 컨텐츠 들어갈 자리
+      .dashboard__contents-flex
+        #dashboard__payment
+          section.payment__header
+            h1.dashboard__title Payment
+          section.payment__body
+            .payment__flex
+              //- 일반 결제[피드백, 프로모션, 믹스마스터]
+              section.transaction__history-section
+                .transaction__flex
+                  h1.transaction__title Transaction History
+                  ul.transaction__menu-items
+                    li.transaction__menu-item.item__number
+                      h1.item__title #
+                    li.transaction__menu-item.item__orderID
+                      h1.item__title Receiver
+                    li.transaction__menu-item.item__type
+                      h1.item__title Type
+                    li.transaction__menu-item.item__date
+                      h1.item__title Date
+                    li.transaction__menu-item.item__amount
+                      h1.item__title Amount
+                  ul.transaction__content__items
+                    each item, index in transactionHistories
+                      li.transaction__content-item.item__number
+                        h1.item__title.item__number=`${index + 1}`
+                        if item.type === "feedback"
+                          if item.feedbackID[0].expertNames.length === 0
+                              h1.item__title.item__orderID NONE
+                          else
+                            .item__expertName-flex
+                              each expertName in item.feedbackID[0].expertNames
+                                h1.item__title.item__orderID=expertName
+                        else if item.type === "promotion"
+                          h1.item__title.item__orderID=item.promotionID[0].expertName
+                        else if item.type === "mixmaster"
+                          h1.item__title.item__orderID=item.mixmasterID[0].expertName
+                        else if item.type === "customized"
+                          h1.item__title.item__orderID CHARTIN
+                        h1.item__title.item__type=`${item.type === "feedback" ? "Feedback" : item.type === "promotion" ? "Promotion" : item.type === "customized" ? "Customized": "Mix/Master"}`
+                        h1.item__title.item__date=dateFormatMDY3(item.createdAt)
+                        h1.item__title.item__amount=`$${item.amount}`
+                //- BEGIN: Pagination
+                #pagination__flex
+                  if transactionHistories.length !== 0
+                    section.admin__pagination
+                      ul.pagination
+                        li
+                          a(href=`?page=1&page2=${page2}&limit=${limit}`)
+                            img(src=`${imgPath}/admin/double-prev.png`)
+                        if paginate.hasPreviousPages
+                          li
+                            a(href=paginate.href(true) aria-label="Previous")
+                              img(src=`${imgPath}/admin/prev.png`)
+                        each page in transactionPages
+                          if paginate.page == page.number
+                            li.active
+                              a.number-link(href=page.url)=page.number
+                          else
+                            li
+                              a.number-link(href=page.url)=page.number
+                        if paginate.hasNextPages(transactionPageCount)
+                          li
+                            a(href=paginate.href())
+                              img(src=`${imgPath}/admin/next.png`)
+                        li
+                          a(href=`?page=${transactionPageCount}&page2=${page2}&limit=${limit}`)
+                            img(src=`${imgPath}/admin/double-next.png`)
+              //- 구독 결제
+              section.recurring__history-section
+                .recurring__flex
+                  h1.recurring__title Recurring History
+                  ul.recurring__menu-items
+                    li.recurring__menu-item.item__number
+                      h1.item__title #
+                    li.recurring__menu-item.item__date
+                      h1.item__title Date
+                    li.recurring__menu-item.item__amount
+                      h1.item__title Amount
+                  ul.recurring__content__items
+                    each item, index in recurringHistories
+                      li.recurring__content-item.item__number
+                        h1.item__title.item__number=`${index + 1}`
+                        h1.item__title.item__date=dateFormatMDY3(item.createdAt)
+                        h1.item__title.item__amount=`$${item.amount}`
+                //- BEGIN: Pagination
+                #pagination__flex
+                  if recurringHistories.length !== 0
+                    section.admin__pagination
+                      ul.pagination
+                        li
+                          a(href=`?page2=1&page=${paginate.page}&limit=${limit}`)
+                            img(src=`${imgPath}/admin/double-prev.png`)
+                        if parseInt(page2, 10) > 1
+                          li
+                            a(href=`/user-musician/payment?page2=${page2 - 1}&page=${paginate.page}&limit=${limit}` aria-label="Previous")
+                              img(src=`${imgPath}/admin/prev.png`)
+                        each page in recurringPages
+                          if parseInt(page2, 10) === page.number
+                            li.active
+                              a.number-link(href=page.url)=page.number
+                          else
+                            li
+                              a.number-link(href=page.url)=page.number
+                        if parseInt(page2, 10) < recurringPageCount
+                          li
+                            a(href=`/user-musician/payment?page2=${page2 + 1}&page=${paginate.page}&limit=${limit}`)
+                              img(src=`${imgPath}/admin/next.png`)
+                        li
+                          a(href=`?page2=${recurringPageCount}&page=${paginate.page}&limit=${limit}`)
+                            img(src=`${imgPath}/admin/double-next.png`)

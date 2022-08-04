@@ -1,0 +1,134 @@
+.registerWelcome__page#registerWelcome__page {
+  padding-bottom: 100px;
+  section.registerWelcome__header {
+    width: 90%;
+    margin: 0 auto;
+    max-width: 500px;
+    .registerWelcome__img {
+      padding-top: 80%;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
+  }
+  .registerWelcome__page-flex {
+    .registerWelcome__flex {
+      section.registerWelcome__main {
+        img.registerWelcome__logo-img {
+          margin-bottom: 35px;
+          position: relative;
+          bottom: 20px;
+          left: 5px;
+          width: 222px;
+          object-fit: cover;
+        }
+        .registerWelcome__title-flex {
+          padding-left: 5px;
+          margin-bottom: 50px;
+          h1.registerWelcome__title {
+            margin-bottom: 20px;
+            font-size: 26px;
+            font-weight: 500;
+            font-style: italic;
+            line-height: 1.23;
+            color: $mainColor;
+          }
+          h1.registerWelcome__subTitle {
+            font-size: 16px;
+            line-height: 1.75;
+            color: #fff;
+          }
+        }
+        .registerWelcome__link-flex {
+          margin-bottom: 50px;
+          h1.registerWelcome__link-title,
+          h1.registerWelcome__link-subTitle {
+            font-size: 16px;
+            line-height: 1.75;
+            color: #fff;
+            &:not(:last-child) {
+              margin-bottom: 20px;
+            }
+            a.registerWelcome__link {
+              color: #10eb74;
+            }
+          }
+        }
+        .registerWelcome__linkBtn-flex {
+          display: flex;
+          flex-direction: column;
+          a.registerWelcome__linkBtn {
+            width: fit-content;
+            padding: 10px;
+            border-radius: 10px;
+            border: solid 1px #10eb73;
+            background-color: #101113;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.29;
+            color: #10eb73;
+            &:first-child {
+              margin-bottom: 12px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  .registerWelcome__page#registerWelcome__page {
+    section.registerWelcome__header {
+      width: calc(90% + 40px);
+      max-width: 1720px;
+      .registerWelcome__img {
+        padding-top: 20%;
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+      }
+    }
+    .registerWelcome__page-flex {
+      .registerWelcome__flex {
+        section.registerWelcome__main {
+          padding-left: 60px;
+          img.registerWelcome__logo-img {
+            width: 308px;
+            bottom: 25px;
+            left: 0;
+          }
+          .registerWelcome__title-flex {
+            padding-left: 0;
+            margin-bottom: 70px;
+            h1.registerWelcome__title {
+              margin-bottom: 33px;
+              font-size: 36px;
+            }
+            h1.registerWelcome__subTitle {
+              font-size: 24px;
+            }
+          }
+          .registerWelcome__link-flex {
+            margin-bottom: 70px;
+            h1.registerWelcome__link-title,
+            h1.registerWelcome__link-subTitle {
+              font-size: 24px;
+            }
+          }
+          .registerWelcome__linkBtn-flex {
+            flex-direction: row;
+            a.registerWelcome__linkBtn {
+              font-size: 24px;
+              &:first-child {
+                margin-bottom: 0;
+                margin-right: 20px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,107 @@
+extends layouts/main
+include partials/mixins
+
+block content
+  .conferenceRoom__page#conferenceRoom__page
+    section.conferenceRoom__banner
+      .rsp-mb
+        .banner__img(style=`background-image: url(${imgPath}/public/banner_mb.png)`)
+        h1.banner__title Conference
+      .banner__img.rsp-pc(style=`background-image: url(${imgPath}/public/banner_pc.png)`)
+      //- 검색기능
+      form.conference__search-form(method="GET")
+        .search__form-flex
+          input.search__input(type="text" name="search" autocomplete="off" placeholder="Search" required)
+          img.search__img(src=`${imgPath}/conference/search.png`)
+    .conferenceRoom__page-flex.layout
+      .conferenceRoom__flex
+        section.conferenceRoom__header
+          h1.header__title.rsp-pc Conference
+          .header__flex
+            //- conference category filter
+            ul.filter__items
+              each item in conferenceCategoryArr
+                li.filter__item
+                  button.item__name.filter__btn-name(data-value=item.id)=item.name
+            //-  buttons
+            .btn__flex
+              if !loggedUser
+                a.chartin__btn.add__qna-btn(href=`${routes.user}${routes.signIn}` onclick=`return confirm("You need to sign-in")`) ADD Q&A
+              else
+                button.chartin__btn.add__qna-btn(type='button' data-toggle='modal' data-target='#addQna') ADD Q&A
+              //- add qna modal
+              #addQna.modal.fade(tabindex='-1' role='dialog' aria-labelledby='addQnaTitle' aria-hidden='true')
+                .modal-dialog.modal-dialog-centered(role='document')
+                  .modal-content#modal-content
+                    .modal-header
+                      h5#addQnaTitle.modal-title ADD Q&A
+                      button.close(type='button' data-dismiss='modal' aria-label='Close')
+                        img(src=`${imgPath}/public/close.png`)
+                    .modal-body
+                      a.conference__sanctions-link(href=contentPolicy) Chartin content policies 
+                      span.conference__sanctions apply to help keep Chartin Conference Room a place for accurate, appropriate, and helpful discussions about music. These rules apply to everyone using the forums. 
+                      .form__group
+                        form#conferenceModalForm(method="post" )
+                          if loggedUser
+                            input(type="hidden" name="userID" value=loggedUser._id)
+                            input(type="hidden" name="conferenceFile")
+                          .form__flex
+                            label.form__label Category
+                            select.form__select.form__required.form__section.active(name="category")
+                              each item in conferenceCategoryArr
+                                if item.name !== "All"
+                                  option(value=item.id)=item.name
+                          .form__flex
+                            label.form__label Title
+                            input.form__input.form__required.form__section(type="text" name="title" placeholder="Title :" autocompelete="off" required)
+                          .form__flex
+                            label.form__label Attachment
+                            input.form__input.form__section(type="file" name="uploadConferenceFile" autocompelete="off" accept="image/*")
+                          .form__flex
+                            label.form__label Description
+                            textarea.form__textarea.form__required.form__section(type="text" name="desc" placeholder="Description :" autocompelete="off" required)
+                    .modal-footer
+                      button.submit__btn(type='button') Add
+                      button.close__btn(type='button' data-dismiss='modal') Close
+              if !loggedUser
+                a.chartin__btn.service__request-btnLink(href=`${routes.user}${routes.signIn}` onclick=`return confirm("You need to sign in to access this page");`) Service Request
+              else if loggedUser && loggedUser.role === "musician"
+                a.chartin__btn.service__request-btnLink(href=`${routes.user}${routes.serviceRequest}`) Service Request
+        section.conferenceRoom__main
+          .conference__main-flex
+            ul.conference__content-items
+              each item in conferences
+                li.conference__content-item
+                  a.item__link(href=`${routes.conferenceRoom}/detail/${item._id}`)
+                    h1.item__title.twoLineEllipsis=item.title
+                    h1.item__subTitle.twoLineEllipsis=item.desc
+                    .item__user-flex
+                      .item__user
+                        +userProfile(item.userID[0])
+                      .user__profile-flex(data-test=fromUserArr)
+                        h1.user__name=item.userID[0].name
+                        .user__like-flex
+                          if item.userID[0].role === "musician"
+                            each genre in musicianGenreArr
+                              if genre.id === item.userID[0].genre
+                                h1.user__likes=`${genre.name} / ${item.userID[0].currentCountry}`
+                          else 
+                            each title in expertTitleArr
+                              if title.id === item.userID[0].title
+                                h1.user__likes=`${title.name} / ${item.userID[0].currentCountry}`
+                        .user__icon-flex
+                          .icon__flex
+                            if !loggedUser
+                              img.icon__img.like__img(src=`${imgPath}/conference/like.svg`)
+                              h1.icon__title=`${item.conferenceLikeID.length} Like`
+                            else
+                              if conferenceLikeIDArr.includes(item._id.toString())
+                                img.icon__img.like__img(src=`${imgPath}/conference/like__active.svg`)
+                                h1.icon__title.active=`${item.conferenceLikeID.length} Like`
+                              else
+                                img.icon__img.like__img(src=`${imgPath}/conference/like.svg`)
+                                h1.icon__title=`${item.conferenceLikeID.length} Like`
+                          .icon__flex
+                            img.icon__img.comment__img(src=`${imgPath}/conference/comment.svg`)
+                            h1.icon__title=`${item.commentID.length} Comment`
+

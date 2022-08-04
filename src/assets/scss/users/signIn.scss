@@ -1,0 +1,258 @@
+.signIn__page#signIn__page {
+  padding-bottom: 106px;
+  .signIn__page-flex {
+    //- 로그인 로고 영역
+    section.signIn__logo-section {
+      .logo__section-bg {
+        background-image: url("/images/signIn/signIn_bg_mb@2x.png");
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        padding: 51px 0 40px 0;
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+        .signIn__bg-flex {
+          color: #fff;
+          h1.signIn__title {
+            margin: 0 20px;
+            font-size: 42px;
+            font-weight: bold;
+            line-height: 1.24;
+          }
+          .divider {
+            margin: 20px 0 20px 20px;
+            width: calc(100% - 20px);
+            height: 1px;
+            background-color: #fff;
+          }
+          .signIn__subTitle-flex {
+            margin: 0 20px;
+            position: relative;
+            h1.signIn__subTitle {
+              font-size: 18px;
+              font-weight: 600;
+              line-height: 1.22;
+            }
+            img.signIn__logo-img {
+              display: block;
+              position: absolute;
+              right: 0;
+              bottom: 6px;
+              width: 68px;
+            }
+          }
+        }
+      }
+    }
+    //- 로그인 form 영역
+    section.signIn__form-section {
+      padding-top: 23px;
+      .signIn__form-header {
+        margin-bottom: 24px;
+        .header__title-flex {
+          display: flex;
+          align-items: center;
+          h1.header__title {
+            font-size: 42px;
+            font-weight: bold;
+            line-height: 1.24;
+            color: #fff;
+          }
+          img.header__img {
+            object-fit: cover;
+            position: relative;
+            right: 5px;
+            width: 30px;
+          }
+        }
+        h1.header__subTitle {
+          font-size: 18px;
+          font-weight: 600;
+          line-height: 1.22;
+          color: #fff;
+        }
+      }
+      .signIn__form-main {
+        form.signIn__form {
+          .form-flex {
+            margin-bottom: 10px;
+            label.form-label {
+              color: #fff;
+              margin-bottom: 10px;
+              display: block;
+              font-size: 20px;
+              font-weight: 600;
+              line-height: 1.2;
+            }
+            input.form-input {
+              color: #fff;
+              width: 100%;
+              height: 48px;
+              padding: 17px 20px 13px 20px;
+              font-size: 16px;
+              line-height: 1;
+              border-radius: 10px;
+              border: solid 1px $mainColor;
+            }
+          }
+          .form__submit-flex {
+            margin: 10px 0 10px 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #626262;
+            button.signIn__submit-btn {
+              padding: 10px 0;
+              width: 100%;
+              margin-top: 20px;
+              font-size: 24px;
+              font-weight: 600;
+              line-height: 1.21;
+              color: #16151a;
+              background-color: $mainColor;
+              border-radius: 10px;
+            }
+          }
+          a.signUp__link {
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.29;
+            color: #989898;
+            text-decoration: underline;
+            img.signUp__link-img {
+              display: inline-block;
+              margin-left: 4px;
+              width: 16px;
+            }
+          }
+        }
+        .find__link-flex {
+          margin-top: 20px;
+          a.find__id-link {
+            margin-right: 20px;
+          }
+          a.find__id-link,
+          a.find__pw-link {
+            font-size: 12px;
+            font-weight: 500;
+            color: #10eb73;
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  .signIn__page#signIn__page {
+    padding-bottom: 0;
+    .signIn__page-flex {
+      display: flex;
+      //- 로그인 로고 영역
+      section.signIn__logo-section {
+        width: 50%;
+        .logo__section-bg {
+          background-image: url("/images/signIn/signIn_bg_pc@2x.png");
+          min-height: 100vh;
+          padding: 0;
+          max-width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .signIn__bg-flex {
+            color: #fff;
+            h1.signIn__title {
+              margin: 0;
+              font-size: 100px;
+            }
+            .divider {
+              margin: 40px 0;
+              width: 100%;
+            }
+            .signIn__subTitle-flex {
+              margin: 0;
+              h1.signIn__subTitle {
+                font-size: 38px;
+                margin-bottom: 109px;
+              }
+              img.signIn__logo-img {
+                position: static;
+                right: initial;
+                bottom: initial;
+                width: 206px;
+              }
+            }
+          }
+        }
+      }
+      //- 로그인 form 영역
+      section.signIn__form-section {
+        width: 50%;
+        min-height: 100vh;
+        padding-top: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 600px;
+        margin: 0 auto;
+        .signIn__form-header {
+          margin-bottom: 80px;
+          .header__title-flex {
+            h1.header__title {
+              font-size: 100px;
+            }
+            img.header__img {
+              right: 20px;
+              width: 60px;
+            }
+          }
+          h1.header__subTitle {
+            font-size: 28px;
+          }
+        }
+        .signIn__form-main {
+          form.signIn__form {
+            .form-flex {
+              margin-bottom: 20px;
+              label.form-label {
+                margin-bottom: 20px;
+                font-size: 24px;
+              }
+              input.form-input {
+                height: 52px;
+                padding: 18px 20px 16px 20px;
+                font-size: 18px;
+              }
+            }
+            .form__submit-flex {
+              margin: 40px 0 43px 0;
+              padding-bottom: 40px;
+              button.signIn__submit-btn {
+                margin-top: 40px;
+                padding: 15px 0;
+                font-size: 32px;
+              }
+            }
+            a.signUp__link {
+              font-size: 20px;
+              line-height: 1.2;
+              img.signUp__link-img {
+                position: relative;
+                top: 6px;
+                margin-left: 10px;
+                width: 32px;
+              }
+            }
+          }
+          .find__link-flex {
+            a.find__id-link,
+            a.find__pw-link {
+              font-size: 16px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

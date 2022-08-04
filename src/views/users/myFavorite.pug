@@ -1,0 +1,30 @@
+extends ../layouts/noPartialMain
+include ../partials/mixins
+
+block content
+  .dashboard__page#dashboard__page
+    .dashboard__page-flex
+      //- 대시보드 좌측 사이드바 들어갈 자리 [Mixin으로 구현]
+      +dashboardSideBar(loggedUser.role)
+      //- 대시보드 우측 컨텐츠 들어갈 자리
+      .dashboard__contents-flex
+        #dashboard__myFavorite
+          h1.dashboard__title My Favorite
+          .dashboard__favorite-flex.rsp-mb
+            ul.dashboard__favorite-items
+              - var n=0;
+              each item, index in likes
+                li.dashboard__favorite-item
+                  +favoriteCard(item.toUser[0], loggedUser.role)
+                if index + 1 === n + 2
+                  - n += n + 2
+                  li.item__border-line
+          .dashboard__favorite-flex.rsp-pc
+            ul.dashboard__favorite-items
+              - var n=0;
+              each item, index in likes
+                li.dashboard__favorite-item
+                  +favoriteCard(item.toUser[0], loggedUser.role)
+                if index + 1 === n + 4
+                  - n += n + 4
+                  li.item__border-line

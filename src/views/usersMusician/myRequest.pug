@@ -1,0 +1,139 @@
+extends ../layouts/noPartialMain
+include ../partials/mixins
+
+block content
+  .dashboard__page#dashboard__page
+    .dashboard__page-flex
+      //- 대시보드 좌측 사이드바 들어갈 자리 [Mixin으로 구현]
+      +dashboardSideBar(loggedUser.role)
+      //- 대시보드 우측 컨텐츠 들어갈 자리
+      .dashboard__contents-flex
+        #dashboard__myRequest
+          section.myRequest__header
+            h1.dashboard__title My Request
+          section.myRequest__body
+            .myRequest__flex
+              //- 메뉴 이름
+              ul.myRequest__menu-items
+                li.myRequest__menu-item
+                  .item__flex
+                    h1.item__title.item__number #
+                    h1.item__title.item__project Project
+                    h1.item__title.item__expert Expert
+                    h1.item__title.item__date Request Date
+                    h1.item__title.item__status Status
+              //- 결과물 모달
+              each item, index in totalMyRequest
+                if item.status === "RESULT" || item.status === "DONE"
+                  +uploadResultModal(item, item.offerID[0], index)
+              //- 내용
+              ul.myRequest__items
+                each item, index in totalMyRequest
+                  li.myRequest__item(data-id=item._id)
+                    .item__flex
+                      h1.item__title.item__number=`${index + 1}`
+                      h1.item__title.item__project=`${item.title === "feedback" ? "Feedback" : item.title === "promotion" ? "Promotion" : "Mix/Master"}`
+                      .item__expert-wrapper
+                        if item.title === "feedback"
+                          if item.offerID.length === 0
+                            .item__expert-flex
+                              h1.item__expert-none Waiting
+                          else
+                            each offerExpertName in item.offerID
+                              .item__expert-flex
+                                if !offerExpertName.expertID
+                                  h1.item__expert Deleted Expert
+                                  img(src=`${imgPath}/public/select_down.svg` style="stroke: #c9c9c9;")
+                                  +myRequestUnderMenu(item, item.status, index, loggedUser._id)
+                                else
+                                  h1.item__expert=offerExpertName.expertID[0].name
+                                  img(src=`${imgPath}/public/select_down.svg` style="stroke: #c9c9c9;")
+                                  +myRequestUnderMenu(item, item.status, index, loggedUser._id, offerExpertName.expertID[0]._id)
+                        else if item.title === "promotion"
+                          if item.offerID.length === 0
+                            if item.proposalID.length === 0
+                              if item.expertID.length === 0
+                                .item__expert-flex
+                                  h1.item__expert-none Waiting
+                              //- 직접요청
+                              else if item.expertID.length !== 0 && item.status === "REQUESTED"
+                                .item__expert-flex
+                                  h1.item__expert-none=item.expertID[0].name
+                                  img(src=`${imgPath}/public/select_down.svg` style="stroke: #c9c9c9;")
+                                  +myRequestUnderMenu(item, item.status, index, loggedUser._id, item.expertID[0]._id)
+                            else
+                              each proposalExpertName in item.proposalID
+                                .item__expert-flex
+                                  h1.item__expert=proposalExpertName.expertID[0].name
+                                  img(src=`${imgPath}/public/select_down.svg` style="stroke: #c9c9c9;")
+                                  +myRequestUnderMenu(item, item.status, index, loggedUser._id, proposalExpertName.expertID[0]._id)
+                          else
+                            if item.proposalID.length === 0
+                              .item__expert-flex
+                                h1.item__expert-none(data) Deleted Expert
+                                img(src=`${imgPath}/public/select_down.svg` style="stroke: #c9c9c9;")
+                                +myRequestUnderMenu(item, item.status, index, loggedUser._id)
+                            else
+                              each proposalExpertName in item.proposalID
+                                .item__expert-flex
+                                  h1.item__expert=proposalExpertName.expertID[0].name
+                                  img(src=`${imgPath}/public/select_down.svg` style="stroke: #c9c9c9;")
+                                  +myRequestUnderMenu(item, item.status, index, loggedUser._id, proposalExpertName.expertID[0]._id)
+                        else if item.title === "mixmaster"
+                          if item.offerID.length === 0
+                            if item.proposalID.length === 0
+                              if item.expertID.length === 0
+                                .item__expert-flex
+                                  h1.item__expert-none Waiting
+                              else if item.expertID.length !== 0 && item.status === "REQUESTED"
+                                .item__expert-flex
+                                  h1.item__expert-none=item.expertID[0].name
+                                  img(src=`${imgPath}/public/select_down.svg` style="stroke: #c9c9c9;")
+                                  +myRequestUnderMenu(item, item.status, index, loggedUser._id, item.expertID[0]._id)
+                            else
+                              each proposalExpertName in item.proposalID
+                                .item__expert-flex
+                                  h1.item__expert=proposalExpertName.expertID[0].name
+                                  img(src=`${imgPath}/public/select_down.svg` style="stroke: #c9c9c9;")
+                                  +myRequestUnderMenu(item, item.status, index, loggedUser._id, proposalExpertName.expertID[0]._id)
+                          else
+                            if item.proposalID.length === 0
+                              .item__expert-flex
+                                h1.item__expert-none(data) Deleted Expert
+                                img(src=`${imgPath}/public/select_down.svg` style="stroke: #c9c9c9;")
+                                +myRequestUnderMenu(item, item.status, index, loggedUser._id)
+                            else
+                              each proposalExpertName in item.proposalID
+                                .item__expert-flex
+                                  h1.item__expert=proposalExpertName.expertID[0].name
+                                  img(src=`${imgPath}/public/select_down.svg` style="stroke: #c9c9c9;")
+                                  +myRequestUnderMenu(item, item.status, index, loggedUser._id, proposalExpertName.expertID[0]._id)
+                      h1.item__title.item__date=dateFormatMDY(item.createdAt)
+                      h1.item__title.item__status(class=`item__status-${item.status.replace(" ", "")}`)=item.status
+        //- BEGIN: Pagination
+        if pagination
+          #pagination__flex
+            if totalMyRequest.length !== 0
+              section.admin__pagination
+                ul.pagination
+                  li
+                    a(href=`?page=1&limit=${limit}`)
+                      img(src=`${imgPath}/admin/double-prev.png` width="40px")
+                  if paginate.hasPreviousPages
+                    li
+                      a(href=paginate.href(true) aria-label="Previous")
+                        img(src=`${imgPath}/admin/prev.png` width="40px")
+                  each page in pages
+                    if paginate.page == page.number
+                      li.active
+                        a.number-link(href=page.url)=page.number
+                    else
+                      li
+                        a.number-link(href=page.url)=page.number
+                  if paginate.hasNextPages(pageCount)
+                    li
+                      a(href=paginate.href())
+                        img(src=`${imgPath}/admin/next.png` width="40px")
+                  li
+                    a(href=`?page=${pageCount}&limit=${limit}`)
+                      img(src=`${imgPath}/admin/double-next.png` width="40px")

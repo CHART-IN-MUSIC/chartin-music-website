@@ -1,0 +1,162 @@
+extends ../layouts/noPartialMain
+include ../partials/mixins
+
+block content
+  .registerForm__page#registerForm__page
+    .registerForm__page-flex.layout
+      section.registerForm__header
+        .header__flex
+          if type === "musician"
+            h1.header__title AUDITION (MUSICIAN)
+          else if type === "expert"
+            h1.header__title AUDITION (EXPERT)
+          img.header__img(src=`${imgPath}/register/register_icon@3x.png`)
+      section.registerForm__main
+        .registerForm__main-flex
+          form#registerForm(method="post")
+            .registerForm__flex
+              .registerForm__flex-flex
+                //- Profile Color
+                .form__group.form__group-underline
+                  h1.profile__title Set up your profile
+                  .profile__flex
+                    .profile__circle
+                      input.form__input(type="hidden" name="gradientColor" value=gradientColors[0].backgroundLinear)
+                    .gradient__color--flex
+                      ul.gradient__color-items
+                        each item in gradientColors
+                          li.gradient__color-item
+                            .item__circle(style=`background:${item.backgroundLinear};` data-color=item.backgroundLinear)
+                //- Register Social Media Mixin [pc]
+                .form__group
+                  .form__flex
+                    .rsp-pc
+                      +registerSocialMedia()
+              .registerForm__flex-flex
+                //- Email [공통]
+                .form__group.form__group-underline
+                  .form__flex
+                    label.form__label Email
+                    .form__flex-pc
+                      input.form__input.form__required.form__validation(type="email" name="userID" placeholder="Type your Email :)" autocomplete="off" required)
+                      button.form__btn.email__auth-btn(type="button") Send Code
+                  .form__flex#verification__code
+                    label.form__label Verification Code
+                    .form__flex-pc
+                      input.form__input.form__validation(type="number" name="authNum" placeholder="Type your Verification Code :)" autocomplete="off")
+                      button.form__btn.email__auth2-btn(type="button") Verify
+                //- PW / PW2 [공통]
+                .form__group.form__group-underline.form__group-pc
+                  .form__flex
+                    label.form__label Password
+                    input.form__input.form__required.form__validation(type="password" name="password" placeholder="Type your Password ( _ _ ) ( - - )" autocomplete required)
+                  .form__flex
+                    label.form__label Confirm Password
+                    input.form__input.form__required.form__validation(type="password" name="password2" placeholder="Type your Password ( _ _ ) ( - - )" autocomplete required)
+                //- ***** [뮤지션] *****
+                if type === "musician"
+                  //- Name / Overview / Genre
+                  .form__group.form__group-underline
+                    .form__flex
+                      label.form__label Name
+                      input.form__input.form__required.form__validation(type="text" name="name" placeholder="Type your Name" autocomplete="off" required)
+                    .form__flex
+                      label.form__label Overview
+                        br
+                        span.form__label-span (Describe yourself in 2-3 Sentences)
+                      textarea.form__textarea.form__required.form__validation(type="text" name="overview" rows="5" placeholder="Type your Overview" autocomplete="off" required)
+                    .form__flex
+                      label.form__label Genre
+                      select.form__select.chartin__select-register.active.form__validation(name="genre" required)
+                        each item in musicianGenreArr
+                          option.form__option(value=item.id)=item.name
+                  //- Current Location (country) / Markets you target (country)
+                  .form__group.form__group-underline
+                    .form__flex
+                      label.form__label Current Location (Country)
+                      select.form__select.chartin__select-register.active.form__validation(name="currentCountry" required)
+                        each item in country
+                          option.form__option(value=item.name)=item.name
+                    .form__flex
+                      label.form__label Markets you target (Country)
+                      .form__group-selectInput.form__validation
+                        each item in country
+                          .selectInput__flex
+                            input.form__option(type="checkbox" id=`${item.name}${index}` name="targetCountry" value=item.name)
+                            label(for=`${item.name}${index}`)=item.name
+                  //- Why do you want to join us? / Your music video (Youtube)
+                  .form__group.form__group-underline.pcBorderNone
+                    .form__flex
+                      label.form__label Why do you want to join us?
+                      textarea.form__textarea.form__required.form__validation(type="text" name="joinReason" placeholder="Why do you want to join us?" rows="5" autocomplete="off" required)
+                    .form__flex
+                      label.form__label Your music or MV (Youtube)
+                      input.form__input.form__required.form__validation.form__link(type="text" name="youtubeMusicVideo" placeholder="Type your Music video link" autocomplete="off" required)
+                //- ***** [전문가] *****
+                if type === "expert"
+                  //- Name / Title
+                  .form__group.form__group-underline
+                    .form__flex
+                      label.form__label Name
+                      input.form__input.form__required.form__validation(type="text" name="name" placeholder="Type your Name" autocomplete="off" required)
+                    .form__flex
+                      label.form__label Title
+                      select.form__select.chartin__select-register.active.form__validation(name="title" required)
+                        each item in expertTitleArr
+                          option.form__option(value=item.id)=item.name
+                  //- Previous/Current Clients / Best Project/Portfolio (Link) / Providable Services
+                  .form__group.form__group-underline
+                    .form__flex
+                      label.form__label Previous/Current Clients
+                      textarea.form__textarea.form__required.form__validation(type="text" name="previousClients" placeholder="Type your Previous/Current Clients" rows="5" autocomplete="off" required)
+                    .form__flex
+                      label.form__label Best Project/Portfolio (Link)
+                      input.form__input.form__required.form__validation.form__link(type="text" name="bestProject" placeholder="Type your Best Project/Portfolio" autocomplete="off" required)
+                    .form__flex
+                      label.form__label Providable Services
+                      .form__group-selectInput.form__validation
+                        each item in expertProvidableServicesArr
+                          .selectInput__flex
+                            input.form__option(type="checkbox" id=`${item.name}${index}` name="providableServices" value=item.id)
+                            label(for=`${item.name}${index}`)=item.name
+                  //- Current Location (country) / Markets you service (country)
+                  .form__group.form__group-underline
+                    .form__flex
+                      label.form__label Current Location (Country)
+                      select.form__select.chartin__select-register.active.form__validation(name="currentCountry" required)
+                        each item in country
+                          option.form__option(value=item.name)=item.name
+                    .form__flex
+                      label.form__label Markets you service (Country)
+                      .form__group-selectInput.form__validation
+                        each item in country
+                          .selectInput__flex
+                            input.form__option(type="checkbox" id=`${item.name}${index}` name="serviceCountry"  value=item.name)
+                            label(for=`${item.name}${index}`)=item.name
+                  //- Company / Why do you want to join us?
+                  .form__group.form__group-underline
+                    .form__flex
+                      label.form__label Company
+                      input.form__input(type="text" name="company" placeholder="Type your Company" autocomplete="off")
+                    .form__flex
+                      label.form__label Why do you want to join us?
+                      textarea.form__textarea.form__required.form__validation(type="text" name="joinReason" placeholder="Why do you want to join us?" rows="5" autocomplete="off" required)
+                  //- Overview / How experienced are you?
+                  .form__group.form__group-underline.pcBorderNone
+                    .form__flex
+                      label.form__label Overview
+                        br
+                        span.form__label-span (Describe yourself in 2-3 Sentences)
+                      textarea.form__textarea.form__required.form__validation(type="text" name="overview" rows="5" placeholder="Type your Overview" autocomplete="off" required)
+                    .form__flex
+                      label.form__label How experienced are you?
+                      select.form__select.chartin__select-register.active.form__validation(name="experience" required)
+                        each item in expertExperienceArr
+                          option.form__option(value=item.id)=item.name
+                //- Register Social Media Mixin [mb]
+                .form__group
+                  .form__flex
+                    .rsp-mb
+                      +registerSocialMedia()
+            .resigterForm__submit-flex
+              button.resigterForm__submit-btn(type="button") Register

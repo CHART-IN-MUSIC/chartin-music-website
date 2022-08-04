@@ -1,0 +1,132 @@
+include ../partials/mixins
+
+header.header#header
+  .rsp-mb
+    .header-flex
+      .layout
+        ul.header__items
+          li.header__item
+            //- 헤더 알림 영역 [mb]
+            .header__alarm-flex
+              if alarms
+                button.header__alarm-item(type="button")
+                  img.header__alarm-img(src=`${imgPath}/public/alarm_icon@2x.png` width="17.5px")
+                  if newAlarmBool.length > 0
+                    img.header__new-img.active(src=`${imgPath}/public/alarm_new_mark@2x.png` width="14px")
+                .alarm__flex
+                  .alarm__header
+                    h3.alarm__title Notification
+                    button.alarm__close-btn(type="button")
+                      img.alarm__close-img(src=`${imgPath}/home/modal_close@3x.png`)
+                  .alarm__body
+                    ul.alarm__items
+                      each alarm in alarms
+                        li.alarm__item
+                          a.alarm__item-link(href=alarm.link)
+                            p.alarm__item-desc=alarm.desc
+                            p.alarm__item-date=dateFormatMDYHm(alarm.createdAt)
+          li.header__item
+            a.header__logo(href=routes.home)
+              img.header__logo-img(src=`${imgPath}/public/logo_basic@3x.png`)
+          li.header__item
+            button.header__hamburger-btn#header__hamburger-btn(type="button")
+              img.header__hamburger-img(src=`${imgPath}/header/hamburger@3x.png`)
+    .header__menu-dropdown
+      .layout
+        ul.header__menu-items#header__menu-items
+          if loggedUser && loggedUser.role === "musician"
+            li.header__menu-item(data-link=`${routes.user}${routes.getHigher}`)
+              a.header__menu-link(href=`${routes.user}${routes.getHigher}`) Get Higher
+          if loggedUser && loggedUser.role === "expert"
+            li.header__menu-item(data-link=routes.musicianList)
+              a.header__menu-link(href=`${routes.musicianList}`)=`${lang === "ko" ? "뮤지션 리스트" : "Musician List"}`
+          li.header__menu-item(data-link=routes.newsRoom)
+            a.header__menu-link(href=routes.newsRoom)=`${lang === "ko" ? "뉴스룸" : "Newsroom"}`
+          li.header__menu-item(data-link=routes.conferenceRoom)
+            a.header__menu-link(href=routes.conferenceRoom)=`${lang === "ko" ? "컨퍼런스룸" : "Conference"}`
+          li.header__menu-item
+            a.header__menu-link(onclick=`alert("We're launching our merchandise page soon. Follow our Instagram page to be first one to find out! @chartinmusic");`)=`${lang === "ko" ? "굿즈" : "Merch"}`
+          if !loggedUser
+            li.header__menu-item(data-link=`${routes.user}${routes.signIn}`)
+              a.header__menu-link(href=`${routes.user}${routes.signIn}`)=`${lang === "ko" ? "로그인" : "Sign-in"}`
+            li.header__menu-item(data-link=`${routes.user}${routes.register}`)
+              a.header__menu-link(href=`${routes.user}${routes.register}`)=`${lang === "ko" ? "회원가입" : "Register"}`
+          else
+            li.header__menu-item
+              a.header__menu-link.header__menu-toggle=loggedUser.name
+                img.header__menu-chevron(src=`${imgPath}/header/chevron_down@3x.png`)
+              //- Header User My Menu Mixin [로그인 시 유저 네임 아래 보이는 부분]
+              +headerUserMyMenu()
+  .rsp-pc
+    .header-flex#header-flex-pc
+      .layout
+        .header-flex-left
+          a.header__logo(href=routes.home)
+            img.header__logo-img(src=`${imgPath}/public/logo_basic@3x.png`)
+          .rsp-pc-1800
+            ul.mbNav__items
+              li.mbNav__item
+                a.mbNav__link(href=mentalDiagnosisLink target="_blank")
+                  img.mbNav__ico(src=`${imgPath}/header/mental@3x.png` width="13.8px")
+                  p.mbNav__title Mental
+                    span.hidden__word &nbsp;Health
+              li.mbNav__item
+                a.mbNav__link(href=`${routes.user}${routes.serviceRequest}`)
+                  img.mbNav__ico(src=`${imgPath}/header/request@3x.png` width="16px")
+                  p.mbNav__title
+                    span.hidden__word Service&nbsp;
+                    | Request
+              li.mbNav__item
+                a.mbNav__link(href=`${routes.user}${routes.serviceDiagnosis}`)
+                  img.mbNav__ico(src=`${imgPath}/header/diagnosis@3x.png` width="10.9px")
+                  p.mbNav__title
+                    span.hidden__word Service&nbsp;
+                    | Diagnosis
+        .headef-flex-right
+          ul.header__menu-items#header__menu-items
+            .menu__items-flex
+              if loggedUser && loggedUser.role === "musician"
+                li.header__menu-item(data-link=routes.getHigher)
+                  a.header__menu-link(href=`${routes.user}${routes.getHigher}`) Get Higher
+              if loggedUser && loggedUser.role === "expert"
+                li.header__menu-item(data-link=routes.musicianList)
+                  a.header__menu-link(href=`${routes.musicianList}`)=`${lang === "ko" ? "뮤지션 리스트" : "Musician List"}`
+              li.header__menu-item(data-link=routes.newsRoom)
+                a.header__menu-link(href=routes.newsRoom)=`${lang === "ko" ? "뉴스룸" : "Newsroom"}`
+              li.header__menu-item(data-link=routes.conferenceRoom)
+                a.header__menu-link(href=routes.conferenceRoom)=`${lang === "ko" ? "컨퍼런스룸" : "Conference"}`
+              li.header__menu-item
+                a.header__menu-link(onclick=`alert("We're launching our merchandise page soon. Follow our Instagram page to be first one to find out! @chartinmusic");`)=`${lang === "ko" ? "굿즈" : "Merch"}`
+            .menu__items-flex
+              if !loggedUser
+                li.header__menu-item(data-link=`${routes.user}${routes.signIn}`)
+                  a.header__menu-link(href=`${routes.user}${routes.signIn}`)=`${lang === "ko" ? "로그인" : "Sign-in"}`
+                li.header__menu-item(data-link=`${routes.user}${routes.register}`)
+                  a.header__menu-link(href=`${routes.user}${routes.register}`)=`${lang === "ko" ? "회원가입" : "Register"}`
+              else
+                li.header__menu-item.menu__item-loggedUser
+                  a.header__menu-link.header__menu-toggle
+                    span.oneLineEllipsis=loggedUser.name
+                    img.header__menu-chevron(src=`${imgPath}/header/chevron_down_white@3x.png`)
+                  //- Header User My Menu Mixin [로그인 시 유저 네임 아래 보이는 부분]
+                  +headerUserMyMenu()
+                li.header__menu-item.menu__item-loggedUser
+                  //- 헤더 알림 영역 [pc]
+                  .header__alarm-flex
+                    if alarms
+                      button.header__alarm-item(type="button")
+                        img.header__alarm-img(src=`${imgPath}/public/alarm_icon@2x.png` width="17.5px")
+                        if newAlarmBool.length > 0
+                          img.header__new-img.active(src=`${imgPath}/public/alarm_new_mark@2x.png` width="14px")
+                      .alarm__flex
+                        .alarm__header
+                          h3.alarm__title Notification
+                          button.alarm__close-btn(type="button")
+                            img.alarm__close-img(src=`${imgPath}/home/modal_close@3x.png`)
+                        .alarm__body
+                          ul.alarm__items
+                            each alarm in alarms
+                              li.alarm__item(class=`${!alarm.read ? "notRead__alarm" : ""}` data-id=alarm._id)
+                                a.alarm__item-link(href=alarm.link)
+                                  p.alarm__item-desc=alarm.desc
+                                  p.alarm__item-date=dateFormatMDYHm(alarm.createdAt)

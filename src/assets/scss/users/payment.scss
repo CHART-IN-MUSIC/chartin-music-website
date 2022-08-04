@@ -1,0 +1,251 @@
+#dashboard__payment {
+  section.payment__header {
+    h1.dashboard__title {
+      margin-bottom: 40px;
+      font-size: 34px;
+      font-weight: bold;
+      color: #fff;
+    }
+  }
+  section.payment__body {
+    .payment__flex {
+      //- 일반 결제[피드백, 프로모션, 믹스마스터]
+      section.transaction__history-section {
+        margin-bottom: 60px;
+        .transaction__flex {
+          h1.transaction__title {
+            margin-bottom: 20px;
+            font-size: 26px;
+            font-weight: bold;
+            color: #10eb73;
+          }
+          ul.transaction__menu-items {
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #fff;
+            li.transaction__menu-item {
+              h1.item__title {
+                font-size: 14px;
+                font-weight: 500;
+                color: #fff;
+                text-align: center;
+              }
+            }
+            li.item__number {
+              width: 6%;
+              max-width: 30px;
+              h1.item__title {
+                text-align: left;
+              }
+            }
+            li.item__orderID {
+              width: 23%;
+            }
+            li.item__type {
+              width: 22%;
+            }
+            li.item__date {
+              width: 25%;
+            }
+            li.item__amount {
+              width: 24%;
+            }
+          }
+          ul.transaction__content__items {
+            margin-bottom: 20px;
+            li.transaction__content-item {
+              padding: 24px 0;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              &:not(:last-child) {
+                border-bottom: 1px solid #6c6c6c;
+              }
+              h1.item__title {
+                font-size: 14px;
+                font-weight: 500;
+                color: #c9c9c9;
+                text-align: center;
+              }
+              h1.item__number {
+                width: 6%;
+                max-width: 30px;
+                color: #fff;
+                text-align: left;
+              }
+              h1.item__orderID {
+                width: 23%;
+                white-space: pre;
+                overflow: hidden;
+                text-overflow: ellipsis;
+              }
+              .item__expertName-flex {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 23%;
+                h1.item__orderID {
+                  width: 100%;
+                }
+              }
+              h1.item__type {
+                width: 22%;
+                white-space: pre;
+                overflow: hidden;
+                text-overflow: ellipsis;
+              }
+              h1.item__date {
+                width: 25%;
+              }
+              h1.item__amount {
+                width: 24%;
+              }
+            }
+          }
+        }
+      }
+      section.recurring__history-section {
+        .recurring__flex {
+          h1.recurring__title {
+            margin-bottom: 20px;
+            font-size: 26px;
+            font-weight: bold;
+            color: #10eb73;
+          }
+          ul.recurring__menu-items {
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #fff;
+            li.recurring__menu-item {
+              h1.item__title {
+                font-size: 14px;
+                font-weight: 500;
+                color: #fff;
+                text-align: center;
+              }
+            }
+            li.item__number {
+              width: 6%;
+              max-width: 30px;
+              h1.item__title {
+                text-align: left;
+              }
+            }
+            li.item__date {
+              width: 70%;
+            }
+            li.item__amount {
+              width: 24%;
+            }
+          }
+          ul.recurring__content__items {
+            margin-bottom: 20px;
+            li.recurring__content-item {
+              padding: 24px 0;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              &:not(:last-child) {
+                border-bottom: 1px solid #6c6c6c;
+              }
+              h1.item__title {
+                font-size: 14px;
+                font-weight: 500;
+                color: #c9c9c9;
+                text-align: center;
+              }
+              h1.item__number {
+                width: 6%;
+                max-width: 30px;
+                color: #fff;
+                text-align: left;
+              }
+
+              h1.item__date {
+                width: 70%;
+              }
+              h1.item__amount {
+                width: 24%;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  #dashboard__payment {
+    section.payment__header {
+      h1.dashboard__title {
+        margin-bottom: 60px;
+        font-size: 60px;
+      }
+    }
+    section.payment__body {
+      .payment__flex {
+        //- 일반 결제[피드백, 프로모션, 믹스마스터]
+        section.transaction__history-section {
+          margin-bottom: 80px;
+          .transaction__flex {
+            h1.transaction__title {
+              font-size: 42px;
+            }
+            ul.transaction__menu-items {
+              padding-bottom: 20px;
+              li.transaction__menu-item {
+                h1.item__title {
+                  font-size: 28px;
+                }
+              }
+            }
+            ul.transaction__content__items {
+              margin-bottom: 40px;
+              li.transaction__content-item {
+                padding: 20px 0;
+                h1.item__title {
+                  font-size: 22px;
+                }
+                h1.item__number {
+                  text-align: center;
+                }
+              }
+            }
+          }
+        }
+        section.recurring__history-section {
+          .recurring__flex {
+            h1.recurring__title {
+              font-size: 42px;
+            }
+            ul.recurring__menu-items {
+              padding-bottom: 20px;
+              li.recurring__menu-item {
+                h1.item__title {
+                  font-size: 28px;
+                }
+              }
+            }
+            ul.recurring__content__items {
+              margin-bottom: 40px;
+              li.recurring__content-item {
+                padding: 20px 0;
+                h1.item__title {
+                  font-size: 22px;
+                }
+                h1.item__number {
+                  text-align: center;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

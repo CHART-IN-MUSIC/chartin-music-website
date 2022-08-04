@@ -1,0 +1,157 @@
+//- BEGIN: Header
+nav.header-navbar.navbar.navbar-expand-lg.align-items-center.floating-nav.navbar-light.navbar-shadow.container-xxl
+  .navbar-container.d-flex.content
+    .bookmark-wrapper.d-flex.align-items-center
+      ul.nav.navbar-nav.d-xl-none
+        li.nav-item
+          a.nav-link.menu-toggle(href='javascript:void(0);')
+            i.ficon(data-feather='menu')
+    ul.nav.navbar-nav.align-items-center.ml-auto
+      //- 다크모드 전환
+      li.nav-item.d-none.d-lg-block
+        a.nav-link.nav-link-style
+          i.ficon(data-feather='moon')
+      li.nav-item.dropdown.dropdown-user
+        a#dropdown-user.nav-link.dropdown-toggle.dropdown-user-link(href='javascript:void(0);' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+          .user-nav.d-sm-flex.d-none
+            if loggedUser
+              span.user-name.font-weight-bolder=`${loggedUser.userID}`
+              span.user-status=`${loggedUser.role === "master" ? "마스터" : "일반"}관리자`
+//- END: Header
+//- BEGIN: Main Menu
+.main-menu.menu-fixed.menu-light.menu-accordion.menu-shadow(data-scroll-to-active='true')
+  .navbar-header
+    ul.nav.navbar-nav.flex-row
+      li.nav-item.mr-auto
+        a.navbar-brand(href=`${routes.admin}${routes.adminUser}`)
+          //- 로고이미지 추가 영역
+          h2.brand-text=siteName
+      li.nav-item.nav-toggle
+        a.nav-link.modern-nav-toggle.pr-0(data-toggle='collapse')
+          i.d-block.d-xl-none.text-primary.toggle-icon.font-medium-4(data-feather='x')
+          i.d-none.d-xl-block.collapse-toggle-icon.font-medium-4.text-primary(data-feather='disc' data-ticon='disc')
+  .shadow-bottom
+  .main-menu-content
+    ul#main-menu-navigation.navigation.navigation-main(data-menu='menu-navigation')
+      //- 계정 관리
+      li.navigation-header
+        span Account Management
+        svg.feather.feather-more-horizontal(xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round')
+          circle(cx='12' cy='12' r='1')
+          circle(cx='19' cy='12' r='1')
+          circle(cx='5' cy='12' r='1')
+      li.nav-item#admin__menu-user
+        a.d-flex.align-items-center(href=`${routes.admin}`)
+          i(data-feather='user')
+          span.menu-title.text-truncate Admin Account
+      li.nav-item#admin__menu-musician
+        a.d-flex.align-items-center(href=`${routes.admin}${routes.adminMusician}`)
+          i(data-feather='user')
+          span.menu-title.text-truncate Musician Account
+      li.nav-item#admin__menu-membership
+        a.d-flex.align-items-center(href=`${routes.admin}${routes.adminMembership}`)
+          i(data-feather='user')
+          span.menu-title.text-truncate Membership Account
+      li.nav-item#admin__menu-expert
+        a.d-flex.align-items-center(href=`${routes.admin}${routes.adminExpert}`)
+          i(data-feather='user')
+          span.menu-title.text-truncate Expert Account
+      li.nav-item#admin__menu-blocked-account
+        a.d-flex.align-items-center(href=`${routes.admin}${routes.adminBlockedAccount}`)
+          i(data-feather='user')
+          span.menu-title.text-truncate Blocked Account
+      //- Discover 관리
+      li.navigation-header
+        span Discover
+        svg.feather.feather-more-horizontal(xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round')
+          circle(cx='12' cy='12' r='1')
+          circle(cx='19' cy='12' r='1')
+          circle(cx='5' cy='12' r='1')
+      li.nav-item#admin__menu-main-video
+        a.d-flex.align-items-center(href=`${routes.admin}${routes.adminMainVideo}`)
+          i(data-feather='video')
+          span.menu-title.text-truncate Main Videos
+      li.nav-item#admin__menu-most-video
+        a.d-flex.align-items-center(href=`${routes.admin}${routes.adminMostVideo}`)
+          i(data-feather='video')
+          span.menu-title.text-truncate M/W
+      li.nav-item#admin__menu-partner-logo
+        a.d-flex.align-items-center(href=`${routes.admin}${routes.adminPartnerLogo}`)
+          i(data-feather='globe')
+          span.menu-title.text-truncate Partner Logo
+      //- Conference 관리
+      li.navigation-header
+        span CONFERENCE MANAGEMENT
+        svg.feather.feather-more-horizontal(xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round')
+          circle(cx='12' cy='12' r='1')
+          circle(cx='19' cy='12' r='1')
+          circle(cx='5' cy='12' r='1')
+      li.nav-item#admin__menu-conference-room
+        a.d-flex.align-items-center(href=`${routes.admin}${routes.adminConferenceRoom}`)
+          i(data-feather='server')
+          span.menu-title.text-truncate Conference
+      //- Newsroom 관리
+      li.navigation-header
+        span Newsroom Management
+        svg.feather.feather-more-horizontal(xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round')
+          circle(cx='12' cy='12' r='1')
+          circle(cx='19' cy='12' r='1')
+          circle(cx='5' cy='12' r='1')
+      li.nav-item#admin__menu-news-category
+        a.d-flex.align-items-center(href=`${routes.admin}${routes.adminNewsCategory}`)
+          i(data-feather='server')
+          span.menu-title.text-truncate News Category
+      li.nav-item#admin__menu-news-contents
+        a.d-flex.align-items-center(href=`${routes.admin}${routes.adminNewsContents}`)
+          i(data-feather='clipboard')
+          span.menu-title.text-truncate News Content
+      //- GET HIGHER 관리
+      li.navigation-header
+        span Get Higher Management
+        svg.feather.feather-more-horizontal(xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round')
+          circle(cx='12' cy='12' r='1')
+          circle(cx='19' cy='12' r='1')
+          circle(cx='5' cy='12' r='1')
+      li.nav-item#admin__menu-mission
+        a.d-flex.align-items-center(href=`${routes.admin}${routes.adminMission}`)
+          i(data-feather='trending-up')
+          span.menu-title.text-truncate Mission Management
+      //- 월별 정산 관리
+      li.navigation-header
+        span Monthly Payment
+        svg.feather.feather-more-horizontal(xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round')
+          circle(cx='12' cy='12' r='1')
+          circle(cx='19' cy='12' r='1')
+          circle(cx='5' cy='12' r='1')
+      li.nav-item#admin__menu-calculate
+        a.d-flex.align-items-center(href=`${routes.admin}${routes.adminCalculate}`)
+          i(data-feather='credit-card')
+          span.menu-title.text-truncate Monthly Withdrawal Application
+      //- //- 샘플 관리
+      //- li.navigation-header
+      //-   span 샘플 관리
+      //-   svg.feather.feather-more-horizontal(xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round')
+      //-     circle(cx='12' cy='12' r='1')
+      //-     circle(cx='19' cy='12' r='1')
+      //-     circle(cx='5' cy='12' r='1')
+      //- li.nav-item#admin__menu-sample
+      //-   a.d-flex.align-items-center(href=`${routes.admin}${routes.adminSample}`)
+      //-     i(data-feather='folder')
+      //-     span.menu-title.text-truncate 샘플 데이터 관리
+      //- Settings
+      li.navigation-header
+        span Settings
+        svg.feather.feather-more-horizontal(xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round')
+          circle(cx='12' cy='12' r='1')
+          circle(cx='19' cy='12' r='1')
+          circle(cx='5' cy='12' r='1')
+      li.nav-item
+        a.d-flex.align-items-center(href=`${routes.admin}${routes.adminChangePW}`)
+          i(data-feather='lock')
+          span.menu-title.text-truncate Change Password
+      //- 로그아웃
+      li.nav-item
+        a.d-flex.align-items-center(href=`${routes.admin}${routes.adminLogout}`)
+          i(data-feather='power')
+          span.menu-title.text-truncate Log out
+//- END: Main Menu

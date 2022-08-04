@@ -1,0 +1,55 @@
+extends ../layouts/noPartialMain
+
+block content
+  //- 아이디 존재 여부 모달창
+  button#findPW__modal-btn(type='button' data-toggle='modal' data-target='#findPW__modal')
+  #findPW__modal.modal.fade.findPW__modal(tabindex='-1' role='dialog' aria-hidden='true')
+    .modal-dialog.modal-dialog-centered(role='document')
+      .modal-content
+        .modal-header
+          button.close(type='button' data-dismiss='modal' aria-label='Close')
+            img.modal-close-img(src=`${imgPath}/home/modal_close@3x.png`)
+        .modal-body
+          h1.modal__title Notice
+          h1.modal__subTitle The email address provided is not registered on our website. Please proceed to sign-up.
+          button.modal__btn(type='button' data-dismiss='modal') OK
+  .findPW__page#findPW__page
+    .findPW__page-flex
+      if !token
+        .findPW__flex
+          //- find pw 문구
+          section.findPW__text
+            h1.findPW__title Find<br>Your password
+            .divide__line
+            h1.findPW__subTitle.rsp-mb If you forgot the email address<br>associated with your account, enter<br>any possible emails you might have <br>used to find your account.<br><br>
+            h1.findPW__subTitle.rsp-pc If you forgot the email address associated with your account, enter any possible emails you might have used to find your account.<br><br>
+            h1.findPW__subTitle.findPW__subTitle-two 
+          //- 이메일, 인증번호 입력란
+          section.findPW__info 
+            form.findPW__form#findPWForm(action="" method="post") 
+              .form__flex 
+                label.form__label Email
+                input.form__input(type="email" name="userID" placeholder="Type your email :)" autocomplete="off" required)
+              .form__password
+                label.form__label Verification Code
+                input.form__input(type="number" name="authNum" placeholder="Type your Verification Code :)" autocomplete="off" required)
+            .form__btn
+              button.form__submit-btn Done
+              button.form__pwCheck-btn.none Check Verfication Code
+              button.form__changePW-btn.none Chage Password
+      else 
+        .resetPW__flex 
+          section.resetPW__text 
+            h1.resetPW__title Reset<br>Your password 
+            .divide__line
+          section.resetPW__form-section
+            form.resetPW__form#resetPWForm(action="" method="POST")
+              .form__flex 
+                label.form__label New password 
+                input.form__input.resetPW__input(type="password" name="password" placeholder="Type your New password " autocomplete="off" required)
+              .form__flex 
+                label.form__label Confirm password 
+                input.form__input.resetPW__input(type="password" name="confirmPassword" placeholder="Type your Confirm password " autocomplete="off" required)
+            .form__btn 
+              button.resetPW__submit-btn(type="button") Done
+

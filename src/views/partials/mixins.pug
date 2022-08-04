@@ -1,0 +1,965 @@
+//- Header User My Menu Mixin [로그인 시 유저 네임 아래 보이는 부분]
+mixin headerUserMyMenu()
+  if loggedUser.role === "musician"
+    ul.header__myMenu-items
+      li.header__myMenu-item
+        a.header__myMenu-link(href=`${routes.userMusician}${routes.myStudio}`)=`${lang === "ko" ? "나의 스튜디오" : "MY STUDIO"}`
+      //- li.header__myMenu-item
+      //-   a.header__myMenu-link(href=`${routes.user}${routes.getHigher}`) GET HIGHER
+      li.header__myMenu-item
+        a.header__myMenu-link(href=`${routes.userMusician}${routes.myRequest}`)=`${lang === "ko" ? "내 요청" : "MY REQUEST"}`
+      li.header__myMenu-item
+        a.header__myMenu-link(href=`${routes.userMusician}${routes.chat}`)=`${lang === "ko" ? "채팅" : "CHAT"}`
+      li.header__myMenu-item
+        a.header__myMenu-link(href=`${routes.user}${routes.myFavorite}`)=`${lang === "ko" ? "즐겨찾기" : "MY FAVORITE"}`
+      li.header__myMenu-item
+        a.header__myMenu-link(href=`${routes.userMusician}${routes.profile}`)=`${lang === "ko" ? "프로필" : "EDIT PROFILE"}`
+      li.header__myMenu-item
+        a.header__myMenu-link(href=`${routes.userMusician}${routes.payment}?page2=1`)=`${lang === "ko" ? "결제" : "PAYMENT"}`
+      li.header__myMenu-item
+        a.header__myMenu-link(href=`${routes.user}${routes.signOut}`)=`${lang === "ko" ? "로그아웃" : "SIGN-OUT"}`
+  else if loggedUser.role === "expert"
+    ul.header__myMenu-items
+      li.header__myMenu-item
+        a.header__myMenu-link(href=`${routes.userExpert}${routes.myStudio}`)=`${lang === "ko" ? "나의 스튜디오" : "MY STUDIO"}`
+      li.header__myMenu-item
+        a.header__myMenu-link(href=`${routes.userExpert}${routes.manageRequest}`)=`${lang === "ko" ? "요청 관리" : "MANAGE REQUEST"}`
+      li.header__myMenu-item
+        a.header__myMenu-link(href=`${routes.userExpert}${routes.chat}`)=`${lang === "ko" ? "채팅" : "CHAT"}`
+      li.header__myMenu-item
+        a.header__myMenu-link(href=`${routes.user}${routes.myFavorite}`)=`${lang === "ko" ? "즐겨찾기" : "MY FAVORITE"}`
+      li.header__myMenu-item
+        a.header__myMenu-link(href=`${routes.userExpert}${routes.profile}`)=`${lang === "ko" ? "프로필" : "EDIT PROFILE"}`
+      li.header__myMenu-item
+        a.header__myMenu-link(href=`${routes.userMusician}${routes.expertDetail}/${loggedUser._id}`)=`${lang === "ko" ? "마이페이지" : "VIEW MY PROFILE"}`
+      li.header__myMenu-item
+        a.header__myMenu-link(href=`${routes.userExpert}${routes.withdrawal}`)=`${lang === "ko" ? "정산" : "WITHDRAWAL"}`
+      li.header__myMenu-item
+        a.header__myMenu-link(href=`${routes.user}${routes.signOut}`)=`${lang === "ko" ? "로그아웃" : "SIGN-OUT"}`
+  else if loggedUser.role === "master" || loggedUser.role === "admin" || loggedUser.role === "general"
+    ul.header__myMenu-items
+      li.header__myMenu-item
+        a.header__myMenu-link(href=routes.admin)=`${lang === "ko" ? "관리자 페이지" : "ADMIN PAGE"}`
+      li.header__myMenu-item
+        a.header__myMenu-link(href=`${routes.user}${routes.signOut}`)=`${lang === "ko" ? "로그아웃" : "SIGN-OUT"}`
+
+//- Register Social Media Mixin
+mixin registerSocialMedia(user)
+  label.form__label Social media
+  ul.socialMedia__items
+    //- FACEBOOK
+    li.socialMedia__item(class=`${user && user.facebook ? "active" : "" }`)
+      .socialMedia__item-flex
+        .socialMedia__item-flex-flex
+          img.socialMedia__img(src=`${imgPath}/register/facebook@3x.png`)
+          p.socialMedia__name FACEBOOK
+        .socialMedia__item-flex-flex
+          img.socialMedia__plus-img(src=`${imgPath}/register/plus_icon${user && user.facebook ? "_active" : ""}@3x.png`)
+      .socialMedia__item-flex
+        input.form__input.form__input-social( type="text" name="socialFacebook" value=`${user && user.facebook ? user.facebook : ""}` placeholder="Type your Link")
+    //- INSTAGRAM
+    li.socialMedia__item(class=`${user && user.instagram ? "active" : "" }`)
+      .socialMedia__item-flex
+        .socialMedia__item-flex-flex
+          img.socialMedia__img(src=`${imgPath}/register/instagram@3x.png`)
+          p.socialMedia__name INSTAGRAM
+        .socialMedia__item-flex-flex
+          img.socialMedia__plus-img(src=`${imgPath}/register/plus_icon${user && user.instagram ? "_active" : ""}@3x.png`)
+      .socialMedia__item-flex
+        input.form__input.form__input-social( type="text" name="socialInstagram" value=`${user && user.instagram ? user.instagram : ""}` placeholder="Type your Link")
+    //- TIKTOK
+    li.socialMedia__item(class=`${user && user.tiktok ? "active" : "" }`)
+      .socialMedia__item-flex
+        .socialMedia__item-flex-flex
+          img.socialMedia__img(src=`${imgPath}/register/tiktok@3x.png`)
+          p.socialMedia__name TIKTOK
+        .socialMedia__item-flex-flex
+          img.socialMedia__plus-img(src=`${imgPath}/register/plus_icon${user && user.tiktok ? "_active" : ""}@3x.png`)
+      .socialMedia__item-flex
+        input.form__input.form__input-social( type="text" name="socialTiktok" value=`${user && user.tiktok ? user.tiktok : ""}` placeholder="Type your Link")
+    //- YOUTUBE
+    li.socialMedia__item(class=`${user && user.youtube ? "active" : "" }`)
+      .socialMedia__item-flex
+        .socialMedia__item-flex-flex
+          img.socialMedia__img(src=`${imgPath}/register/youtube@3x.png`)
+          p.socialMedia__name YOUTUBE
+        .socialMedia__item-flex-flex
+          img.socialMedia__plus-img(src=`${imgPath}/register/plus_icon${user && user.youtube ? "_active" : ""}@3x.png`)
+      .socialMedia__item-flex
+        input.form__input.form__input-social( type="text" name="socialYoutube" value=`${user && user.youtube ? user.youtube : ""}` placeholder="Type your Link")
+    //- SPOTIFY
+    li.socialMedia__item(class=`${user && user.spotify ? "active" : "" }`)
+      .socialMedia__item-flex
+        .socialMedia__item-flex-flex
+          img.socialMedia__img(src=`${imgPath}/register/spotify@3x.png`)
+          p.socialMedia__name SPOTIFY
+        .socialMedia__item-flex-flex
+          img.socialMedia__plus-img(src=`${imgPath}/register/plus_icon${user && user.spotify ? "_active" : ""}@3x.png`)
+      .socialMedia__item-flex
+        input.form__input.form__input-social( type="text" name="socialSpotify" value=`${user && user.spotify ? user.spotify : ""}` placeholder="Type your Link")
+    //- WEBSITE
+    li.socialMedia__item(class=`${user && user.website ? "active" : "" }`)
+      .socialMedia__item-flex
+        .socialMedia__item-flex-flex
+          img.socialMedia__img(src=`${imgPath}/register/website@3x.png`)
+          p.socialMedia__name WEBSITE
+        .socialMedia__item-flex-flex
+          img.socialMedia__plus-img(src=`${imgPath}/register/plus_icon${user && user.website ? "_active" : ""}@3x.png`)
+      .socialMedia__item-flex
+        input.form__input.form__input-social( type="text" name="socialWebsite" value=`${user && user.website ? user.website : ""}` placeholder="Type your Link")
+
+//- musician list Mixin
+mixin musicianListCard(item, type)
+  .item__flex
+    .user__profile
+      +userProfile(item.musicianID[0])
+    .user__info-flex
+      h1.user__name=item.musicianID[0].name
+      each item2 in musicianGenreArr
+        if item2.id === item.musicianID[0].genre
+          h1.user__genre-country=`${item2.name}`
+          h1.user__genre-country=`${item.musicianID[0].currentCountry}`
+  a.item__link(href=`${routes.musicianList}/detail/${item._id}/${item.musicianID[0]._id}?type=${type}`) View Profile
+
+//- favorite Mixin
+mixin favoriteCard(item, userRole)
+  .item__flex
+    .user__profile
+      +userProfile(item)
+    .user__info-flex
+      h1.user__name=item.name
+      if item.role === "musician"
+        each genre in musicianGenreArr
+          if genre.id === item.genre
+            h1.user__like-country=`${genre.name}`
+            h1.user__like-country=`${item.currentCountry}`
+      else
+        each title in expertTitleArr
+          if title.id === item.title
+            h1.user__like-country=`${title.name}`
+            h1.user__like-country=`${item.currentCountry}`
+  if userRole === "expert"
+    a.item__link(href=`${routes.musicianList}/detail/1/${item._id}`) View Profile
+  else if userRole === "musician"
+    a.item__link(href=`${routes.userMusician}${routes.expertDetail}/${item._id}`) View Profile
+
+//- User Profile Mixin
+mixin userProfile(user)
+  .user__profile-img(style=`background: ${user.gradientColor};`)
+    if user.role === "expert"
+      //- 평점 받은게 하나 이상 있을 때
+      if user.averageRate
+        //- 별점 1.5 미만
+        if user.averageRate < 1.5
+          img.badge__img(src=`${imgPath}/public/black_badge.png`)
+        //- 좋아요 15개 이상, 서비스 제공 5개 이상, 별점 4 이상
+        else if user.averageRate >= 4 && user.likeID.length >= 15 || user.averageRate >= 4 && user.approvedOffers.length >= 5 || user.approvedOffers.length >= 5 && user.likeID.length >= 15
+          img.badge__img(src=`${imgPath}/public/silver_badge.png`)
+        //- 좋아요 30개 이상, 서비스 제공 20개 이상, 별점 4.5 이상 
+        else if user.averageRate >= 4.5 && user.likeID.length >= 30 || user.averageRate >= 4.5 && user.approvedOffers.length >= 20 || user.likeID.length >= 30 && user.approvedOffers.length >= 20
+          img.badge__img(src=`${imgPath}/public/gold_badge.png`)
+        else
+          img.badge__img(src=`${imgPath}/public/brown_badge.png`)
+      //- 기본 brown_badge
+      else
+        img.badge__img(src=`${imgPath}/public/brown_badge.png`)
+
+//- Service Request Mixins
+//- Feedback Mixin
+mixin requestFeedback()
+  .request__popup#feedback__popup(data-purchase=purchase)
+    #feedback__modal.modal.fade.feedback__modal(tabindex='-1' role='dialog' aria-hidden='true')
+      .modal-dialog.modal-dialog-centered.modal__feedback-centered(role='document')
+        .modal-content
+          .modal-body
+            if purchase !== "success"
+              button.close(type='button' data-dismiss='modal' aria-label='Close')
+                img.modal-close-img(src=`${imgPath}/home/modal_close@3x.png`)
+            .modal__contents
+              section.contents__step.contents__first-step(class=`${purchase === "success" ? "" : "active"}`)
+                .contents__flex
+                  h1.contents__title Which feedback?
+                  .form__wrapper
+                    .form__flex
+                      //- Do you want technical feedback or trend feedback?
+                      .form__group
+                        label.form__label Do you want technical feedback or trend feedback?
+                        select.form__select.form__section.form__required.chartin__select-diagnosis.active.form__validation(name="type" required)
+                          option.form__option(value="technical") Technical
+                          option.form__option(value="trend") Trend
+                      //- Do you want a feedback on single song or whole concept?
+                      .form__group
+                        label.form__label Do you want a feedback on single song or whole concept?
+                        select.form__select.form__section.form__required.chartin__select-diagnosis.active.form__validation(name="concept" required)
+                          option.form__option(value="Single Song (leave a link below)") Single Song (leave a link below)
+                          option.form__option(value="In general") In general
+                      //- Provide your expert a link to your music and music video
+                      .form__group
+                        label.form__label Provide your expert a link to your music and music video
+                        input.form__input.form__section.form__required.form__validation.form__link(type="text" name="link" placeholder="Type your music and music video link." autocomplete="off" required)
+                      //- Which markets do you target?
+                      .form__group
+                        label.form__label Which markets do you target?
+                        .form__group-selectInput.form__validation
+                          each item, index in diagnosisMarkets
+                            .selectInput__flex
+                              input.form__option(type="checkbox" id=`${item.name}${index}` name="markets" value=item.name)
+                              label(for=`${item.name}${index}`)=item.name
+                      //- Do you have any specific country that you prioritize?
+                      .form__group
+                        label.form__label Do you have any specific country that you prioritize?
+                        select.form__select.form__section.form__required.chartin__select-diagnosis.active.form__validation(name="country" required)
+                          each item in country
+                            option.form__option(value=item.name)=item.name
+                      //- What’s your genre?
+                      .form__group
+                        label.form__label What’s your genre?
+                        select.form__select.form__section.form__required.chartin__select-diagnosis.active.form__validation(name="genre" required)
+                          each item in musicianGenreArr
+                            option.form__option(value=item.name)=item.name
+                      //- What would be your budget for future promotion? (per month/USD)
+                      .form__group
+                        label.form__label What would be your budget for future promotion? (per month/USD)
+                        select.form__select.form__section.form__required.chartin__select-diagnosis.active.form__validation(name="budget" required)
+                          each item in feedbackBudget
+                            option.form__option(value=item.name)=item.name
+                      //- Can you make video content on your own?
+                      .form__group
+                        label.form__label Can you make video content on your own?
+                        select.form__select.form__section.form__required.chartin__select-diagnosis.active.form__validation(name="ownVideo" required)
+                          option.form__option(value="Yes") Yes
+                          option.form__option(value="No") No
+                      //- What’s your goal?
+                      .form__group
+                        label.form__label What’s your goal?
+                        .form__group-selectInput.form__validation
+                          each item in diagnosisGoal
+                            .selectInput__flex
+                              input.form__option(type="checkbox" id=`${item.name}${index}` class=`${item.name === "Others" ? "form__option-others" : ""}` name="goal" value=item.name)
+                              label(for=`${item.name}${index}`)=item.name
+                        input.form__input.form__section.form__input-goal(type="text" name="goal" placeholder="Type your goal." disabled)
+                  .contents__btn-flex#pre__purchase-id(data-id=purchases ? purchases._id : "")
+                    button.contents__btn(type="button") Request
+                  //- .contents__desc-flex.rsp-mb
+                  //-   p.contents__desc For feedback based on your<br>concept/mood, press the left.
+                  //-   p.contents__desc For skill/technicality related advice<br>tap on the right.
+                  //- .contents__desc-flex.rsp-pc
+                  //-   p.contents__desc For feedback based on your concept/mood, press the left.
+                  //-   p.contents__desc For skill/technicality related advice tap on the right.
+                  //- .contents__btn-flex#pre__purchase-id(data-id=purchases ? purchases._id : "")
+                  //-   button.contents__btn(type="button" data-type="trend") Concept / Mood
+                  //-   button.contents__btn(type="button" data-type="technical") Skill / Technicality
+              section.contents__step.contents__second-step
+                .contents__flex
+                  h1.contents__title Pay(Feedback)
+                  .contents__desc-flex
+                    p.contents__desc CHARTIN’s Feedback service is one of a kind.
+                    p.contents__desc 1. We offer you at least 3 different feedbacks from verified experts who each come from distinct background.
+                    p.contents__desc 2. You have full control over distribution of your payment. Choose 1 feedback that's been more helpful! Selected expert will be paid more than the others.
+                    p.contents__desc 3. For all three feedbacks, pay only $30.
+                    p.contents__desc 4. If you need more information, please check out our service introduction in the Newsroom.
+                  .contents__btn-flex
+                    | !{purchaseForm}
+              section.contents__step.contents__complete-step(class=`${purchase === "success" ? "active" : ""}`)
+                .contents__flex
+                  h1.contents__title(style="text-align: center;") Congrats!
+                  .contents__desc-flex
+                    p.contents__desc(style="text-align: center;") We’ll get back to you within 2-3 business days.<br>You will be notified on email when you receive new feedback from an expert.
+                  .contents__btn-flex
+                    a.contents__link(href=`${routes.userMusician}${routes.myRequest}`) OK!
+  .request__item-flex
+    h1.request__item-title Feedback
+    .request__item-img-flex
+      img.request__item-img(src=`${imgPath}/serviceDiagnosis/request_feedback@2x.png`)
+    button.request__item-btn#request__feedback-btn(type='button' data-toggle='modal' data-target='#feedback__modal') Request Service
+//- Promotion Mixin
+mixin requestPromotion(expertID, serviceType)
+  .request__popup#promotion__popup
+    #promotion__modal.modal.fade.promotion__modal(tabindex='-1' role='dialog' aria-hidden='true')
+      .modal-dialog.modal-dialog-centered.modal__promotion-centered(role='document')
+        .modal-content
+          .modal-body
+            button.close(type='button' data-dismiss='modal' aria-label='Close')
+              img.modal-close-img(src=`${imgPath}/home/modal_close@3x.png`)
+            .modal__contents
+              section.contents__step.contents__first-step.active
+                .contents__flex
+                  h1.contents__title.promotion__title Want Promotion?
+                  .form__wrapper
+                    .form__flex
+                      //- Name
+                      .form__group
+                        label.form__label Name
+                        input.form__input.form__section.form__required.form__validation(type="text" name="name" placeholder="Type your name" autocomplete="off" required)
+                      //- What’s your genre?
+                      .form__group
+                        label.form__label What’s your genre?
+                        select.form__select.form__section.form__required.chartin__select-diagnosis.active.form__validation(name="genre" required)
+                          each item in musicianGenreArr
+                            option.form__option(value=item.name)=item.name
+                      //- Provide your expert a link to your music and music video
+                      .form__group
+                        label.form__label Provide your expert a link to your music and music video
+                        input.form__input.form__section.form__required.form__validation.form__link(type="text" name="link" placeholder="Type your music link." autocomplete="off" required)
+                        input.form__input.form__section.form__link(type="text" name="link2" placeholder="Type your music video link." autocomplete="off" style="margin-top: 5px;")
+                      //- Which markets do you want to make yourself known?
+                      .form__group
+                        label.form__label Which markets do you want to make yourself known?
+                        .form__group-selectInput.form__validation
+                          each item, index in diagnosisMarkets
+                            .selectInput__flex
+                              input.form__option(type="checkbox" id=`${item.name}` name="markets" value=item.name)
+                              label(for=`${item.name}`)=item.name
+                      //- Do you have any specific country that you prefer?
+                      .form__group
+                        label.form__label Do you have any specific country that you prefer?
+                        select.form__select.form__section.form__required.chartin__select-diagnosis.active.form__validation(name="country" required)
+                          each item in country
+                            option.form__option(value=item.name)=item.name
+                      //- What’s your budget?
+                      .form__group
+                        label.form__label What’s your budget?
+                        select.form__select.form__section.form__required.chartin__select-diagnosis.active.form__validation(name="budget" required)
+                          each item in diagnosisBudget
+                            option.form__option(value=item.name)=item.name
+                      //- Can you make video content on your own?
+                      .form__group
+                        label.form__label Can you make video content on your own?
+                        select.form__select.form__section.form__required.chartin__select-diagnosis.active.form__validation(name="video" required)
+                          option.form__option(value="Yes") Yes
+                          option.form__option(value="No") No
+                  button.form__requset-btn#requestPromotionSubmit(data-expertID=expertID data-serviceType=serviceType) Request
+              section.contents__step.contents__complete-step
+                .contents__flex
+                  h1.contents__title(style="text-align: center;") Congrats!
+                  .contents__desc-flex
+                    p.contents__desc(style="text-align: center;") We’ll get back to you within 2-3 business days.<br>You will be notified on email when we receive new proposals from the experts.
+                  .contents__btn-flex
+                    a.contents__link(href=`${routes.home}`) OK!
+  .request__item-flex
+    h1.request__item-title Promotion
+    .request__item-img-flex
+      img.request__item-img(src=`${imgPath}/serviceDiagnosis/request_promotion@2x.png`)
+    button.request__item-btn#requestPromotionModalBtn(type='button' data-toggle='modal' data-target='#promotion__modal') Request Service
+//- Mix/Master Mixin
+mixin requestMixMaster(expertID, serviceType)
+  .request__popup#mixMaster__popup
+    #mixMaster__modal.modal.fade.mixMaster__modal(tabindex='-1' role='dialog' aria-hidden='true')
+      .modal-dialog.modal-dialog-centered.modal__mixmaster-centered(role='document')
+        .modal-content
+          .modal-body
+            button.close(type='button' data-dismiss='modal' aria-label='Close')
+              img.modal-close-img(src=`${imgPath}/home/modal_close@3x.png`)
+            .modal__contents
+              section.contents__step.contents__first-step.active
+                .contents__flex
+                  h1.contents__title.mixMaster__title Want Mix/Master?
+                  .form__wrapper
+                    .form__flex
+                      //- Name
+                      .form__group
+                        label.form__label Name
+                        input.form__input.form__section.form__required(type="text" name="name" placeholder="Type your name" autocomplete="off" required)
+                      //- What’s your genre?
+                      .form__group
+                        label.form__label What’s your genre?
+                        select.form__select.form__section.form__required.chartin__select-diagnosis.active(name="genre" required)
+                          each item in musicianGenreArr
+                            option.form__option(value=item.name)=item.name
+                      //- Provide your expert a google drive link to your music and music video
+                      .form__group
+                        label.form__label Provide your expert a link to your music and music video
+                        input.form__input.form__section.form__required.form__link(type="text" name="link" placeholder="Type your video link." autocomplete="off" required)
+                      //- What’s your budget?
+                      .form__group
+                        label.form__label What’s your budget?
+                        select.form__select.form__section.form__required.chartin__select-diagnosis.active(name="budget" required)
+                          each item in diagnosisBudget
+                            option.form__option(value=item.name)=item.name
+                      //- Please leave your request in detail for expert to know
+                      .form__group
+                        label.form__label Please leave your request in detail for expert to know
+                        textarea.form__textarea.form__section.form__required(type="text" name="detail" placeholder="Type your detail." autocomplete="off" required)
+                  button.form__requset-btn#requestMixMasterSubmit(data-expertID=expertID data-serviceType=serviceType) Request
+              section.contents__step.contents__complete-step
+                .contents__flex
+                  h1.contents__title(style="text-align: center;") Congrats!
+                  .contents__desc-flex
+                    p.contents__desc(style="text-align: center;") We’ll get back to you within 2-3 business days.<br>You will be notified on email when we receive new proposals from the experts.
+                  .contents__btn-flex
+                    a.contents__link(href=`${routes.home}`) OK!
+  .request__item-flex
+    h1.request__item-title Mix/Master
+    .request__item-img-flex
+      img.request__item-img(src=`${imgPath}/serviceDiagnosis/request_mix_master@2x.png`)
+    button.request__item-btn(type='button' data-toggle='modal' data-target='#mixMaster__modal') Request Service
+
+//- Proposal Mixin
+mixin proposalModal(type, requested)
+  .proposal__popup#proposal__popup
+    .modal.fade(tabindex='-1' role='dialog' aria-hidden='true' id=`${type}__proposal-modal`)
+        .modal-dialog.modal-dialog-centered(role='document')
+          .modal-content
+            .modal-body
+              button.close(type='button' data-dismiss='modal' aria-label='Close')
+                img.modal-close-img(src=`${imgPath}/home/modal_close@3x.png`)
+              .modal__contents
+                section.contents__step
+                  .contents__flex
+                    if type === "feedback"
+                      h1.contents__title=`Feedback`
+                      .contents__type-flex
+                        p.contents__type(class=`${requested.type === "trend" ? "active" : ""}`) Sensibility & Conception
+                        p.contents__type(class=`${requested.type === "technical" ? "active" : ""}`) Skill - Focused
+                      .contents__feddbackDesc-flex
+                        p.contents__desc Inspire the musician with your creative advice and thought
+                    else
+                      .contents__title-flex#contents__title-flex
+                        h1.contents__title Send your proposal
+                        .contents__desc-flex
+                          p.contents__desc Provide a delicate proposal for the musician so that they choose you and go on board together for the future.
+                    if type !== "feedback"
+                      h1.contents__type-title=`${type === "promotion" ? "Promotion" : "Mix/Master"}`
+                    .form__wrapper
+                      form.proposal__form(id=`${type}Form` enctype=`multipart/form-data` method="POST" action=`${routes.musicianList}/detail/${requested._id}`)
+                        input(type="hidden" name="type" value=`${type}` required)
+                        .form__flex
+                          if type == "feedback"
+                            .form__group
+                              label.form__label Overview <span>(Describe your credentials in 2-3 sentences)</span>
+                              textarea.form__textarea.form__section.form__required.form__minLength(type="text" name="overview" row="3" autocomplete="off" minlength=50 required)
+                            .form__group
+                              label.form__label What’s the musician’s name?
+                              input.form__input.form__section.form__required(type="text" name="musicianName" autocomplete="off" required)
+                            .form__group
+                              label.form__label What’s your first impression of the musician?
+                              textarea.form__textarea.form__section.form__required.form__minLength(type="text" name="impression" autocomplete="off" required)
+                            if requested.type === "technical"
+                              .form__group
+                                label.form__label Which promotion best fits this musician?
+                                .form__group-selectInput.form__section
+                                  each item, index in bestFits
+                                    .selectInput__flex
+                                      input.form__option(type="checkbox" id=`${item.name}${index}` class=`${item.name === "Others" ? "form__option-others" : ""}` name="bestFits" value=item.name)
+                                      label(for=`${item.name}${index}`)=item.name
+                                input.form__input.form__input-bestFits(type="text" name="bestFits" disabled)
+                              .form__group
+                                label.form__label What can be done technically to improve music's sound quality? <span>(Ex. mastering volume needs to go higher, crisp and clear vocal mix)</span>
+                                textarea.form__textarea.form__section.form__required.form__minLength(type="text" name="improved" autocomplete="off" required)
+                              .form__group
+                                label.form__label What do you think about the song structure? <span>(Ex. From 0:15-0:30, I thought his rap was too intense and loud. Needs to be relaxed a little)</span>
+                                textarea.form__textarea.form__section.form__required.form__minLength(type="text" name="structure" autocomplete="off" required)
+                              .form__group
+                                label.form__label What kind of expert should this musician collaborate with? <span>(Ex. Find spotify promotion expert in UK, Collab with content creators on Youtube)</span>
+                                textarea.form__textarea.form__section.form__required.form__minLength(type="text" name="collaborate" autocomplete="off" required)
+                              .form__group
+                                label.form__label Long term: What can he/she do to enhance his reach/performance?
+                                textarea.form__textarea.form__section.form__required.form__minLength(type="text" name="enhance" autocomplete="off" required)
+                              .form__group
+                                label.form__label Short term: What do you expect him/her to do for the next week? <span>(In detail, with exact steps and guidance)</span>
+                                textarea.form__textarea.form__section.form__required.form__minLength(type="text" name="expect1" autocomplete="off" required)
+                            else
+                              .form__group
+                                label.form__label What did you emotionally feel when listening to this song? <span>(Ex. Sitting in an empty room, Partying with the boy that I like)</span>
+                                textarea.form__textarea.form__section.form__required.form__minLength(type="text" name="emotionally" autocomplete="off" required)
+                              .form__group
+                                label.form__label What do you think is this musician's biggest strengh?
+                                textarea.form__textarea.form__section.form__required.form__minLength(type="text" name="strengh" autocomplete="off" required)
+                              .form__group
+                                label.form__label What type of listeners would most likely become a fan of this musician? <span>(Ex. the listeners who like dark and depressing mood)</span>
+                                textarea.form__textarea.form__section.form__required.form__minLength(type="text" name="fan" autocomplete="off" required)
+                              .form__group
+                                label.form__label Which promotion best fits this musician?
+                                .form__group-selectInput.form__section
+                                  each item, index in bestFits
+                                    .selectInput__flex
+                                      input.form__option(type="checkbox" id=`${item.name}${index}` class=`${item.name === "Others" ? "form__option-others" : ""}` name="bestFits" value=item.name)
+                                      label(for=`${item.name}${index}`)=item.name
+                                input.form__input.form__input-bestFits(type="text" name="bestFits" disabled)
+                              .form__group
+                                label.form__label What sort of content should this musician create? <span>(Ex. make a dance to your music, film yourself dancing, upload it on tiktok with #your name)</span>
+                                textarea.form__textarea.form__section.form__required.form__minLength(type="text" name="content" autocomplete="off" required)
+                              .form__group
+                                label.form__label What kind of expert should this musician collaborate with? <span>(Ex. Find spotify promotion expert in UK, Collab with content creators on Youtube)</span>
+                                textarea.form__textarea.form__section.form__required.form__minLength(type="text" name="collaborate" autocomplete="off" required)
+                            .form__group
+                              label.form__label How can he/she monetize his/her music at this point <span>(short/long term)</span>
+                              textarea.form__textarea.form__section.form__required.form__minLength(type="text" name="monetize" autocomplete="off" required)
+                            .form__group
+                              label.form__label What is the best part and the worst part in this song?
+                              textarea.form__textarea.form__section.form__required.form__minLength(type="text" name="evaluation" autocomplete="off" required)
+                            if requested.type === "technical"
+                              .form__group
+                                label.form__label What do you expect this musician's next album to be like?
+                                textarea.form__textarea.form__section.form__required.form__minLength(type="text" name="expect2" autocomplete="off" required)
+                            .form__group
+                              label.form__label Any references or role models in different markets?
+                              textarea.form__textarea.form__section.form__required.form__minLength(type="text" name="references" autocomplete="off" required)
+                            .form__group
+                              label.form__label Any additional advice or information?
+                              textarea.form__textarea.form__section.form__required.form__minLength(type="text" name="advice" autocomplete="off" required)
+                            //- <a class="warning__text-link" href=contentPolicy>CHARTIN content policies </a>
+                            .warning__flex
+                              a.warning__text-link(href=contentPolicy) CHARTIN content policies
+                              span.warning__text  apply to help keep Chartin feedback service a place for accurate, appropriate, and helpful discussions about music. Any member who gives short, inattentive, and dishonest feedback will immediately be banned or be forced to pay back money earned.
+                          else if type === "promotion"
+                            .form__flex-flex
+                              .form__group-flex
+                                .form__group
+                                  label.form__label Overview (Describe your credentials in 2-3 sentences)
+                                  textarea.form__textarea.form__section.form__required(type="text" name="overview" row="3" autocomplete="off" required)
+                                .form__group
+                                  label.form__label What would you plan specifically and offer for this musician?
+                                  textarea.form__textarea.form__section.form__required(type="text" name="planText" placeholder="Type your plan." autocomplete="off" required)
+                                  .input-group
+                                    input.form__input.form__link(type="text" name="planLink" placeholder="Type your plan link." autocomplete="off")
+                                  .input-group
+                                    input.form__input.form__input-file(type="file" name="uploadPromotionFile" autocomplete="off")
+                                .form__group
+                                  label.form__label What's the exact period of service duration (Days)?
+                                  select.form__select.form__section.chartin__select-diagnosis.active.form__section(name="duration")
+                                    each item in serviceDuration
+                                      option.form__option(value=item.period)=item.period
+                                .form__group
+                                  label.form__label What's the total budget (fee inclusive) that you suggest for these activities? (USD)
+                                  input.form__input.form__section.form__required(type="number" name="budget" autocomplete="off" required)
+                              .form__group-flex
+                                .form__group
+                                  label.form__label Which markets do you service?
+                                  textarea.form__textarea.form__section.form__required(type="text" name="markets" autocomplete="off" required)
+                                .form__group
+                                  label.form__label What kind of promotion do you specialize in?
+                                  .form__group-selectInput.form__section
+                                    each item, index in kindOfPromotion
+                                      .selectInput__flex
+                                        input.form__option(type="checkbox" id=`${item.name}${index}` class=`${item.name === "Others" ? "form__option-others" : ""}` name="specialize" value=item.name)
+                                        label(for=`${item.name}${index}`)=item.name
+                                  input.form__input.form__input-specialize(type="text" name="specialize" disabled)
+                                .form__group
+                                  label.form__label Add a line of pitch that will engage your customer!
+                                  textarea.form__textarea.form__section.form__required(type="text" name="engage" autocomplete="off" required)
+                          else if type === "mixmaster"
+                            .form__flex-flex
+                              .form__group-flex
+                                .form__group
+                                  label.form__label Overview (2-3 lines of credentials)
+                                  textarea.form__textarea.form__section.form__required(type="text" name="overview" row="3" autocomplete="off" required)
+                                .form__group
+                                  label.form__label How will you mix/master this music? What parts will you specifically change?
+                                  textarea.form__textarea.form__section.form__required(type="text" name="change" autocomplete="off" required)
+                                .form__group
+                                  label.form__label Any past examples of your work? (Provide link)
+                                  textarea.form__textarea.form__section.form__required.form__link(type="text" name="pastWork" autocomplete="off" required)
+                              .form__group-flex
+                                .form__group
+                                  label.form__label How many days do you need to complete the service?
+                                  input.form__input.form__section.form__required(type="number" name="date" autocomplete="off" required)
+                                .form__group
+                                  label.form__label What's the total budget (fee inclusive) that you suggest for these activities? (USD)
+                                  input.form__input.form__section.form__required(type="number" name="budget" autocomplete="off" required)
+                          .proposal__btn-flex(id=`${type === "feedback" ? "proposal__feedback-btn" : ""}`)
+                            button.form__proposal-btn(type='button' data-dismiss='modal' aria-label='Close') Cancel
+                            button.form__proposal-btn.form__proposal-submit(id=`proposalSubmit` data-type=`${type}`) Submit
+
+//- Dashboard mb top sidebar
+mixin dashboardSideBar(role)
+  .dashboard__sideBar-flex
+    section.sideBar__logo-section.rsp-mb
+      .sideBar__logo-flex
+        a.item__link(href=`${routes.home}`)
+          img.logo__img(src=`${imgPath}/public/logo_basic@3x.png`)
+    #mixin__section
+      ul.sideBar__items#sideBarItems
+        li.sideBar__item.rsp-pc
+          a.item__link(href=`${routes.home}`)
+            img.logo__img(src=`${imgPath}/public/logo_basic@3x.png`)
+        //- My Studio
+        li.sideBar__item
+          a.item__link(href=`${role === "musician" ? "/user-musician/my-studio" : "/user-expert/my-studio"}`)
+            h1.item__title(data-link="my-studio") My Studio
+        //- My Request
+        li.sideBar__item
+          a.item__link(href=`${role === "musician" ? "/user-musician/my-request" : "/user-expert/manage-request"}`)
+            h1.item__title(data-link=`${role === "musician" ? "my-request" : "manage-request"}`)=`${role === "musician" ?  "My Request" : "Manage Request"}`
+        //- Chat
+        li.sideBar__item
+          a.item__link(href=`${role === "musician" ? "/user-musician/chat" : "/user-expert/chat"}`)
+            h1.item__title(data-link="chat") Chat
+        //- Payment
+        li.sideBar__item
+          a.item__link(href=`${role === "musician" ? "/user-musician/payment?page2=1" : "/user-expert/withdrawal"}`)
+            h1.item__title(data-link=`${role === "musician" ? "payment" : "withdrawal"}`)=`${role === "musician" ?  "Payment" : "Withdrawal"}`
+        //- My Favorite
+        li.sideBar__item
+          a.item__link(href=`/user/my-favorite`)
+            h1.item__title(data-link="my-favorite") My Favorite
+        //- Profile
+        li.sideBar__item
+          a.item__link(href=`${role === "musician" ? "/user-musician/profile" : "/user-expert/profile"}`)
+            h1.item__title(data-link="profile") Edit Profile
+        //- My profile(전문가)
+        if role === "expert"
+          li.sideBar__item
+            a.item__link(href=`/user-musician/expert-detail/${loggedUser._id}`)
+              h1.item__title(data-link=`expert-detail`) View my profile
+        //- Change Password
+        li.sideBar__item
+          a.item__link(href=`${role === "musician" ? "/user-musician/change-pw" : "/user-expert/change-pw"}`)
+            h1.item__title(data-link="change-pw") Change Password
+        //- Sign-Out
+        li.sideBar__item
+          a.item__link(href=`${routes.user}${routes.signOut}`)
+            h1.item__title Sign-Out
+
+//- Reception Mixin
+mixin uploadResultModal(requested, offer, index)
+  .uploadResult__popup#uploadResult__popup
+    .modal.fade(tabindex='-1' role='dialog' aria-hidden='true' id=`${requested.title}__result-btn${index}`)
+      .modal-dialog.modal-dialog-centered(role='document')
+        .modal-content
+          .modal-body
+            button.close(type='button' data-dismiss='modal' aria-label='Close')
+              img.modal-close-img(src=`${imgPath}/home/modal_close@3x.png`)
+            .modal__contents
+              section.contents__step
+                .contents__flex
+                  if offer.expertID === null
+                    h1.contents__title-center Deleted Expert's Result
+                  else
+                    h1.contents__title-center=`${offer.expertID[0].name}'s Result`
+                  .form__wrapper
+                    .form__flex
+                      if requested.title == "feedback"
+                        .form__group
+                          label.form__label Overview (Describe your credentials in 2-3 sentences)
+                          h1.form__content-uploadResult=offer.overview
+                        .form__group
+                          label.form__label What’s the musician’s name?
+                          h1.form__content-uploadResult=offer.musicianName
+                        .form__group
+                          label.form__label What’s your first impression of the musician?
+                          h1.form__content-uploadResult=offer.impression
+                        if requested.type === "technical"
+                          .form__group
+                            label.form__label Which promotion best fits this musician?
+                            - bestFits = offer.bestFits ? offer.bestFits : []
+                            each item in bestFits
+                              h1.form__content-uploadResult=item
+                          .form__group
+                            label.form__label What can be done technically to improve music's sound quality? <span>(Ex. mastering volume needs to go higher, crisp and clear vocal mix)</span>
+                            h1.form__content-uploadResult=offer.improved
+                          .form__group
+                            label.form__label What do you think about the song structure? <span>(Ex. From 0:15-0:30, I thought his rap was too intense and loud. Needs to be relaxed a little)</span>
+                            h1.form__content-uploadResult=offer.structure
+                          .form__group
+                            label.form__label What kind of expert should this musician collaborate with? (Ex. Find spotify promotion expert in UK, Collab with content creators on Youtube)
+                            h1.form__content-uploadResult=offer.structure
+                          .form__group
+                            label.form__label Long term: What can he/she do to enhance his reach/performance?
+                            h1.form__content-uploadResult=offer.enhance
+                          .form__group
+                            label.form__label Short term: What do you expect him/her to do for the next week? (In detail, with exact steps and guidance)
+                            h1.form__content-uploadResult=offer.expect1
+                        else
+                          .form__group
+                            label.form__label What did you emotionally feel when listening to this song? (Ex. Sitting in an empty room, Partying with the boy that I like)
+                            h1.form__content-uploadResult=offer.emotionally
+                          .form__group
+                            label.form__label What do you think is this musician's biggest strengh?
+                            h1.form__content-uploadResult=offer.strengh
+                          .form__group
+                            label.form__label What type of listeners would most likely become a fan of this musician? (Ex. the listeners who like dark and depressing mood)
+                            h1.form__content-uploadResult=offer.fan
+                          .form__group
+                            label.form__label Which promotion best fits this musician?
+                            - bestFits = offer.bestFits ? offer.bestFits : []
+                            each item in bestFits
+                              h1.form__content-uploadResult=item
+                          .form__group
+                            label.form__label What sort of content should this musician create? (Ex. make a dance to your music, film yourself dancing, upload it on tiktok with #your name)
+                            h1.form__content-uploadResult=offer.content
+                          .form__group
+                            label.form__label What kind of expert should this musician collaborate with? (Ex. Find spotify promotion expert in UK, Collab with content creators on Youtube)
+                            h1.form__content-uploadResult=offer.collaborate
+                        .form__group
+                          label.form__label How can he/she monetize his/her music at this point (short/long term)
+                          h1.form__content-uploadResult=offer.monetize
+                        .form__group
+                          label.form__label What is the best part and the worst part in this song?
+                          h1.form__content-uploadResult=offer.evaluation
+                        if requested.type === "technical"
+                          .form__group
+                            label.form__label What do you expect this musician's next album to be like?
+                            h1.form__content-uploadResult=offer.expect2
+                        .form__group
+                          label.form__label Any references or role models in different markets?
+                          h1.form__content-uploadResult=offer.references
+                        .form__group
+                          label.form__label Any additional advice or information?
+                          h1.form__content-uploadResult=offer.advice
+                      else if requested.title === "promotion"
+                        .form__group
+                          label.form__label Campaign Title (e.g. Tyga - Tell me what - Mastering 2021 )
+                          h1.form__content-uploadResult=offer.campaignTitle
+                        .form__group
+                          label.form__label Type
+                          each item in promotionResultTypeArr
+                            if offer.promotionResultType.includes(item.name)
+                              h1.form__content-uploadResult.margin-bottom=item.name
+                        .form__group
+                          label.form__label Musician name
+                          h1.form__content-uploadResult.margin-bottom=offer.musicianName
+                        .form__group
+                          label.form__label Channels
+                          each item in channels
+                            if offer.channels.includes(item.name)
+                              h1.form__content-uploadResult=item.name
+                        .form__group
+                          label.form__label Start Date
+                          h1.form__content-uploadResult=dateFormatMDY(offer.startDate)
+                        .form__group
+                          label.form__label Campaign Period
+                          h1.form__content-uploadResult=offer.campaignPeriod
+                        .form__group
+                          label.form__label Content Link
+                          a.form__link(href=offer.contentLink target="_blank")
+                            h1.form__content-uploadResult=offer.contentLink
+                        .form__group
+                          label.form__label Report Link
+                          a.form__link(href=`${offer.reportLink.includes("https") || offer.reportLink.includes("http") ? offer.reportLink : "https://" + offer.reportLink}`  target="_blank")
+                            h1.form__content-uploadResult=offer.reportLink
+                      else if requested.title === "mixmaster"
+                        .form__group
+                          label.form__label Campaign Title (e.g. Tyga - Tell me what - Mastering 2021 )
+                          h1.form__content-uploadResult=offer.campaignTitle
+                        .form__group
+                          label.form__label Type
+                          each item in mixmasterResultTypeArr
+                            if offer.mixmasterResultType.includes(item.id)
+                              h1.form__content-uploadResult=item.name
+                        .form__group
+                          label.form__label Musician name
+                          h1.form__content-uploadResult=offer.musicianName
+                        .form__group
+                          label.form__label Start Date
+                          h1.form__content-uploadResult=dateFormatMDY(offer.startDate)
+                        .form__group
+                          label.form__label Final Song Link
+                          a.form__content-reception(href=offer.finalSongLink target="_blank")
+                            h1.form__content-uploadResult=offer.finalSongLink
+                        .form__group
+                          label.form__label Leave a message for the musician
+                          h1.form__content-uploadResult=offer.message
+                    .proposal__btn-flex
+                      button.form__proposal-btn(type='button' data-dismiss='modal' aria-label='Close') Close
+
+//- My Request Under Menu Mixin
+mixin myRequestUnderMenu(requested, status, index, musicianID, expertID)
+  .expert__underMenu-wrapper
+    if expertID
+      ul.expert__underMenu-items
+        if status !== "REQUESTED"
+          li.expert__underMenu-item
+            a.item__link(href=`${routes.userMusician}${routes.reception}/${requested._id}?type=${requested.title}`)
+              h1.link__title=`${requested.title === "feedback" ? "See Feedback" : "See proposal"}`
+        li.expert__underMenu-item
+          a.item__link(href=`${routes.userMusician}${routes.expertDetail}/${expertID}`)
+            h1.link__title Profile
+        li.expert__underMenu-item
+          //- 선택한 전문가와 채팅창으로 이동
+          a.item__link(href=`${routes.user}${routes.chat}/check/${musicianID}/${expertID}`)
+            h1.link__title Chat
+        if requested.title !== "feedback" && status === "RESULT"
+          li.expert__underMenu-item
+            button.item__btn(type='button' data-toggle='modal' data-target=`#${requested.title}__result-btn${index}`) Result
+          li.expert__underMenu-item
+            //- 승인 로직 연동 및 상태변경
+            button.item__btn.item__approve-btn(id=`#item__approve-btn${index}` data-id=requested._id data-type=requested.title data-expertID=expertID) Approve
+        if status === "DONE"
+          li.expert__underMenu-item
+            a.item__link(href=`${routes.userMusician}${routes.expertReview}/${expertID}`)
+              h1.item__title Review
+    else
+      ul.expert__underMenu-items
+        if requested.title !== "feedback"
+          if  status === "RESULT" || status === "DONE"
+            li.expert__underMenu-item
+              button.item__btn(type='button' data-toggle='modal' data-target=`#${requested.title}__result-btn${index}`) Result
+        else
+          li.expert__underMenu-item
+            a.item__link(href=`${routes.userMusician}${routes.reception}/${requested._id}?type=${requested.title}`)
+              h1.link__title See Feedback
+//- Manage Request Under Menu Mixin
+mixin manageRequestUnderMenu(requested, status, musicianID, expertID, index)
+  .expert__underMenu-wrapper
+    ul.expert__underMenu-items
+      li.expert__underMenu-item
+        if status !== "REQUESTED"
+          if requested.title === "feedback"
+            button.item__btn(type='button' data-toggle='modal' data-target=`#${requested.title}__result-btn${index}`) See Feedback
+          else
+            button.item__btn(type='button' data-toggle='modal' data-target=`#${requested.title}__proposal-modal${index}`) See Proposal
+      if requested.title !== "feedback"
+        if status === "RESULT" || status === "DONE"
+          li.expert__underMenu-item
+            button.item__btn(type='button' data-toggle='modal' data-target=`#${requested.title}__result-btn${index}`) Result
+      li.expert__underMenu-item
+        a.item__link(href=`${routes.musicianList}/detail/${requested._id}/${requested.musicianID[0]._id}?type=${requested.title}`)
+          h1.link__title Profile
+      li.expert__underMenu-item
+        a.item__link(href=`${routes.user}${routes.chat}/check/${musicianID}/${expertID}`)
+          h1.link__title Chat
+      if status === "IN PROGRESS" && requested.title !== "feedback"
+        li.expert__underMenu-item
+          a.item__link(href=`${routes.userExpert}${routes.upload}/${requested._id}?type=${requested.title}`)
+            h1.item__title Upload
+
+//- Reception Mixin
+mixin receptionModal(type, proposal, index, receptions)
+  .reception__popup#reception__popup
+    .modal.fade(tabindex='-1' role='dialog' aria-hidden='true' id=`${type}__proposal-modal${index}`)
+        .modal-dialog.modal-dialog-centered(role='document')
+          .modal-content
+            .modal-body
+              button.close(type='button' data-dismiss='modal' aria-label='Close')
+                img.modal-close-img(src=`${imgPath}/home/modal_close@3x.png`)
+              .modal__contents
+                section.contents__step
+                  .contents__flex
+                    h1.contents__title-center=`${proposal.expertID !== null ? proposal.expertID[0].name : "Deleted Expert"}'s ${type === "feedback" ? "feedback" : "proposal"}`
+                    .form__wrapper
+                      .form__flex
+                        if type == "feedback"
+                          .form__group
+                            label.form__label-reception Overview (Describe your credentials in 2-3 sentences)
+                            h1.form__content-reception=proposal.overview
+                          .form__group
+                            label.form__label-reception What’s the musician’s name?
+                            h1.form__content-reception=proposal.musicianName
+                          .form__group
+                            label.form__label-reception What’s your first impression of the musician?
+                            h1.form__content-reception=proposal.impression
+                          if receptions.type === "technical"
+                            .form__group
+                              label.form__label-reception Which promotion best fits this musician?
+                              each item in proposal.bestFits
+                                h1.form__content-reception.margin-bottom=item
+                            .form__group
+                              label.form__label-reception What can be done technically to improve music's sound quality? <span>(Ex. mastering volume needs to go higher, crisp and clear vocal mix)</span>
+                              h1.form__content-reception=proposal.improved
+                            .form__group
+                              label.form__label-reception What do you think about the song structure? <span>(Ex. From 0:15-0:30, I thought his rap was too intense and loud. Needs to be relaxed a little)</span>
+                              h1.form__content-reception=proposal.structure
+                            .form__group
+                              label.form__label-reception What kind of expert should this musician collaborate with? (Ex. Find spotify promotion expert in UK, Collab with content creators on Youtube)
+                              h1.form__content-reception=proposal.collaborate
+                            .form__group
+                              label.form__label-reception Long term: What can he/she do to enhance his reach/performance?
+                              h1.form__content-reception=proposal.enhance
+                            .form__group
+                              label.form__label-reception Short term: What do you expect him/her to do for the next week? (In detail, with exact steps and guidance)
+                              h1.form__content-reception=proposal.expect1
+                          else
+                            .form__group
+                              label.form__label-reception What did you emotionally feel when listening to this song? (Ex. Sitting in an empty room, Partying with the boy that I like)
+                              h1.form__content-reception=proposal.emotionally
+                            .form__group
+                              label.form__label-reception What do you think is this musician's biggest strengh?
+                              h1.form__content-reception=proposal.strengh
+                            .form__group
+                              label.form__label-reception What type of listeners would most likely become a fan of this musician? (Ex. the listeners who like dark and depressing mood)
+                              h1.form__content-reception=proposal.fan
+                            .form__group
+                              label.form__label-reception Which promotion best fits this musician?
+                              each item in proposal.bestFits
+                                h1.form__content-reception.margin-bottom=item
+                            .form__group
+                              label.form__label-reception What sort of content should this musician create? (Ex. make a dance to your music, film yourself dancing, upload it on tiktok with #your name)
+                              h1.form__content-reception=proposal.content
+                            .form__group
+                              label.form__label-reception What kind of expert should this musician collaborate with? (Ex. Find spotify promotion expert in UK, Collab with content creators on Youtube)
+                              h1.form__content-reception=proposal.collaborate
+                          .form__group
+                            label.form__label-reception How can he/she monetize his/her music at this point (short/long term)
+                            h1.form__content-reception=proposal.monetize
+                          .form__group
+                            label.form__label-reception What is the best part and the worst part in this song?
+                            h1.form__content-reception=proposal.evaluation
+                          if proposal.type === "technical"
+                            .form__group
+                              label.form__label-reception What do you expect this musician's next album to be like?
+                              h1.form__content-reception=proposal.expect2
+                          .form__group
+                            label.form__label-reception Any references or role models in different markets?
+                            h1.form__content-reception=proposal.references
+                          .form__group
+                            label.form__label-reception Any additional advice or information?
+                            h1.form__content-reception=proposal.advice
+                        else if type === "promotion"
+                          .form__group
+                            label.form__label-reception Overview (Describe your credentials in 2-3 sentences)
+                            h1.form__content-reception=proposal.overview
+                          .form__group
+                            label.form__label-reception What would you plan specifically and offer for this musician?
+                            h1.form__content-reception.margin-bottom=proposal.planText
+                            if proposal.planLink
+                              a.form__content-reception.margin-bottom(href=proposal.planLink target="_blank") Invite Link
+                            if proposal.planFile !== ""
+                              a.form__content-reception.margin-bottom(href=proposal.planFile target="_blank" download) Click for Download
+                          .form__group
+                            label.form__label-reception What's the exact period of service duration (Days)?
+                            h1.form__content-reception.margin-bottom=proposal.duration
+                          .form__group
+                            label.form__label-reception What's the total budget (fee inclusive) that you suggest for these activities?
+                            h1.form__content-reception=`${addComma(proposal.budget)} USD`
+                          .form__group
+                            label.form__label-reception Which markets do you service?
+                            h1.form__content-reception=proposal.markets
+                          .form__group
+                            label.form__label-reception What kind of promotion do you specialize in?
+                            each item, index in proposal.specialize
+                              h1.form__content-reception.margin-bottom=`${index + 1}. ${item}`
+                          .form__group
+                            label.form__label-reception Add a line of pitch that will engage your customer!
+                            h1.form__content-reception=proposal.engage
+                        else if type === "mixmaster"
+                          .form__group
+                            label.form__label-reception Overview (2-3 lines of credentials)
+                            h1.form__content-reception=proposal.overview
+                          .form__group
+                            label.form__label-reception How will you mix/master this music? What parts will you specifically change?
+                            h1.form__content-reception=proposal.change
+                          .form__group
+                            label.form__label-reception Any past examples of your work? (Provide link)
+                            a.form__content-reception.margin-bottom(href=proposal.pastWork target="_blank") Invite Link
+                          .form__group
+                            label.form__label-reception How long will your service duration be? (In exact date)
+                            h1.form__content-reception=proposal.date
+                          .form__group
+                            label.form__label-reception What's the total budget (fee inclusive) that you suggest for these activities?
+                            h1.form__content-reception=`${addComma(proposal.budget)} USD`
+                      .proposal__btn-flex
+                        button.form__proposal-btn(type='button' data-dismiss='modal' aria-label='Close') Close
+
+//- Choose Modal Mixin
+mixin chooseModal(type, proposal, index, receptionID, proposalID)
+  .choose__popup#choose__popup
+    .modal.fade(tabindex='-1' role='dialog' aria-hidden='true' id=`${type}__choose-modal${index}`)
+        .modal-dialog.modal-dialog-centered(role='document')
+          .modal-content
+            .modal-body
+              button.close(type='button' data-dismiss='modal' aria-label='Close')
+                img.modal-close-img(src=`${imgPath}/home/modal_close@3x.png`)
+              .modal__contents
+                section.contents__step
+                  .contents__flex
+                    h1.contents__title-center=`Pay(${type === "promotion" ? "Promotion" : "Mix/Master"})`
+                    .pay__flex
+                      .price__flex
+                        h1.price__title Price
+                        h1.price__budget=`$${proposal.budget}`
+                      .proposal__btn-flex
+                        button.form__proposal-btn(type='button' data-dismiss='modal' aria-label='Close') Cancel
+                        button.form__proposal-btn.proposal__purchase-btn(type='button' data-proposal=proposalID data-reception=receptionID data-budget=proposal.budget data-type=type) Pay and connect now
+                        #created__purchase-form(style="display: none;")
+

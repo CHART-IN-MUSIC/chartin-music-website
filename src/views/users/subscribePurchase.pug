@@ -1,0 +1,47 @@
+extends ../layouts/main
+
+block content
+  .subscribePurchase__page#subscribePurchase__page
+    .subscribePurchase__page-flex
+      //- 공통 배너
+      section.subscribePurchase__banner-section
+        .banner__img.rsp-mb(style=`background-image: url(${imgPath}/public/banner_mb.png)`)
+        .banner__img.rsp-pc(style=`background-image: url(${imgPath}/public/banner_pc.png)`)
+      //- 배너와 겹치는 header 문구
+      section.subscribePurchase__header-section.layout
+        h1.header__title Payment&nbsp;
+          span.rsp-pc /&nbsp;
+          br
+          | Premium&nbsp;
+          br
+          | Membership
+      //- 타이틀
+      section.subscribePurchase__title-section.layout
+        h1.subscribePurchase__title What is Premium <br>Membership?
+        span.subscribePurchase__subTitle For more detailed information, please visit our latest newsroom article on premium membership
+          a.subscribePurchase__link(href=`${routes.newsRoom}/detail/623620d4e927fb5badd4bf0d`)  here
+      //- 멤버십 소개 컨텐츠
+      section.subscribePurchase__contents-section.layout
+        ul.contents__items
+          li.contents__item
+            h3.contents__item-summary Premium newsletter
+            .contents__item-bg(style=`background-image: url(${imgPath}/subscribePurchase/subscribe__bg02@2x.png)`)
+              .item__bg-flex
+                h2.contents__item-title To get more…<br>Read more.
+                p.contents__item-desc Get access to exclusive information. From music industry's latest news to private opportunities for investment. 
+          li.contents__item
+            h3.contents__item-summary Pitch me to the labels
+            .contents__item-bg(style=`background-image: url(${imgPath}/subscribePurchase/subscribe__bg03@2x.png)`)
+              .item__bg-flex
+                h2.contents__item-title Let them find you!
+                p.contents__item-desc Chartin will pitch your bio and music to over 4,700+ labels around the globe.
+          li.contents__item
+            h3.contents__item-summary Do me a favor
+            .contents__item-bg(style=`background-image: url(${imgPath}/subscribePurchase/subscribe__bg01@2x.png)`)
+              .item__bg-flex
+                h2.contents__item-title Not sure<br>what to do next?
+                p.contents__item-desc Music is like a workout. We'll have personalized trainer ready for you to guide you through any difficult process. 
+      //- 구독 결제 버튼
+      section.subscribePurchase__purchase-section.layout
+        .purchase__section-flex
+          | !{purchaseForm}

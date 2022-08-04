@@ -1,0 +1,69 @@
+extends ../layouts/noPartialMain
+include ../partials/mixins
+
+block content
+  .dashboard__page#dashboard__page
+    .dashboard__page-flex
+      //- 대시보드 좌측 사이드바 들어갈 자리 [Mixin으로 구현]
+      +dashboardSideBar(loggedUser.role)
+      //- 대시보드 우측 컨텐츠 들어갈 자리
+      .dashboard__contents-flex
+        #dashboard__upload
+          section.upload__header
+            h1.dashboard__title=`${type === "promotion" ? "Promotion" : "Mix/Master"} Result`
+          section.upload__body
+            .upload__flex
+              //- h1.upload__title Inspire the musician with your creative advice and thought
+              h1.upload__title Take your masterpiece to your musician.
+              section.upload__form-section 
+                form.upload__form#uploadForm(method="post")
+                  input(type="hidden" name="requestedID" value=requestedID)
+                  input(type="hidden" name="type" value=type)
+                  .form__group 
+                    label.form__label Campaign Title (e.g. Tyga - Tell me what - Mastering 2021 )
+                    input.form__input.form__required.form__design(type="text" name="campaignTitle" placeholder="Type campaign title" autocomplete="off" required)
+                  .form__group
+                    label.form__label Type
+                    if type === "promotion"
+                      .form__group-selectInput.form__validation
+                        each item, index in promotionResultTypeArr
+                          .selectInput__flex
+                            input.form__option(type="checkbox" id=`${item.id}` name="promotionResultType" value=item.name)
+                            label(for=`${item.id}`)=item.name
+                    else 
+                      select.form__select.form__required.form__design.chartin__select-diagnosis.active(name="mixmasterResultType" autocomplete="off" required)
+                        each item in mixmasterResultTypeArr
+                          option.form__option(value=item.id)=item.name
+                  .form__group 
+                    label.form__label Musician name
+                    input.form__input.form__required.form__design(type="text" name="musicianName" placeholder="Type musician name" autocomplete="off" required)
+                  if type === "promotion"
+                    .form__group
+                      label.form__label Service Channels (Type)
+                      .form__group-selectInput.form__validation
+                        each item, index in channels
+                          .selectInput__flex
+                            input.form__option(type="checkbox" id=`${item.id}` name="channels" value=item.name)
+                            label(for=`${item.id}`)=item.name
+                  .form__group
+                    label.form__label Start Date
+                    input.form__input.form__required.form__design.form__date(type="date" name="startDate" required)
+                  if type === "promotion"
+                    .form__group
+                      label.form__label Campaign Period (Days)
+                      input.form__input.form__required.form__design(type="text" name="campaignPeriod" placeholder="Type report campaign period" autocomplete="off" required)
+                    .form__group
+                      label.form__label Content Link (Only Youtube or Tiktok Link)
+                      input.form__input.form__required.form__design.form__link(type="text" name="contentLink" placeholder="Type content Link" autocomplete="off" required)
+                    .form__group
+                      label.form__label Report Link (Google Drive, Dropbox, etc)
+                      input.form__input.form__required.form__design.form__link(type="text" name="reportLink" placeholder="Type report Link (Google Drive, Dropbox, etc)" autocomplete="off" required)
+                  else 
+                    .form__group
+                      label.form__label Final Song Link (Google Drive, Dropbox, etc)
+                      input.form__input.form__required.form__design.form__link(type="text" name="finalSongLink" placeholder="Type final song link" autocomplete="off" required)
+                    .form__group
+                      label.form__label Leave a message for the musician
+                      textarea.form__textarea.form__required.form__design(type="text" name="message" placeholder="Leave a message" autocomplete="off" required)
+                button.upload__form-btn(type="button" data-type=type) Upload
+          //- section.upload__footer

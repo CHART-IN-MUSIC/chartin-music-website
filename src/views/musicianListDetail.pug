@@ -1,0 +1,202 @@
+extends layouts/main
+include partials/mixins
+
+block content
+  .musicianList__detail-page#musicianList__detail-page
+    .musicianList__detail-flex
+      section.musicianList__detail-content
+        .content__flex
+          //- 피씨 유저 프로파일 및 정보
+          section.user__profile-section
+            .user__profile-flex.rsp-pc
+              .user__profile
+                +userProfile(musicians)
+              .user__info-flex
+                h1.user__name=musicians.name
+                .user__like-flex#changeUserLike
+                  if !likeBool
+                    button.user__like-btn#createUserLike(data-toUser=musicians._id)
+                      img.like__btn-img(src=`${imgPath}/conference/like.svg`)
+                      h1.like__title=`${musicians.likeID.length} Like /`
+                  else
+                    button.user__like-btn#deleteUserLike(data-toUser=musicians._id data-likeID=likeID)
+                      img.like__btn-img(src=`${imgPath}/conference/like__active.png`)
+                      h1.like__title.active=`${musicians.likeID.length} Like /`
+                  h1.user__country=musicians.currentCountry
+            .layout
+              if type && !hideBtn
+                //- 뮤지션이 요청 시 입력한 정보들
+                if type === "feedback"
+                  .users__request-info
+                    ul.request__info-items
+                      li.request__info-item
+                        h3.info__item-title Do you want technical feedback or trend feedback?
+                        p.info__item-desc=`${requested.type === "trend" ? "Trend" : "Technical"}`
+                      li.request__info-item
+                        h3.info__item-title Do you want a feedback on single song or whole concept?
+                        p.info__item-desc=requested.concept
+                      li.request__info-item
+                        h3.info__item-title Provide your expert a link to your music and music video
+                        a.info__item-link(href=`${requested.link.includes("https") || requested.link.includes("http") ? requested.link : "https://" + requested.link}` target="_blank") music link
+                      li.request__info-item
+                        h3.info__item-title Which markets do you target?
+                        each item in diagnosisMarkets
+                          if requested.markets.includes(item.name)
+                            p.info__item-desc=`${item.name}\r\n`
+                      li.request__info-item
+                        h3.info__item-title Do you have any specific country that you prioritize?
+                        p.info__item-desc=requested.country
+                      li.request__info-item
+                        h3.info__item-title What's your genre?
+                        p.info__item-desc=requested.genre
+                      li.request__info-item
+                        h3.info__item-title What would be your budget for future promotion? (per month/USD)
+                        p.info__item-desc=requested.budget
+                      li.request__info-item
+                        h3.info__item-title Can you make video content on your own?
+                        p.info__item-desc=requested.ownVideo
+                      li.request__info-item
+                        h3.info__item-title What’s your goal?
+                        each item in diagnosisGoal
+                          if requested.goal.includes(item.name)
+                            p.info__item-desc=`${item.name}\r\n`
+                else if type === "promotion"
+                  .users__request-info
+                    ul.request__info-items
+                      li.request__info-item
+                        h3.info__item-title Name
+                        p.info__item-desc=requested.name
+                      li.request__info-item
+                        h3.info__item-title What’s your genre?
+                        p.info__item-desc=requested.genre
+                      li.request__info-item
+                        h3.info__item-title Provide your expert a link to your music and music video
+                        a.info__item-link(href=`${requested.link.includes("https") || requested.link.includes("http") ? requested.link : "https://" + requested.link}` target="_blank") music link
+                        if requested.link2
+                          a.info__item-link(href=requested.link2 target="_blank") music video link
+                      li.request__info-item
+                        h3.info__item-title Which markets do you want to make yourself known?
+                        each item in requested.markets
+                          p.info__item-desc=item
+                      li.request__info-item
+                        h3.info__item-title Do you have any specific country that you prefer?
+                        p.info__item-desc=requested.country
+                      li.request__info-item
+                        h3.info__item-title What’s your budget?
+                        p.info__item-desc=requested.budget
+                      li.request__info-item
+                        h3.info__item-title Can you make video content on your own?
+                        p.info__item-desc=`${requested.video ? "Yes" : "No"}`
+                else if type === "mixmaster"
+                  .users__request-info
+                    ul.request__info-items
+                      li.request__info-item
+                        h3.info__item-title Name
+                        p.info__item-desc=requested.name
+                      li.request__info-item
+                        h3.info__item-title What’s your genre?
+                        p.info__item-desc=requested.genre
+                      li.request__info-item
+                        h3.info__item-title Provide your expert a link to your music and music video
+                        a.info__item-link(href=requested.link target="_blank") music link
+                      li.request__info-item
+                        h3.info__item-title What’s your budget?
+                        p.info__item-desc=requested.budget
+                      li.request__info-item
+                        h3.info__item-title Please leave your request in detail for expert to know
+                        p.info__item-desc=requested.detail
+                #mixin__section
+                  if !alreadyProposal
+                    .requset__btn-flex(data-id=requested._id data-type=type)
+                      if type === "feedback"
+                        button.request__btn(type="button") Leave Feedback
+                        button.request__modal-btn(type='button' data-toggle='modal' data-target='#feedback__proposal-modal')
+                        +proposalModal(type, requested)
+                      else if type === "promotion"
+                        button.request__btn(type='button') Suggest Service
+                        button.request__modal-btn(type='button' data-toggle='modal' data-target='#promotion__proposal-modal')
+                        +proposalModal(type, requested)
+                      else if type === "mixmaster"
+                        button.request__btn(type='button') Suggest Service
+                        button.request__modal-btn(type='button' data-toggle='modal' data-target='#mixmaster__proposal-modal')
+                        +proposalModal(type, requested)
+              else
+                .users__request-info
+                  ul.request__info-items
+                    li.request__info-item
+                      h3.info__item-title Overview
+                      p.info__item-desc=musicians.overview
+                    li.request__info-item
+                      h3.info__item-title What’s your genre?
+                      each item in musicianGenreArr
+                        if item.id === musicians.genre
+                          p.info__item-desc=item.name
+                    li.request__info-item
+                      h3.info__item-title Current Location (Country)
+                      p.info__item-desc=musicians.currentCountry
+                    li.request__info-item
+                      h3.info__item-title Markets you target (Country)
+                      p.info__item-desc=musicians.targetCountry
+                    li.request__info-item
+                      h3.info__item-title Why do you want to join us?
+                      p.info__item-desc=musicians.joinReason
+                    if musicians.facebook
+                      li.request__info-item
+                        h3.info__item-title Facebook
+                        p.info__item-desc=musicians.facebook
+                    if musicians.instagram
+                      li.request__info-item
+                        h3.info__item-title Instagram
+                        p.info__item-desc=musicians.instagram
+                    if musicians.tiktok
+                      li.request__info-item
+                        h3.info__item-title TikTok
+                        p.info__item-desc=musicians.tiktok
+                    if musicians.youtube
+                      li.request__info-item
+                        h3.info__item-title Youtube
+                        p.info__item-desc=musicians.youtube
+                    if musicians.spotify
+                      li.request__info-item
+                        h3.info__item-title Spotify
+                        p.info__item-desc=musicians.spotify
+                    if musicians.website
+                      li.request__info-item
+                        h3.info__item-title Website
+                        p.info__item-desc=musicians.website
+          //- 영상, overview, 버튼
+          section.musicVideo__section
+            .musicVideo__flex
+              //- 영상, user for mb
+              .musicVideo__wrapper-video
+                if musicians.youtubeMusicVideo
+                  iframe(src=`https://www.youtube.com/embed/${musicians.youtubeMusicVideo.includes("watch?v=") ? musicians.youtubeMusicVideo.split("watch?v=")[1] : musicians.youtubeMusicVideo}` title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen)
+                .musicVideo__user.rsp-mb
+                  .user__profile-flex
+                    .user__profile
+                      +userProfile(musicians)
+                    .user__info-flex
+                      h1.user__name=musicians.name
+                      .user__like-flex#changeUserLike
+                        if !likeBool
+                          button.user__like-btn#createUserLike(data-toUser=musicians._id)
+                            img.like__btn-img(src=`${imgPath}/conference/like.svg`)
+                            h1.like__title=`${musicians.likeID.length} Like /`
+                        else
+                          button.user__like-btn#deleteUserLike(data-toUser=musicians._id data-likeID=likeID)
+                            img.like__btn-img(src=`${imgPath}/conference/like__active.png`)
+                            h1.like__title.active=`${musicians.likeID.length} Like /`
+                        h1.user__country=musicians.currentCountry
+              //- user overview, type별 버튼
+              .musicVideo__wrapper-request.layout
+                h1.user__overview Overview
+                  br
+                  span.user__overview-span=musicians.overview
+                h1.user__overview Genre
+                  br
+                  each genre in musicianGenreArr
+                    if genre.id === musicians.genre
+                      span.user__overview-span=genre.name
+                h1.user__overview Current Location (Country)
+                  br
+                  span.user__overview-span=musicians.currentCountry

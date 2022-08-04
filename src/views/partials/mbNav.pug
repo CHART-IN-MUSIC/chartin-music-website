@@ -1,0 +1,16 @@
+nav.mbNav#mbNav
+  .mbNav__flex
+    .layout
+      ul.mbNav__items
+        li.mbNav__item
+          a.mbNav__link(href=mentalDiagnosisLink)
+            img.mbNav__ico(src=`${imgPath}/mbNav/mental@3x.png` width="20px")
+            p.mbNav__title Mental
+        li.mbNav__item
+          a.mbNav__link(href=`${routes.user}${routes.serviceRequest}`)
+            img.mbNav__ico(src=`${imgPath}/mbNav/request@3x.png` width="22.2px")
+            p.mbNav__title Request
+        li.mbNav__item
+          a.mbNav__link(href=`${routes.user}${routes.serviceDiagnosis}`)
+            img.mbNav__ico(src=`${imgPath}/mbNav/diagnosis@3x.png` width="14.7px")
+            p.mbNav__title Diagnosis

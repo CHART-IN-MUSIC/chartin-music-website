@@ -1,0 +1,19 @@
+//- BEGIN: Vendor JS
+script(src='/app-assets/vendors/js/vendors.min.js')
+//- BEGIN Vendor JS
+//- BEGIN: Theme JS
+script(src='/app-assets/js/core/app-menu.js')
+script(src='/app-assets/js/core/app.js')
+//- END: Theme JS
+//- BEGIN: Custom Main JS
+script(src=`/main.js?${versionDateQuery}`)
+//- END: Custom Main JS
+script.
+  $(window).on('load', function() {
+    if (feather) {
+      feather.replace({
+        width: 14,
+        height: 14
+      });
+    }
+  })

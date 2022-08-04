@@ -1,0 +1,102 @@
+.musicianList__type-page#musicianList__type-page {
+  padding-top: 40px;
+  padding-bottom: 160px;
+  .musicianList__type-flex {
+    section.musicianList__section {
+      .musicianList__header {
+        margin-bottom: 37px;
+        h1.header__title {
+          font-size: 34px;
+          font-weight: bold;
+          color: #fff;
+        }
+        form.musicianList__form {
+          margin-top: 20px;
+          .header__select-flex {
+            display: flex;
+            align-items: center;
+            .form-group {
+              &:first-child {
+                margin-right: 20px;
+              }
+              select.form-control {
+                font-size: 18px;
+                font-weight: 500;
+                line-height: 1.22;
+                color: #fff;
+                background-color: #16151a;
+                border-radius: 10px;
+                border: solid 1px #10eb73;
+                option.musicianCountry__option,
+                option.musicianGenre__option {
+                  font-size: 18px;
+                  font-weight: 500;
+                  line-height: 1.22;
+                  color: #fff;
+                }
+              }
+              // select#musicianCountry {
+              //   margin-right: 20px;
+              // }
+            }
+          }
+        }
+      }
+      .musicianList__main {
+        ul.viewProfile__items {
+          display: flex;
+          flex-wrap: wrap;
+        }
+      }
+    }
+    // Pagination
+    #pagination__flex {
+      section.admin__pagination {
+        ul.pagination {
+          justify-content: center;
+          li.active {
+            margin-right: 10px;
+            a.number-link {
+              font-size: 20px;
+              line-height: 1.5;
+              color: $mainColor;
+            }
+          }
+          li {
+            margin-right: 10px;
+            a.number-link {
+              font-size: 20px;
+              line-height: 1.5;
+              color: #e8e8e8;
+            }
+          }
+          // li.number__list {
+          //   &:not(:last-child) {
+          //     margin-right: 20px;
+          //   }
+          // }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  .musicianList__type-page#musicianList__type-page {
+    padding-top: 160px;
+    padding-bottom: 200px;
+    .musicianList__flex {
+      section.musicianList__section {
+        &:not(:last-child) {
+          margin-bottom: 60px;
+        }
+        .musicianList__header {
+          margin-bottom: 40px;
+          h1.header__title {
+            font-size: 62px;
+          }
+        }
+      }
+    }
+  }
+}

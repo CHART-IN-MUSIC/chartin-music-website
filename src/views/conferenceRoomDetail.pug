@@ -1,0 +1,158 @@
+extends layouts/main
+include partials/mixins
+
+block content
+  //- update qna modal
+  if loggedUser && conferenceOwner
+    #updateQna.modal.fade(tabindex='-1' role='dialog' aria-labelledby='updateQnaTitle' aria-hidden='true')
+      .modal-dialog.modal-dialog-centered(role='document')
+        .modal-content#modal-content
+          .modal-header
+            h5#updateQnaTitle.modal-title Update Q&A
+            button.close(type='button' data-dismiss='modal' aria-label='Close')
+              img(src=`${imgPath}/public/close.png`)
+          .modal-body
+            .form__group
+              form#conferenceModalFormUpdate(method="post" action=`${routes.conferenceRoom}/update/${conference._id}`)
+                input(type="hidden" name="conferenceFile" value=conference.conferenceFile)
+                .form__flex
+                  label.form__label Category
+                  select.form__select.form__required.form__section.active(name="category")
+                    each item in conferenceCategoryArr
+                      if conference.category === item.id
+                        option(value=item.id selected)=item.name
+                      else
+                        option(value=item.id)=item.name
+                .form__flex
+                  label.form__label Title
+                  input.form__input.form__required.form__section(type="text" name="title" value=conference.title placeholder="Title :" autocompelete="off" required)
+                .form__flex
+                  label.form__label Attachment
+                  input.form__input.form__section(class=`${conference.conferenceFile ? "active" : ""}` type="file" name="uploadConferenceFile" value=conference.conferenceFile  autocompelete="off" accept="image/*")
+                .form__flex
+                  label.form__label Description
+                  textarea.form__textarea.form__required.form__section(type="text" name="desc" placeholder="Description :" autocompelete="off" required)=conference.desc
+          .modal-footer
+            button.submit__btn.active.update__form-btn(type='button' data-fromUser=`${loggedUser ? loggedUser._id : ""}` data-conferenceID=conference._id data-userID=conference.userID[0]._id) Update
+            button.close__btn(type='button' data-dismiss='modal') Close
+  .conferenceRoom__detail-page#conferenceRoom__detail-page
+    section.conferenceRoom__detail-banner
+      .banner__img.rsp-mb(style=`background-image: url(${imgPath}/public/banner_mb.png)`)
+      .banner__img.rsp-pc(style=`background-image: url(${imgPath}/public/banner_pc.png)`)
+      .btn__flex
+        if conferenceOwner
+          .update__flex
+            button.update__btn(type='button' data-toggle='modal' data-target='#updateQna') Update
+          .delete__flex
+            a.delete__link(href=`${routes.conferenceRoom}/delete/${conference._id}` onclick=`return confirm("Sure you want to delete?")`) Delete
+        .like__flex
+          if !loggedUser
+            a.user__like-flex(href=`${routes.user}${routes.signIn}` onclick=`return confirm("You need to sign in to access this page");`)
+              img.user__like-img(src=`${imgPath}/conference/like.svg`)
+              h1.user__like-count=`${conference.conferenceLikeID.length} Like`
+          else
+            if !likeBool
+              button.user__like-flex#createConferenceLike(data-fromUser=loggedUser._id data-conferenceID=conference._id data-userID=conference.userID[0]._id)
+                img.user__like-img(src=`${imgPath}/conference/like.svg`)
+                h1.user__like-count=`${conference.conferenceLikeID.length} Like`
+            else
+              button.user__like-flex#deleteConferenceLike(data-fromUser=loggedUser._id data-conferenceID=conference._id data-userID=conference.userID[0]._id)
+                img.user__like-img(src=`${imgPath}/conference/like__active.png`)
+                h1.user__like-count.active=`${conference.conferenceLikeID.length} Like`
+    .conferenceRoom__detail-page-flex.layout
+      .conferenceRoom__detail-flex
+        section.conferenceRoom__detail-header
+          h1.header__title Conference
+        section.conferenceRoom__detail-main
+          .conference__flex
+            h1.conference__title=conference.title
+            .conference__user-flex
+              a.conference__user-link(href=`${conference.userID[0].role === "musician" ? `/musician-list/detail/1/${conference.userID[0]._id}` : `/user-musician/expert-detail/${conference.userID[0]._id}`}`)
+                .user__profile
+                  +userProfile(conference.userID[0])
+                .user__info
+                  .user__name-flex
+                    h1.user__name=conference.userID[0].name
+                  if conference.userID[0].role === "musician"
+                    each genre in musicianGenreArr
+                      if genre.id === conference.userID[0].genre
+                        h1.user__total-likes=`${genre.name} / ${conference.userID[0].currentCountry}`
+                  else
+                    each title in expertTitleArr
+                      if title.id === conference.userID[0].title
+                        h1.user__total-likes=`${title.name} / ${conference.userID[0].currentCountry}`
+          if conference.conferenceFile
+            .conference__file-flex
+              //- .conference__file-img(style=`background-image: url(${conference.conferenceFile}`)
+              img.conference__file-img(src=conference.conferenceFile)
+          h1.conference__desc=conference.desc
+          button.more__btn-flex
+            h1.btn__title More
+            img.btn__chevron-img(src=`${imgPath}/conference/chevron_down.png`)
+        section.comment__section
+          .comment__header
+            h1.comment__total-length=`${comments.length} Answers`
+          .comment__main
+            ul.comment__items
+              each item, index in comments
+                li.comment__item
+                  .item__user-flex
+                    .user__profile
+                      +userProfile(item.userID[0])
+                    .user__info-flex
+                      h1.user__name=item.userID[0].name
+                      if item.userID[0].role === "musician"
+                        each genre in musicianGenreArr
+                          if genre.id === item.userID[0].genre
+                            h1.user__total-likes=`${genre.name} / ${item.userID[0].currentCountry}`
+                      else
+                        each title in expertTitleArr
+                          if title.id === item.userID[0].title
+                            h1.user__total-likes=`${title.name} / ${item.userID[0].currentCountry}`
+                    if !loggedUser
+                      a.recomment__flex(href=`${routes.user}${routes.signIn}` onclick=`return confirm("You need to sign in to access this page.")`)
+                        img.recomment__img(src=`${imgPath}/conference/recomment__img.png`)
+                        h1.recomment__title Reply
+                    else
+                      .recomment__flex(id=`create__recomment-${index}`)
+                        img.recomment__img(src=`${imgPath}/conference/recomment__img.png`)
+                        h1.recomment__title Reply
+                  .item__desc=item.desc
+                  //- 대댓글 작성 영역
+                  if loggedUser
+                    .item__recomment-form(id=`recomment__form${index}`)
+                      img.recomment__form-img(src=`${imgPath}/conference/recomment__form-img.png`)
+                      .recomment__form-flex
+                        textarea.recomment__textarea(id=`recomment__textarea${index}` type="text" name="desc" placeholder="Please be nice to fellow CHART WINNERS :) No personal promotion is allowed here." autocompelete="off" required)
+                        input(type="hidden" name="userID" value=loggedUser._id)
+                        input(type="hidden" name="commentID" value=item._id)
+                        button.recomment__submit-btn(id=`recomment__submit${index}` data-index=index) Submit
+                  //- 대댓글 내용 영역
+                  .item__recomment-flex 
+                    ul.recomment__items(id=`recomment__items${index}`)
+                      each recomment, index in item.recommentID
+                        li.recomment__item
+                          img.item__recomment-descImg(src=`${imgPath}/conference/recomment__form-img.png`)
+                          .item__flex
+                            .item__user-flex
+                              .user__profile
+                                +userProfile(recomment.userID[0])
+                              .user__info-flex
+                                h1.user__name=recomment.userID[0].name
+                                if recomment.userID[0].role === "musician"
+                                  each genre in musicianGenreArr
+                                    if genre.id === recomment.userID[0].genre
+                                      h1.user__total-likes=`${genre.name} / ${recomment.userID[0].currentCountry}`
+                                else
+                                  each title in expertTitleArr
+                                    if title.id === recomment.userID[0].title
+                                      h1.user__total-likes=`${title.name} / ${recomment.userID[0].currentCountry}`
+                            .item__desc=recomment.desc
+          .comment__form
+            form#commentForm(action="" method="post")
+              textarea.comment__textarea(type="text" name="desc" placeholder="Please be nice to fellow CHART WINNERS :) No personal promotion is allowed here." autocompelete="off" required)
+              if loggedUser
+                input(type="hidden" name="userID" value=loggedUser._id)
+                button.comment__submit-btn Submit
+              else
+                a.comment__btn-link(href=`${routes.user}${routes.signIn}` onclick=`return confirm("You need to sign in to access this page");`) Submit

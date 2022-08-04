@@ -1,0 +1,21 @@
+extends ../layouts/main
+
+block content
+  .serviceRequest__page#serviceRequest__page
+    .serviceRequest__page-flex.layout
+      //- Feedback / Promotion / Mix/Master Service Request Mixins
+      section.serviceRequest__section
+        #mixin__section
+          ul.request__items
+            if serviceType !== "direct"
+              li.request__item
+                +requestFeedback()
+              li.request__item
+                +requestPromotion()
+              li.request__item
+                +requestMixMaster()
+            else
+              li.request__item
+                +requestPromotion(expert._id, serviceType)
+              li.request__item
+                +requestMixMaster(expert._id, serviceType)

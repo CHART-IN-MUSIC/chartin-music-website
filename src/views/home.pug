@@ -1,0 +1,147 @@
+extends layouts/main
+
+block content
+  //- 메인 PC 모달 팝업
+  if !mbCheck && loggedUser && loggedUser.role === "musician" || !mbCheck && !loggedUser
+    section.home__modal-section
+      button#home__modal-btn(type='button' data-toggle='modal' data-target='#home__modal')
+      #home__modal.modal.fade.home__modal(tabindex='-1' role='dialog' aria-hidden='true')
+        .modal-dialog.modal-dialog-centered(role='document')
+          .modal-content
+            .modal-body
+              button.close(type='button' data-dismiss='modal' aria-label='Close')
+                img.modal-close-img(src=`${imgPath}/home/modal_close@3x.png`)
+              h1.modal__title Welcome to the CHARTIN!
+              p.modal_desc CHARTIN believes that all musicians have potential to be a HERO - saving the world with music.<br>We have verified experts and partners who can help you in following services!<br><br>Music can save people. Let's be heroes.
+              ul.request__items
+                li.request__item
+                  h1.request__item-title Feedback
+                  .request__item-flex
+                    img.request__item-img(src=`${imgPath}/serviceDiagnosis/request_feedback@2x.png`)
+                li.request__item
+                  h1.request__item-title Promotion
+                  .request__item-flex
+                    img.request__item-img(src=`${imgPath}/serviceDiagnosis/request_promotion@2x.png`)
+                li.request__item
+                  h1.request__item-title Mix/Master
+                  .request__item-flex
+                    img.request__item-img(src=`${imgPath}/serviceDiagnosis/request_mix_master@2x.png`)
+              a.request__link(href=`${routes.user}${routes.serviceRequest}`) Request Service
+  //- 하단 쿠키 정책 팝업
+  if !cookieExist
+    section.bottom__cookie-section.active
+      .cookie__section-flex
+        .cookie__desc-flex
+          .desc__title-flex
+            h2.desc__title Cookie & Privacy
+          .desc__desc-flex
+            p.desc__desc We use our own and third party cookies to provide you with improved and customized user experience. Read more.
+            a.desc__link(href=routes.privacyPolicy) Read more
+              img.desc__link-img(src=`${imgPath}/newsRoom/newsRoom_next.png`)
+        .cookie__btn-flex
+          button.cookie__btn#cookie__accept-btn(type="button") Accept
+          button.cookie__btn#cookie__reject-btn(type="button") Reject
+  //- Home main
+  .home__page#home__page(style="font-size: 20px;")
+    .home__flex.layout
+      //- Main Video section
+      section.home__mainVideo-section
+        //- youtube main video
+        ul.mainVideo__items
+          each item in mainVideos
+            if item.type === "Youtube"
+              li.mainVideo__item.mainVideo__youtube-item
+                a.item__link(href=`${routes.mainVideoDetail}/${item._id}`)
+                  .item__wrapper
+                    .item__thumbnail(style=`background-image: url(${item.thumbnail})`)
+                    .item__user-flex
+                      .user__profile
+                        +userProfile(item.expertID[0])
+                      .user__info-flex
+                        h1.user__name=item.expertID[0].name
+                        each title in expertTitleArr
+                          if title.id === item.expertID[0].title
+                            h1.user__total-likes=`${title.name} / ${item.expertID[0].currentCountry}`
+            else
+              li.mainVideo__item.mainVideo__tiktok-item
+                a.item__link(href=`${routes.mainVideoDetail}/${item._id}`)
+                  .item__wrapper
+                    .item__thumbnail(style=`background-image: url(${item.thumbnail})`)
+                    .item__user-flex
+                      .user__profile
+                        +userProfile(item.expertID[0])
+                      .user__info-flex
+                        h1.user__name=item.expertID[0].name
+                        each title in expertTitleArr
+                          if title.id === item.expertID[0].title
+                            h1.user__total-likes=`${title.name} / ${item.expertID[0].currentCountry}`
+      section.home__content-section
+        .home__header
+          .header__title Discover
+          img.header__icon(src=`${imgPath}/register/register_icon@3x.png`)
+        //- M/W section
+        section.mostVideo__section
+          .mostVideo__flex
+            .mostVideo__header
+              h1.header__title Most Watched
+            .mostVideo__main
+              .swiper.mySwiper.thumbnailSwiper
+                .swiper-wrapper
+                  each item in mostVideos
+                    .swiper-slide
+                      .mostVideo__item
+                        a.item__link(href=`${routes.mostVideoDetail}/${item._id}`)
+                          .item__thumbnail(style=`background-image: url(${item.thumbnail})`)
+                          h1.item__title.twoLineEllipsis=item.title
+                          h1.item__desc.twoLineEllipsis=item.desc
+                //- .swiper-button-next
+                //- .swiper-button-prev
+        //- NewsRoom section
+        section.newsRoom__section
+          .newsRoom__header
+            h1.header__title Newsroom
+            a.header__link(href=`${routes.newsRoom}`)
+              h1.link__title See more
+              img.link__img(src=`${imgPath}/newsRoom/newsRoom_next.png`)
+          .newsRoom__main
+            .swiper.mySwiper.thumbnailSwiper
+                .swiper-wrapper
+                  each item in newsContents
+                    .swiper-slide
+                      .newsContents__item
+                        a.item__link(href=`${routes.newsRoom}/detail/${item._id}`)
+                          .item__flex
+                            if !item.newsImg
+                              .item__img(style=`background-color: #000`)
+                            else
+                              .item__img(style=`background-image: url(${item.newsImg})`)
+                                .item__img-gradient
+                            h1.item__date=dateFormatMDY(item.createdAt)
+                            .item__title-flex
+                              h1.item__title.oneLineEllipsis=item.title
+                              h1.item__shortDesc.twoLineEllipsis=item.shortDesc
+        //- Partner Logo section
+        if partners
+          section.partner__section
+            .partner__header
+              h1.header__title Partners
+            .partner__main
+              .swiper.mySwiper.partnerSwiper
+                .swiper-wrapper
+                  each item in partners
+                    .swiper-slide
+                      img.partner__logo-img(src=item.img)
+                  //- 로고 갯수가 폭보다 좁으면 오토 슬라이드가 안됨, 5개 미만일 경우 4번 반복해주기
+                  if partners.length < 5
+                    each item in partners
+                      .swiper-slide
+                        img.partner__logo-img(src=item.img)
+                    each item in partners
+                      .swiper-slide
+                        img.partner__logo-img(src=item.img)
+                    each item in partners
+                      .swiper-slide
+                        img.partner__logo-img(src=item.img)
+                    each item in partners
+                      .swiper-slide
+                        img.partner__logo-img(src=item.img)

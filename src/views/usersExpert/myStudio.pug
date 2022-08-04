@@ -1,0 +1,79 @@
+extends ../layouts/noPartialMain
+include ../partials/mixins
+
+block content
+  .dashboard__page#dashboard__page
+    .dashboard__page-flex
+      //- 대시보드 좌측 사이드바 들어갈 자리 [Mixin으로 구현]
+      +dashboardSideBar(loggedUser.role)
+      //- 대시보드 우측 컨텐츠 들어갈 자리
+      .dashboard__contents-flex
+        #dashboard_expert-myStudio
+          section.myStudio__title-section
+            h1.myStudio__title My Studio
+          section.myStudio__flexWrap
+            section.myStudio__summary-section
+              ul.summary__items
+                li.summary__item
+                  h2.summary__item-title Completed
+                  p.summary__item-number=completedRequests.length
+                li.summary__item
+                  h2.summary__item-title Requested
+                  p.summary__item-number=totalRequests.length - completedRequests.length
+                li.summary__item
+                  h2.summary__item-title In Progress
+                  p.summary__item-number=totalRequests.length - completedRequests.length
+                li.summary__item
+                  h2.summary__item-title Reviews
+                  p.summary__item-number=reviewsNumber
+            section.myStudio__table-flexSection
+              section.myStudio__table-section
+                .title__flex
+                  h1.table__section-title Completed
+                  a.seeMore__title(href=`${routes.userExpert}${routes.manageRequest}`) See more
+                    img.link__img(src=`${imgPath}/newsRoom/newsRoom_next.png`)
+                ul.table__headers
+                  li.table__header.rsp-pc #
+                  li.table__header Project
+                  li.table__header Musician
+                  li.table__header Date
+                  li.table__header Status
+                ul.table__items
+                  each item, index in completedRequests
+                    if index < 5
+                      li.table__item
+                        .item__desc.rsp-pc=index + 1
+                        if item.title === "feedback"
+                          .item__desc Feedback
+                        else if item.title === "promotion"
+                          .item__desc Promotion
+                        else if item.title === "mixmaster"
+                          .item__desc Mix/Master
+                        .item__desc=item.musicianID[0].name
+                        .item__desc=dateFormatMDY3(item.createdAt)
+                        .item__desc=item.status
+              section.myStudio__table-section(style="margin-bottom: 0;")
+                .title__flex
+                  h1.table__section-title Requested
+                  a.seeMore__title(href=`${routes.userExpert}${routes.manageRequest}`) See more
+                    img.link__img(src=`${imgPath}/newsRoom/newsRoom_next.png`)
+                ul.table__headers
+                  li.table__header.rsp-pc #
+                  li.table__header Project
+                  li.table__header Musician
+                  li.table__header Date
+                  li.table__header Status
+                ul.table__items
+                  each item, index in requested
+                    if index < 5
+                      li.table__item
+                        .item__desc.rsp-pc=index + 1
+                        if item.title === "feedback"
+                          .item__desc Feedback
+                        else if item.title === "promotion"
+                          .item__desc Promotion
+                        else if item.title === "mixmaster"
+                          .item__desc Mix/Master
+                        .item__desc=item.musicianID[0].name
+                        .item__desc=dateFormatMDY3(item.createdAt)
+                        .item__desc=item.status

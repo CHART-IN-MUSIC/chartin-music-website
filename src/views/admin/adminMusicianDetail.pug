@@ -1,0 +1,108 @@
+extends ../layouts/adminMain
+
+block content
+  body.vertical-layout.vertical-menu-modern.navbar-floating.footer-static(data-open='click' data-menu='vertical-menu-modern' data-col='')
+    main.admin__main
+      .admin__detail-page#admin__musicianDetail-page
+        include adminSidebar
+        //- BEGIN: Content
+        .app-content.content
+          .content-overlay
+          .header-navbar-shadow
+          .content-wrapper.container-xxl.p-0
+            .content-header.row
+              .content-header-left.col-12.mb-1
+                .row.breadcrumbs-top
+                  .col-12
+                    h2.content-header-title.float-left=`${adminNameKo} Detail`
+                    .content-header-btns
+                      //- .content-header-btn
+                      //-   a.btn.btn-primary.waves-effect.waves-float.waves-light(href=`${routes.admin}${adminLink}/update/${adminItem._id}`)
+                      //-     i.edit__icon(data-feather="edit" style="margin-right: 5px;")
+                      //-     | 수정하기
+                      .content-header-btn
+                        a.btn.btn-primary.waves-effect.waves-float.waves-light(onclick=`history.go(-1);`)
+                          i.list__icon(data-feather="list" style="margin-right: 5px;")
+                          | 목록으로
+            .content-detached.content-left
+              .content-body
+                //- BEGIN: Blog Detail
+                .blog-detail-wrapper
+                  .row
+                    //- BEGIN: Blog
+                    .col-12
+                      .card
+                        .card-body
+                          ul.card-body__items
+                            li.card-body__item
+                              h4.mb-50 Role
+                              p.card-text=adminItem.role
+                            li.card-body__item
+                              h4.mb-50 Thumbnail
+                              .card-tumbnail(style=`background: ${adminItem.gradientColor}`)
+                            li.card-body__item
+                              h4.mb-50 E-mail(userID)
+                              p.card-text=adminItem.userID
+                            li.card-body__item
+                              h4.mb-50 EmailSubscription
+                              p.card-text=`${adminItem.emailSubscription ? "Agree" : "Disagree"}`
+                            li.card-body__item
+                              h4.mb-50 Name
+                              p.card-text=adminItem.name
+                            li.card-body__item
+                              h4.mb-50 Overview
+                              p.card-text=adminItem.overview
+                            li.card-body__item
+                              h4.mb-50 Genre
+                              each item in musicianGenreArr
+                                if item.id === adminItem.genre
+                                  p.card-text=item.name
+                            li.card-body__item
+                              h4.mb-50 Current Location
+                              p.card-text=adminItem.currentCountry
+                            li.card-body__item
+                              h4.mb-50 Markets your target
+                              p.card-text=adminItem.targetCountry
+                            li.card-body__item
+                              h4.mb-50 Why do you want to join us
+                              p.card-text=adminItem.joinReason
+                            if adminItem.youtubeMusicVideo
+                              li.card-body__item
+                                h4.mb-50 Music Video(Youtube)
+                                a.card-text(href=`https://www.youtube.com/watch?v=${adminItem.youtubeMusicVideo}`) Move to Link
+                            if adminItem.facebook
+                              li.card-body__item
+                                h4.mb-50 Facebook
+                                p.card-text=adminItem.facebook
+                            if adminItem.instagram
+                              li.card-body__item
+                                h4.mb-50 Instagram
+                                p.card-text=adminItem.instagram
+                            if adminItem.tiktok
+                              li.card-body__item
+                                h4.mb-50 TikTok
+                                p.card-text=adminItem.tiktok
+                            if adminItem.youtube
+                              li.card-body__item
+                                h4.mb-50 Youtube
+                                p.card-text=adminItem.youtube
+                            if adminItem.spotify
+                              li.card-body__item
+                                h4.mb-50 Spotify
+                                p.card-text=adminItem.spotify
+                            if adminItem.website
+                              li.card-body__item
+                                h4.mb-50 Website
+                                p.card-text=adminItem.website
+                            li.card-body__item
+                              h4.mb-50 Created
+                              p.card-text=dateFormatYMDHms(adminItem.createdAt)
+                            li.card-body__item
+                              h4.mb-50 Modified
+                              p.card-text=dateFormatYMDHms(adminItem.updatedAt)
+                    //- END: Blog
+                //- END: Blog Detail
+        //- END: Content
+    //- BEGIN: Repeated scripts
+    include adminScripts
+    //- END: Repeated scripts

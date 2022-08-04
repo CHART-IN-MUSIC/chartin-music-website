@@ -1,0 +1,100 @@
+.serviceDiagnosis__result-page#serviceDiagnosis__result-page {
+  padding: 40px 0 160px 0;
+  .serviceDiagnosis__result-flex {
+    section.serviceDiagnosis__result-section {
+      margin-bottom: 40px;
+      h1.serviceDiagnosis__result-title {
+        margin-bottom: 20px;
+        font-size: 52px;
+        font-weight: bold;
+        color: #fff;
+      }
+      .serviceDiagnosis__result-wrapper {
+        display: flex;
+        flex-direction: column-reverse;
+        .content__wrapper-flex {
+          .text__deco-underLine {
+            text-decoration: underline;
+            text-underline-position: under;
+          }
+
+          h1.serviceDiagnosis__result-content,
+          span.serviceDiagnosis__result-content,
+          span.serviceDiagnosis__result-content--mainColor,
+          span.serviceDiagnosis__result-content--service {
+            font-size: 18px;
+            color: #c9c9c9;
+            line-height: 1.4;
+          }
+          span.serviceDiagnosis__result-content--mainColor {
+            color: $mainColor;
+          }
+          span.serviceDiagnosis__result-content--service {
+            color: #fff;
+          }
+        }
+        //- Feedback / Promotion / Mix/Master Service Request Mixins
+        section.serviceRequest__section {
+          margin-bottom: 30px;
+          #mixin__section {
+            ul.request__items {
+              display: flex;
+              align-items: center;
+              li.request__item {
+                width: calc(33.333333% - 6px);
+                &:not(:last-child) {
+                  margin-right: 9px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Extra large devices (large desktops, 1440px and up)
+@media (min-width: 1440px) {
+  .serviceDiagnosis__result-page#serviceDiagnosis__result-page {
+    padding: 190px 0 200px 0;
+    .serviceDiagnosis__result-flex {
+      display: flex;
+      justify-content: space-between;
+      section.serviceDiagnosis__result-section {
+        // width: calc(50% - 30px);
+        margin-bottom: 0;
+        h1.serviceDiagnosis__result-title {
+          margin-bottom: 40px;
+          font-size: 82px;
+        }
+        .serviceDiagnosis__result-wrapper {
+          flex-direction: row;
+          justify-content: space-between;
+          .content__wrapper-flex {
+            width: calc(50% - 30px);
+            h1.serviceDiagnosis__result-content {
+            }
+            h1.serviceDiagnosis__result-content,
+            span.serviceDiagnosis__result-content {
+              font-size: 20px;
+            }
+          }
+          //- Feedback / Promotion / Mix/Master Service Request Mixins
+          section.serviceRequest__section {
+            width: 50%;
+            #mixin__section {
+              ul.request__items {
+                li.request__item {
+                  &:not(:last-child) {
+                    margin-right: 45px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

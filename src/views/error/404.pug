@@ -1,0 +1,14 @@
+extends ../layouts/noPartialMain
+
+block content
+  //- 404 Error page
+  .not-found__page#not-found__page
+    h1.not-found__title Page Not Found 🕵🏻‍♀️
+    p.not-found__subtitle 죄송합니다 😭
+      br
+      | 요청하신 페이지를 찾을 수 없습니다
+      br
+      | 입력하신 주소를 다시 확인해주시기 바랍니다
+    a.not-found__btn(href=routes.home) 홈으로
+    img.not-found__img(src=`${imgPath}/error/error.svg`)
+  //- 404 Error page

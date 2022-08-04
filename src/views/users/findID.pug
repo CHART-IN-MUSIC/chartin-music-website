@@ -1,0 +1,32 @@
+extends ../layouts/noPartialMain
+
+block content
+  //- 아이디 존재 여부 모달창
+  button#findID__modal-btn(type='button' data-toggle='modal' data-target='#findID__modal')
+  #findID__modal.modal.fade.findID__modal(tabindex='-1' role='dialog' aria-hidden='true')
+    .modal-dialog.modal-dialog-centered(role='document')
+      .modal-content
+        .modal-header
+          button.close(type='button' data-dismiss='modal' aria-label='Close')
+            img.modal-close-img(src=`${imgPath}/home/modal_close@3x.png`)
+        .modal-body
+          h1.modal__title Notice
+          h1.modal__subTitle
+          button.modal__btn(type='button' data-dismiss='modal') OK
+  .findID__page#findID__page
+    .findID__page-flex
+      .findID__flex
+        //- find id 문구
+        section.findID__text 
+          h1.findID__title Find<br>Your email
+          .divide__line
+          h1.findID__subTitle.rsp-mb If you forgot the email address<br>associated with your account, enter<br>any possible emails you might have <br>used to find your account.
+          h1.findID__subTitle.rsp-pc If you forgot the email address associated with your account, enter any possible emails you might have used to find your account.
+        //- 이메일입력란
+        section.findID__info 
+          .form__flex 
+            label.form__label Email 
+            input.form__input(type="email" name="userID" placeholder="Type your email :)" autocomplete="off" required)
+          .form__btn
+            button.form__submit-btn Done
+

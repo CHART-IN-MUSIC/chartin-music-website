@@ -1,0 +1,71 @@
+extends layouts/main
+include partials/mixins
+
+block content
+  .musicianList__type-page#musicianList__type-page
+    .musicianList__type-flex.layout
+      section.musicianList__section
+        .musicianList__header
+          h1.header__title=`Musicians looking for ${type === "feedback" ? "Feedback" : type === "promotion" ? "Promotion" : "Mix/Master"}`
+          //- 뮤지션 국가 / 장르별 필터옵션
+          form#musicianListFilterForm.musicianList__form(action="" type="get")
+            .header__select-flex(data-type=type)
+              .form-group
+                select#musicianCountry.form-control.chartin__select(name='country')
+                  if !currentCountry
+                    option.musicianCountry__option(value="" selected) All
+                    each item in country
+                      option.musicianCountry__option(value=item.name)=item.name
+                  else
+                    option.musicianCountry__option(value="") All
+                    each item in country
+                      //- === item.name
+                      if item.name.includes(currentCountry)
+                        option.musicianCountry__option(value=item.name selected)=item.name
+                      else 
+                        option.musicianCountry__option(value=item.name)=item.name
+              .form-group
+                select#musicianGenre.form-control.chartin__select(name='genre')
+                  if !genre
+                    option.musicianGenre__option(value="" selected) All
+                    each item in musicianGenreArr
+                      option.musicianGenre__option(value=item.id)=item.name
+                  else 
+                    option.musicianGenre__option(value="") All
+                    each item in musicianGenreArr
+                      if genre === item.id
+                        option.musicianGenre__option(value=item.id selected)=item.name
+                      else
+                        option.musicianGenre__option(value=item.id)=item.name
+        .musicianList__main
+          ul.viewProfile__items
+            each item in requestedList
+              li.viewProfile__item
+                +musicianListCard(item, `${type}`)
+      //- BEGIN: Pagination
+      #pagination__flex
+        if requestedList.length !== 0
+          section.admin__pagination
+            ul.pagination
+              li
+                a(href=`?type=${type}&page=1&limit=40`)
+                  img(src=`${imgPath}/admin/double-prev.png` width="40px")
+              if paginate.hasPreviousPages
+                li
+                  a(href=paginate.href(true) aria-label="Previous")
+                    img(src=`${imgPath}/admin/prev.png` width="40px")
+              each page in pages
+                if paginate.page == page.number
+                  li.active
+                    a.number-link(href=page.url)=page.number
+                else
+                  li
+                    a.number-link(href=page.url)=page.number
+              if paginate.hasNextPages(pageCount)
+                li
+                  a(href=paginate.href())
+                    img(src=`${imgPath}/admin/next.png` width="40px")
+              li
+                a(href=`?type=${type}&page=${pageCount}&limit=40`)
+                  img(src=`${imgPath}/admin/double-next.png` width="40px")
+      

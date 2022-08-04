@@ -1,0 +1,49 @@
+extends layouts/main
+include partials/mixins
+
+block content
+  .musicianList__page#musicianList__page
+    .musicianList__flex.layout
+      //- Musician List Feedback
+      if feedbacks.length !== 0
+        section.musicianList__section.musicianList__Feedback
+          .musicianList__header
+            h1.header__title Musicians looking for Feedback
+            a.header__link(href=`${routes.musicianList}/type?type=feedback`)
+              h1.link__title See more
+              img.link__img(src=`${imgPath}/newsRoom/newsRoom_next.png`)
+          .musicianList__main
+            ul.viewProfile__items
+              each item, index in feedbacks
+                if item.musicianID[0]
+                  li.viewProfile__item
+                    +musicianListCard(item, "feedback")
+      //- Musician List Promotion
+      if promotions.length !== 0
+        section.musicianList__section.musicianList__promotion
+          .musicianList__header
+            h1.header__title Musicians looking for Promotion
+            a.header__link(href=`${routes.musicianList}/type?type=promotion`)
+              h1.link__title See more
+              img.link__img(src=`${imgPath}/newsRoom/newsRoom_next.png`)
+          .musicianList__main
+            ul.viewProfile__items
+              each item, index in promotions
+                if item.musicianID[0]
+                  li.viewProfile__item
+                    +musicianListCard(item, "promotion")
+      //- Musician List Mix/Master
+      if mixmasters.length !== 0
+        section.musicianList__section.musicianList__mixmaster
+          .musicianList__header
+            h1.header__title Musicians looking for Mix/Master
+            a.header__link(href=`${routes.musicianList}/type?type=mixmaster`)
+              h1.link__title See more
+              img.link__img(src=`${imgPath}/newsRoom/newsRoom_next.png`)
+          .musicianList__main
+            ul.viewProfile__items
+              each item, index in mixmasters
+                if item.musicianID[0]
+                  li.viewProfile__item(data-test=item.proposalID)
+                    +musicianListCard(item, "mixmaster")
+
