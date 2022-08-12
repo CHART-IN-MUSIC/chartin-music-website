@@ -23,7 +23,7 @@ const init = () => {
     });
 
     // Done 버튼 활성화 시 이메일 존재 검증
-    $("button.form__submit-btn").click(function () {
+    $("button.form__submit-btn").on("click", function () {
       if ($(this).hasClass("active")) {
         // 6개 인증번호 랜덤으로 생성
         let authNum = "";
@@ -39,7 +39,7 @@ const init = () => {
           success: (result) => {
             if (result.msg === "fail") {
               // 존재하는 아이디 없음
-              $("button#findPW__modal-btn").click();
+              $("button#findPW__modal-btn").trigger("click");
             } else {
               // 존재하는 아이디 있음 => 이메일 전송(인증코드)
               $.ajax({
@@ -89,7 +89,7 @@ const init = () => {
 
     // 인증 번호 확인 버튼 클릭 시 맞는지 체크
     let verifyCheck = false;
-    $("button.form__pwCheck-btn").click(function () {
+    $("button.form__pwCheck-btn").on("click", function () {
       if ($(this).hasClass("active")) {
         const email = $(`input.form__input[name="userID"]`).val();
         const checkEmail = $(`input.form__input[name="authNum"]`).attr("data-email");
@@ -100,14 +100,11 @@ const init = () => {
           window.location.reload();
         } else if (authNum !== checkAuthNum) {
           alert("Verification code is incorrect.");
-          $(`input.form__input[name="authNum"]`).val("").focus();
+          $(`input.form__input[name="authNum"]`).val("").trigger("focus");
         } else {
           alert("Verfication has been completed.");
-
           $(`input.form__input[name="authNum"]`).prop("readonly", true);
           $("button.form__pwCheck-btn").removeClass("active").addClass("none");
-          $(`input.form__input[name="userID"]`).on("unbind", "keyup");
-          $(`input.form__input[name="authNum"]`).on("unbind", "keyup");
           $("button.form__changePW-btn").removeClass("none").addClass("active");
           verifyCheck = true;
         }
@@ -115,9 +112,11 @@ const init = () => {
     });
 
     // change password 클릭 시
-    $("button.form__changePW-btn").click(function (e) {
+    $("button.form__changePW-btn").on("click", function (e) {
+      console.log("hi");
+      console.log($(this).hasClass("active"), verifyCheck);
       if ($(this).hasClass("active") && verifyCheck) {
-        $("form#findPWForm").submit();
+        $("form#findPWForm").trigger("submit");
       } else {
         e.preventDefault();
       }
@@ -125,7 +124,7 @@ const init = () => {
 
     // 새비밀번호들 입력 시
     $(`input.resetPW__input`).each((i, elem) => {
-      $(elem).keyup(function () {
+      $(elem).on("keyup", function () {
         const pw = $(this).val();
         if (pw !== "") {
           $(this).addClass("active").removeClass("form__error");
@@ -140,7 +139,7 @@ const init = () => {
       });
     });
     // 새비밀번호 전송버튼 클릭 시
-    $("button.resetPW__submit-btn").click(function () {
+    $("button.resetPW__submit-btn").on("click", function () {
       const pw = $(`input.form__input[name="password"]`).val();
       const pw2 = $(`input.form__input[name="confirmPassword"]`).val();
 
