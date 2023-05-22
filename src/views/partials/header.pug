@@ -34,6 +34,8 @@ header.header#header
     .header__menu-dropdown
       .layout
         ul.header__menu-items#header__menu-items
+          li.header__menu-item(data-link=`${routes.pricing}`)
+              a.header__menu-link(href=`${routes.pricing}`) Pricing
           if loggedUser && loggedUser.role === "musician"
             li.header__menu-item(data-link=`${routes.user}${routes.getHigher}`)
               a.header__menu-link(href=`${routes.user}${routes.getHigher}`) Get Higher

@@ -1,7 +1,7 @@
 import paginate from "express-paginate";
-import routes from "../routes";
 import moment from "moment-timezone";
 import MobileDetect from "mobile-detect";
+import routes from "../routes";
 import News from "../models/News";
 import NewsCategory from "../models/NewsCategory";
 import Conference from "../models/Conference";
@@ -688,6 +688,21 @@ export const getTermsOfUse = (req, res) => {
 export const getLegalNotice = (req, res) => {
   try {
     res.render("terms/legalNotice");
+  } catch (err) {
+    console.log(err);
+    res.send(
+      `<script>alert("An error has occurred.:\\r\\n${err}");\
+      location.href="${routes.home}"</script>`
+    );
+  }
+};
+
+// Pricing
+export const getPricing = (req, res) => {
+  try {
+    // TODO: faq
+    // const faqs = await Faq.find().sort({createdAt:-1});
+    res.render("pricing");
   } catch (err) {
     console.log(err);
     res.send(

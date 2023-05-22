@@ -21,8 +21,10 @@ import {
   getPrivacyPolicy,
   getTermsOfUse,
   getLegalNotice,
+  getPricing,
 } from "../controllers/globalController";
 import { onlyExpert, onlyUser, uploadPromotionFilePic } from "../middlewares";
+
 const globalRouter = express.Router();
 
 // 홈 Home
@@ -58,5 +60,9 @@ globalRouter.post(`${routes.musicianList}/detail/:requestedID`, onlyExpert, uplo
 globalRouter.get(routes.privacyPolicy, getPrivacyPolicy);
 globalRouter.get(routes.termsOfUse, getTermsOfUse);
 globalRouter.get(routes.legalNotice, getLegalNotice);
+
+// TODO: pricing page
+// Pricing
+globalRouter.get(routes.pricing, getPricing);
 
 export default globalRouter;

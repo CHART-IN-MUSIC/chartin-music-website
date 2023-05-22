@@ -9,6 +9,7 @@ const MUSICIAN_LIST = "/musician-list";
 const MAINVIDEO_DETAIL = "/mainVideo-detail";
 const MOSTVIDEO_DETAIL = "/mostVideo-detail";
 const OFFERDVIDEO_DETAIL = "/offerdVideo-detail";
+const PRICING = "/pricing";
 
 // User
 const USER = "/user";
@@ -85,6 +86,7 @@ const routes = {
   mainVideoDetail: MAINVIDEO_DETAIL,
   mostVideoDetail: MOSTVIDEO_DETAIL,
   offerdVideoDetail: OFFERDVIDEO_DETAIL,
+  pricing: PRICING,
 
   // User
   user: USER,
